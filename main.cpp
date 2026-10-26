@@ -18,8 +18,8 @@ int main()
         return -1;
     } 
     
-    shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\basic_vertex.vert)",
-                  R"(C:\code\cpp\MouseEngine\Engine\Content\basic_fragment.frag)");
+    shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
+                  R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
     
     while (!glfwWindowShouldClose(window))
     {

@@ -145,8 +145,8 @@
     <ClInclude Include="Engine\shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Engine\Content\basic_fragment.frag" />
-    <Content Include="Engine\Content\basic_vertex.vert" />
+    <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
+    <Content Include="Engine\Content\Shaders\basic_vertex.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
