@@ -2,11 +2,18 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Engine/shader.h"
+#include "Engine/LogManager.h"
+#include "Engine/Shader.h"
+
+using namespace MouseLogs;
 
 int main()
 {
-    glfwInit();
+    if (!glfwInit())
+    {
+        print_error("Failed to initialize GLFW");
+        return -1;
+    }
     
     GLFWwindow* window = glfwCreateWindow(800, 600, "Mouse Engine", nullptr, nullptr);
     
@@ -14,12 +21,14 @@ int main()
     
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        print_error("Failed to initialize GLAD");
         return -1;
     } 
     
-    shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
+    Shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
                   R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
+    
+    shader.SetUniform("u_color", 1.0f, 0.0f, 0.0f, 1.0f);
     
     while (!glfwWindowShouldClose(window))
     {

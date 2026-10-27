@@ -137,12 +137,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\shader.cpp" />
+    <ClCompile Include="Engine\LogManager.cpp" />
+    <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="glad\glad.c" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\shader.h" />
+    <ClInclude Include="Engine\LogManager.h" />
+    <ClInclude Include="Engine\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
