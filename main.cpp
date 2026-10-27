@@ -1,5 +1,4 @@
-﻿#include <iostream>
-#include <glad/glad.h>
+﻿#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "Engine/LogManager.h"
@@ -29,17 +28,27 @@ int main()
                   R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
     
     shader.SetUniform("u_color", 1.0f, 0.0f, 0.0f, 1.0f);
+    Transform trans = Transform();
+    trans.SetPos(0.5f, 0.5f, 0.0f);
+    trans.SetScale(0.5f, 0.5f, 0.5f);
+    shader.SetUniform("u_transform", trans);
     
     while (!glfwWindowShouldClose(window))
     {
+        float s = (sinf(static_cast<float>(glfwGetTime()) * 0.25f) + 1.0f) / 2.0f;
+        s *= 0.25f;
+        trans.SetScale(0.25f + s, 0.25f + s, 1.0f);
+        trans.SetRot(powf(static_cast<float>(glfwGetTime() * 0.5), 3));
+        shader.SetUniform("u_transform", trans);
+        
         glClear(GL_COLOR_BUFFER_BIT);
         
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
         float vertices[] = {
-            -0.5f, -0.3f, 0.0f,
-            0.5f, -0.3f, 0.0f,
-            0.0f, 0.8f, 0.0f,
+            -1.0f, 1.0f, 0.0f,
+            -1.0f, -1.0f, 0.0f,
+            1.0f, -1.0f, 0.0f,
         };
         
         unsigned int VAO;

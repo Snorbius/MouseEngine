@@ -1,6 +1,33 @@
 ﻿#pragma once
+#include <numbers>
 #include <string>
 #include <glad/glad.h>
+
+struct Transform
+{
+    float position[3] = {0.0f, 0.0f, 0.0f};
+    float scale[3] = {1.0f, 1.0f, 1.0f};
+    float rotation[3] = {0.0f, 0.0f, 0.0f};
+    
+    void SetPos(float x, float y, float z)
+    {
+        position[0] = x;
+        position[1] = y;
+        position[2] = z;
+    }
+    
+    void SetScale(float x, float y, float z)
+    {
+        scale[0] = x;
+        scale[1] = y;
+        scale[2] = z;
+    }
+    
+    void SetRot(float x)
+    {
+        rotation[0] = x * (std::numbers::pi_v<float> / 180.0f);
+    }
+};
 
 class Shader
 {
@@ -30,6 +57,7 @@ public:
     void SetUniform(const std::string& name, float x, float y);
     void SetUniform(const std::string& name, float x, float y, float z);
     void SetUniform(const std::string& name, float x, float y, float z, float w);
+    void SetUniform(const std::string& name, Transform transform);
     
     /** Binds the shader in the current gl context */
     void Use() const;

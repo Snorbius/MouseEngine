@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 #include "LogManager.h"
 
@@ -107,6 +108,15 @@ void Shader::SetUniform(const std::string& name, float x, float y, float z)
 void Shader::SetUniform(const std::string& name, float x, float y, float z, float w)
 {
     glProgramUniform4f(programId, GetUniformIndex(name), x, y, z, w);
+}
+
+void Shader::SetUniform(const std::string& name, Transform transform)
+{
+    std::vector<float> value;
+    value.insert(value.end(), transform.position, transform.position + 3);
+    value.insert(value.end(), transform.scale, transform.scale + 3);
+    value.insert(value.end(), transform.rotation, transform.rotation + 3);
+    glProgramUniformMatrix3fv(programId, GetUniformIndex(name), 1, false, value.data());
 }
 
 void Shader::Use() const
