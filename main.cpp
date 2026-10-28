@@ -3,6 +3,7 @@
 
 #include "Engine/LogManager.h"
 #include "Engine/Shader.h"
+#include "Engine/Content/Meshes/TriangleMesh.h"
 
 using namespace MouseLogs;
 
@@ -28,51 +29,24 @@ int main()
                   R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
     
     shader.SetUniform("u_color", 1.0f, 0.0f, 0.0f, 1.0f);
-    Transform trans = Transform();
-    trans.SetPos(0.5f, 0.5f, 0.0f);
-    trans.SetScale(0.5f, 0.5f, 0.5f);
-    shader.SetUniform("u_transform", trans);
+    
+    TriangleMesh triangle;
     
     while (!glfwWindowShouldClose(window))
     {
-        float s = (sinf(static_cast<float>(glfwGetTime()) * 0.25f) + 1.0f) / 2.0f;
-        s *= 0.25f;
-        trans.SetScale(0.25f + s, 0.25f + s, 1.0f);
-        trans.SetRot(powf(static_cast<float>(glfwGetTime() * 0.5), 3));
-        shader.SetUniform("u_transform", trans);
+        float time = static_cast<float>(glfwGetTime());
         
         glClear(GL_COLOR_BUFFER_BIT);
         
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
-        float vertices[] = {
-            -1.0f, 1.0f, 0.0f,
-            -1.0f, -1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,
-        };
+        float s = (sinf(time * 0.25f) + 1.0f) / 2.0f;
+        s *= 0.25f;
         
-        unsigned int VAO;
-        unsigned int VBO;
+        triangle.transform.SetScale(glm::vec3(0.25f + s));
+        triangle.transform.SetRotation(glm::vec3(powf(time * 0.3f, 3)));
         
-        // Generate objects
-        glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
-        
-        // Bind array object
-        glBindVertexArray(VAO);
-        
-        // Bind buffer object (makes it active)
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        
-        // Buffers data into the active buffer
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-        
-        // Tells opengl how to interpret our vertices
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, static_cast<void*>(0));
-        glEnableVertexAttribArray(0);
-        
-        shader.Use();
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        triangle.Render(&shader);
         
         glfwSwapBuffers(window);
         

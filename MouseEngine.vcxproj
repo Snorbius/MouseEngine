@@ -137,14 +137,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\BaseMesh.cpp" />
+    <ClCompile Include="Engine\Content\Meshes\TriangleMesh.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
+    <ClCompile Include="Engine\Renderable.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
+    <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="glad\glad.c" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\BaseMesh.h" />
+    <ClInclude Include="Engine\Content\Meshes\TriangleMesh.h" />
     <ClInclude Include="Engine\LogManager.h" />
+    <ClInclude Include="Engine\Renderable.h" />
     <ClInclude Include="Engine\Shader.h" />
+    <ClInclude Include="Engine\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
