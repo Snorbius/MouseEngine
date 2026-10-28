@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <vector>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "LogManager.h"
 #include "Transform.h"
@@ -55,12 +55,19 @@ unsigned int Shader::LoadShader(const char* source, GLenum type)
 
 int Shader::GetUniformIndex(const std::string& name)
 {
+    // Just grab the uniform location from the vector if it exists
+    for (std::tuple uniform : uniforms)
+        if (std::get<0>(uniform) == name)
+            return std::get<1>(uniform);
+    
     int index = glGetUniformLocation(programId, name.c_str());
     // Returning -1 is still fine, opengl will simply silently ignore it
     // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glUniform.xhtml
     if (index == -1)
         print_warning(std::format("Tried accessing uniform \"{}\" that does not exist.", name));
-    
+    else
+        uniforms.emplace_back(name, index); // Add the location to the known uniforms
+        
     return index;
 }
 
@@ -101,14 +108,29 @@ void Shader::SetUniform(const std::string& name, float x, float y)
     glProgramUniform2f(programId, GetUniformIndex(name), x, y);
 }
 
+void Shader::SetUniform(const std::string& name, glm::vec2 value)
+{
+    glProgramUniform2fv(programId, GetUniformIndex(name), 1, glm::value_ptr(value));
+}
+
 void Shader::SetUniform(const std::string& name, float x, float y, float z)
 {
     glProgramUniform3f(programId, GetUniformIndex(name), x, y, z);
 }
 
+void Shader::SetUniform(const std::string& name, glm::vec3 value)
+{
+    glProgramUniform3fv(programId, GetUniformIndex(name), 1, glm::value_ptr(value));
+}
+
 void Shader::SetUniform(const std::string& name, float x, float y, float z, float w)
 {
     glProgramUniform4f(programId, GetUniformIndex(name), x, y, z, w);
+}
+
+void Shader::SetUniform(const std::string& name, glm::vec4 value)
+{
+    glProgramUniform4fv(programId, GetUniformIndex(name), 1, glm::value_ptr(value));
 }
 
 void Shader::SetUniform(const std::string& name, const Transform& transform)

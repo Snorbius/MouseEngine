@@ -142,6 +142,7 @@
     <ClCompile Include="Engine\LogManager.cpp" />
     <ClCompile Include="Engine\Renderable.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
+    <ClCompile Include="Engine\Temporary\AssessmentHouse.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="glad\glad.c" />
     <ClCompile Include="main.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Engine\LogManager.h" />
     <ClInclude Include="Engine\Renderable.h" />
     <ClInclude Include="Engine\Shader.h" />
+    <ClInclude Include="Engine\Temporary\AssessmentHouse.h" />
     <ClInclude Include="Engine\Transform.h" />
   </ItemGroup>
   <ItemGroup>

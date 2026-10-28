@@ -2,6 +2,9 @@
 #include <numbers>
 #include <string>
 #include <glad/glad.h>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 
 class Transform;
 
@@ -12,6 +15,7 @@ public:
 
 private:
     unsigned int programId = 0;
+    std::vector<std::tuple<std::string, int>> uniforms;
 
     static std::string ReadFile(std::string input);
     static unsigned int LoadShader(const char* source, GLenum type);
@@ -31,8 +35,11 @@ public:
      * You can probably figure out the value type based on the parameters :)) */
     void SetUniform(const std::string& name, float value);
     void SetUniform(const std::string& name, float x, float y);
+    void SetUniform(const std::string& name, glm::vec2 value);
     void SetUniform(const std::string& name, float x, float y, float z);
+    void SetUniform(const std::string& name, glm::vec3 value);
     void SetUniform(const std::string& name, float x, float y, float z, float w);
+    void SetUniform(const std::string& name, glm::vec4 value);
     void SetUniform(const std::string& name, const Transform& transform);
     
     /** Binds the shader in the current gl context */

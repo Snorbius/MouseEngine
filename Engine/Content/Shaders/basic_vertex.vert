@@ -8,6 +8,7 @@ out vec4 vertexColor; // specify a color output to the fragment shader
 void main()
 {
     float rot_angle = u_transform[2][0];
+    
     vec3 final_pos = aPos;
     final_pos *= u_transform[1]; // scale;
     float x = final_pos.x;
