@@ -5,7 +5,8 @@ The engine is written using modern openGL (4.3+). [GLFW](https://www.glfw.org/) 
 (the readme and overall engine structure are still heavily wip, expect things to change rather frequently)
 
 (also, it's mouse as in 🐭, not 🖱️)
-## Engine Context
+## Core Classes and Concepts
+### Engine Context
 MouseEngineContext.h/cpp
 
 This class (and associated singleton, we'll see if I end up regretting this) serves as the primary engine entry point and accessor. It initializes the engine, sets up glfw, glad etc. and runs the main engine loop. Every class in the engine has access to this one class and will be able to access other critical parts of the engine through this one (such as manager classes and such). 
