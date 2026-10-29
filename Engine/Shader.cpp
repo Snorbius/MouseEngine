@@ -66,7 +66,8 @@ int Shader::GetUniformIndex(const std::string& name)
     // Returning -1 is still fine, opengl will simply silently ignore it
     // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glUniform.xhtml
     if (index == -1)
-        print_warning(std::format("Tried accessing uniform \"{}\" that does not exist.", name));
+        print_warning(std::format("Tried accessing uniform \"{}\" that does not exist."
+                                  "Remember that unused uniforms get compiled away.", name));
     else
         uniforms.emplace_back(name, index); // Add the location to the known uniforms
         
@@ -136,9 +137,9 @@ void Shader::SetUniform(const std::string& name, glm::vec4 value)
     glProgramUniform4fv(programId, GetUniformIndex(name), 1, glm::value_ptr(value));
 }
 
-void Shader::SetUniform(const std::string& name, const Transform& transform)
+void Shader::SetUniform(const std::string& name, glm::mat4 value)
 {
-    glProgramUniformMatrix3fv(programId, GetUniformIndex(name), 1, false, transform.data);
+    glProgramUniformMatrix4fv(programId, GetUniformIndex(name), 1, GL_FALSE, glm::value_ptr(value));
 }
 
 void Shader::Use() const

@@ -4,6 +4,7 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
 
 class Transform;
 
@@ -41,7 +42,7 @@ public:
     void SetUniform(const std::string& name, glm::vec3 value);
     void SetUniform(const std::string& name, float x, float y, float z, float w);
     void SetUniform(const std::string& name, glm::vec4 value);
-    void SetUniform(const std::string& name, const Transform& transform);
+    void SetUniform(const std::string& name, glm::mat4 value);
     
     /** Binds the shader in the current gl context */
     void Use() const;

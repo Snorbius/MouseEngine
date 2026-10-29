@@ -1,5 +1,7 @@
 ﻿#include "Transform.h"
 
+#include <glm/ext/matrix_transform.hpp>
+
 Transform::Transform()
 {
     UpdateData();
@@ -7,17 +9,16 @@ Transform::Transform()
 
 void Transform::UpdateData()
 {
-    data[0] = position.x;
-    data[1] = position.y;
-    data[2] = position.z;
+    transformMatrix = glm::mat4(1.0f);
     
-    data[3] = scale.x;
-    data[4] = scale.y;
-    data[5] = scale.z;
+    transformMatrix = glm::translate(transformMatrix, position); // Location
     
-    data[6] = rotation.x;
-    data[7] = rotation.y;
-    data[8] = rotation.z;
+    // Rotation
+    transformMatrix = glm::rotate(transformMatrix, rotation.x, glm::vec3(1, 0, 0)); 
+    transformMatrix = glm::rotate(transformMatrix, rotation.y, glm::vec3(0, 1, 0));
+    transformMatrix = glm::rotate(transformMatrix, rotation.z, glm::vec3(0, 0, 1));
+    
+    transformMatrix = glm::scale(transformMatrix, scale); // Scale
 }
 
 void Transform::SetPosition(glm::vec3 value)

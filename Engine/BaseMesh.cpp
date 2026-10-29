@@ -1,6 +1,7 @@
 ﻿#include "BaseMesh.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "LogManager.h"
 #include "Shader.h"
@@ -55,7 +56,7 @@ BaseMesh::~BaseMesh()
 
 void BaseMesh::Render(Shader* shader)
 {
-    shader->SetUniform("u_transform", transform);
+    shader->SetUniform("u_transform", transform.GetTransformMatrix());
     
     shader->Use();
     glBindVertexArray(vao);
