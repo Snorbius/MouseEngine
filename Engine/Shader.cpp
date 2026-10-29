@@ -50,6 +50,8 @@ unsigned int Shader::LoadShader(const char* source, GLenum type)
         print_warning(std::format("Could not compile shader source: {}", log));
     }
     
+    glCheckError();
+    
     return id;
 }
 
@@ -90,10 +92,11 @@ int Shader::Initialize(std::string vertexPath, std::string fragmentPath)
     if (!result)
     {
         glGetProgramInfoLog(programId, 512, nullptr, log);
-        // TODO: Print warning
         print_warning(std::format("Could not link shader program: {}", log));
         return -1;
     }
+    
+    glCheckError();
     
     return 0;
 }
@@ -141,4 +144,5 @@ void Shader::SetUniform(const std::string& name, const Transform& transform)
 void Shader::Use() const
 {
     glUseProgram(programId);
+    glCheckError();
 }

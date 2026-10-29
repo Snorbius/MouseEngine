@@ -2,7 +2,10 @@
 
 #include <numbers>
 
+#include "../LogManager.h"
 #include "../Shader.h"
+
+using namespace MouseLogs;
 
 void AssessmentHouse::DrawTriangle(glm::vec3 pos, glm::vec3 scale, glm::vec3 rot, glm::vec4 color, Shader* shader)
 {
@@ -30,6 +33,8 @@ void AssessmentHouse::Render(Shader* shader)
     DrawRectangle(center + glm::vec3(-0.35f, 0.1f, 0.0f), glm::vec3(0.12f), glm::vec3(powf(time * 0.35f, 3)), glm::vec4(0.957f, 0.529f, 0.714f, 1.0f), shader);
     DrawRectangle(center + glm::vec3(0.35f, 0.1f, 0.0f), glm::vec3(0.12f), glm::vec3(1.2f), glm::vec4(0.957f, 0.529f, 0.714f, 1.0f), shader);
     DrawRectangle(center + glm::vec3(0.0f, -0.34f, 0.0f), glm::vec3(0.08f, 0.16f, 1.0f), glm::vec3(0.0f), glm::vec4(0.8f, 0.349f, 0.824f, 1.0f), shader);
+    
+    glCheckError();
 }
 
 void AssessmentHouse::SwapRoofColor()

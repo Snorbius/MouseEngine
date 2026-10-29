@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <numbers>
 #include <string>
 #include <glad/glad.h>
 #include <glm/vec2.hpp>
@@ -15,6 +14,8 @@ public:
 
 private:
     unsigned int programId = 0;
+    
+    // <uniform_name, uniform_location>
     std::vector<std::tuple<std::string, int>> uniforms;
 
     static std::string ReadFile(std::string input);
