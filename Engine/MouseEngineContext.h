@@ -25,10 +25,12 @@ public:
 private:
     GLFWwindow* contextWindow;
     AssessmentHouse* house;
+    bool wireframe = false;
     
     bool InitialiseGLFW();
     bool InitialiseGLAD();
     bool InitialiseDebugContext();
+    void ToggleWireframe();
     
 protected:
     static inline MouseEngineContext* engineContextInstance;

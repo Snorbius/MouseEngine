@@ -82,6 +82,12 @@ bool MouseEngineContext::InitialiseDebugContext()
     return false;
 }
 
+void MouseEngineContext::ToggleWireframe()
+{
+    wireframe = !wireframe;
+    glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
+}
+
 void MouseEngineContext::EngineLoop()
 {
     Shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
@@ -102,8 +108,13 @@ void MouseEngineContext::EngineLoop()
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (key == GLFW_KEY_SPACE && (action == GLFW_PRESS || action == GLFW_REPEAT))
-        house->SwapRoofColor();
+    if (action == GLFW_PRESS || action == GLFW_REPEAT)
+    {
+        if (key == GLFW_KEY_SPACE)
+            house->SwapRoofColor();
+        if (key == GLFW_KEY_F1)
+            ToggleWireframe();
+    }
 }
 
 void MouseEngineContext::StaticInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
