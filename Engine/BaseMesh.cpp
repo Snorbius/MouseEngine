@@ -6,7 +6,7 @@
 #include "LogManager.h"
 #include "Shader.h"
 
-void BaseMesh::UpdateVertexData(float data[], int size)
+void BaseMesh::UpdateVertexData(const float* data, int size)
 {
     if (useEbo)
         MouseLogs::print_debug_line("You appear to have used a non-ebo mesh function for a mesh with ebo enabled.\n"
@@ -24,18 +24,10 @@ void BaseMesh::UpdateVertexData(float data[], int size)
 
 void BaseMesh::UpdateVertexData(const std::vector<float>& data)
 {
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(data.size() * sizeof(float)), data.data(), GL_STATIC_DRAW);
-
-    int numFloats = static_cast<int>(data.size());
-    if (numFloats % floatsPerVertex != 0)
-        MouseLogs::print_warning("Size of data does not match attribute configuration");
-    
-    vertexCount = numFloats / floatsPerVertex;
+    UpdateVertexData(data.data(), static_cast<int>(data.size() * sizeof(float)));
 }
 
-void BaseMesh::UpdateVertexData(float vertexData[], int indices[], int dataSize, int indicesSize)
+void BaseMesh::UpdateVertexData(const float* vertexData, const int* indices, int dataSize, int indicesSize)
 {
     if (!useEbo)
         MouseLogs::print_debug_line("You appear to have used an ebo function without enabled useEbo.\n"
@@ -49,6 +41,13 @@ void BaseMesh::UpdateVertexData(float vertexData[], int indices[], int dataSize,
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices, GL_STATIC_DRAW);
     
     vertexCount = static_cast<int>(floor(indicesSize / sizeof(int)));
+}
+
+void BaseMesh::UpdateVertexData(const std::vector<float>& vertexData, const std::vector<int>& indices)
+{
+    UpdateVertexData(vertexData.data(), indices.data(), 
+        static_cast<int>(vertexData.size() * sizeof(float)), 
+        static_cast<int>(indices.size() * sizeof(int)));
 }
 
 BaseMesh::BaseMesh()
