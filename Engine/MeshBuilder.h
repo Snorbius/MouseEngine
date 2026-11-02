@@ -11,6 +11,9 @@ struct BuiltMeshData
 
 class MeshBuilder
 {
+private:
+    const glm::vec3 defaultColor = glm::vec3(1.0f, 0.0f, 1.0f);
+    
 public:
     std::vector<glm::vec3> vertices;
     std::vector<glm::ivec3> indices;

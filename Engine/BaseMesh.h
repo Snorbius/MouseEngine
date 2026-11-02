@@ -11,7 +11,7 @@ public:
     ~BaseMesh() override;
     
 private:
-    const int floatsPerVertex = 3;
+    const int floatsPerVertex = 6;
     int vertexCount = 0;
     
 protected:

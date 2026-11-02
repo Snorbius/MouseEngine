@@ -20,6 +20,11 @@ BuiltMeshData MeshBuilder::BuildMesh()
         vertexData.emplace_back(vertices[i].x);
         vertexData.emplace_back(vertices[i].y);
         vertexData.emplace_back(vertices[i].z);
+        
+        glm::vec3 color = colors.size() > i ? colors[i] : defaultColor;
+        vertexData.emplace_back(color.r);
+        vertexData.emplace_back(color.g);
+        vertexData.emplace_back(color.b);
     }
     
     std::vector<int> indexData;
