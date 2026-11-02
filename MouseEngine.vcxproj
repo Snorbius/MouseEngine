@@ -142,6 +142,7 @@
     <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\TriangleMesh.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
+    <ClCompile Include="Engine\MeshBuilder.cpp" />
     <ClCompile Include="Engine\MouseEngineContext.cpp" />
     <ClCompile Include="Engine\Renderable.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\TriangleMesh.h" />
     <ClInclude Include="Engine\LogManager.h" />
+    <ClInclude Include="Engine\MeshBuilder.h" />
     <ClInclude Include="Engine\MouseEngineContext.h" />
     <ClInclude Include="Engine\Renderable.h" />
     <ClInclude Include="Engine\Shader.h" />
