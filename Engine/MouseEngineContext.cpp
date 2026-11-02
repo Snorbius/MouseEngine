@@ -1,6 +1,7 @@
 ﻿#include "MouseEngineContext.h"
 
 #include "Shader.h"
+#include "Content/Meshes/CubeMesh.h"
 #include "Temporary/AssessmentHouse.h"
 
 
@@ -93,12 +94,17 @@ void MouseEngineContext::EngineLoop()
     Shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
                   R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
     
+    CubeMesh cube = CubeMesh();
+    cube.transform.SetScale(glm::vec3(0.5f));
+    
     while (!glfwWindowShouldClose(contextWindow))
     {
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
-        house->Render(&shader);
+        // house->Render(&shader);
+        cube.Render(&shader);
+        cube.transform.SetRotation(glm::vec3(glfwGetTime()));
         
         glfwSwapBuffers(contextWindow);
         

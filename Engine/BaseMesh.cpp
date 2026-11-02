@@ -8,6 +8,10 @@
 
 void BaseMesh::UpdateVertexData(float data[], int size)
 {
+    if (useEbo)
+        MouseLogs::print_debug_line("You appear to have used a non-ebo mesh function for a mesh with ebo enabled.\n"
+                                    "Are you sure this is what you want?");
+    
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
@@ -31,19 +35,38 @@ void BaseMesh::UpdateVertexData(const std::vector<float>& data)
     vertexCount = numFloats / floatsPerVertex;
 }
 
+void BaseMesh::UpdateVertexData(float vertexData[], int indices[], int dataSize, int indicesSize)
+{
+    if (!useEbo)
+        MouseLogs::print_debug_line("You appear to have used an ebo function without enabled useEbo.\n"
+                                    "Are you sure this is what you want?");
+
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, dataSize, vertexData, GL_STATIC_DRAW);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices, GL_STATIC_DRAW);
+    
+    vertexCount = static_cast<int>(floor(indicesSize / sizeof(int)));
+}
+
 BaseMesh::BaseMesh()
 {
-    glGenBuffers(1, &vbo);
     glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+    glGenBuffers(1, &ebo);
     
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, static_cast<void*>(0));
     glEnableVertexAttribArray(0);
     
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 BaseMesh::~BaseMesh()
@@ -52,6 +75,8 @@ BaseMesh::~BaseMesh()
         glDeleteVertexArrays(1, &vao);
     if (vbo)
         glDeleteBuffers(1, &vbo);
+    if (ebo)
+        glDeleteBuffers(1, &ebo);
 }
 
 void BaseMesh::Render(Shader* shader)
@@ -60,7 +85,12 @@ void BaseMesh::Render(Shader* shader)
     
     shader->Use();
     glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+    
+    if (useEbo)
+        glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, nullptr);
+    else
+        glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+    
     glBindVertexArray(0);
     
     MouseLogs::glCheckError();
