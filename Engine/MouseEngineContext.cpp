@@ -2,6 +2,7 @@
 
 #include "Shader.h"
 #include "Content/Meshes/CubeMesh.h"
+#include "Content/Meshes/PyramidMesh.h"
 #include "Temporary/AssessmentHouse.h"
 
 
@@ -94,8 +95,17 @@ void MouseEngineContext::EngineLoop()
     Shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
                   R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
     
-    CubeMesh cube = CubeMesh();
-    cube.transform.SetScale(glm::vec3(0.5f));
+    CubeMesh cube1 = CubeMesh();
+    cube1.transform.SetScale(glm::vec3(0.2f));
+    cube1.transform.SetPosition(glm::vec3(0.6f, 0.0f, 0.0f));
+    
+    CubeMesh cube2 = CubeMesh();
+    cube2.transform.SetScale(glm::vec3(0.2f));
+    cube2.transform.SetPosition(glm::vec3(-0.6f, 0.0f, 0.0f));
+    
+    PyramidMesh pyramid1 = PyramidMesh();
+    pyramid1.transform.SetScale(glm::vec3(0.2f));
+    pyramid1.transform.SetPosition(glm::vec3(0.0f, -0.6f, 0.0f));
     
     while (!glfwWindowShouldClose(contextWindow))
     {
@@ -103,8 +113,14 @@ void MouseEngineContext::EngineLoop()
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
         // house->Render(&shader);
-        cube.Render(&shader);
-        cube.transform.SetRotation(glm::vec3(glfwGetTime()));
+        cube1.transform.SetRotation(glm::vec3(glfwGetTime()));
+        cube2.transform.SetRotation(glm::vec3(-glfwGetTime()));
+        pyramid1.transform.SetRotation(glm::vec3(glfwGetTime(), 0.0f, glfwGetTime() * 0.35f));
+        
+        
+        cube1.Render(&shader);
+        cube2.Render(&shader);
+        pyramid1.Render(&shader);
         
         glfwSwapBuffers(contextWindow);
         

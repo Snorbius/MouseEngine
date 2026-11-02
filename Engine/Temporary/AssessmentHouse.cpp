@@ -13,7 +13,6 @@ void AssessmentHouse::DrawTriangle(glm::vec3 pos, glm::vec3 scale, glm::vec3 rot
     triangleMesh.transform.SetScale(scale);
     triangleMesh.transform.SetRotation(rot);
     
-    shader->Use();
     shader->SetUniform("u_color", color);
     triangleMesh.Render(shader);
 }
