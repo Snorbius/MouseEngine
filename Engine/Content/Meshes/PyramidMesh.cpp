@@ -13,12 +13,12 @@ PyramidMesh::PyramidMesh()
     };
     
     std::vector<glm::ivec3> indices = {
-        {0, 1, 2},    // Bottom
-        {2, 1, 3},    // Bottom
-        {0, 4, 2},    // Left
+        {0, 2, 1},    // Bottom
+        {2, 3, 1},    // Bottom
+        {2, 0, 4},    // Left
         {1, 3, 4},    // Right
         {0, 1, 4},    // Back
-        {3, 4, 2},    // Front
+        {3, 2, 4},    // Front
     };
     
     MeshBuilder builder;
