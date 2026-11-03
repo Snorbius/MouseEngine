@@ -5,11 +5,19 @@
 PyramidMesh::PyramidMesh()
 {
     std::vector<glm::vec3> vertexData = {
-        {-1, -1, -1},     // 0
-        {1, -1, -1},      // 1
-        {-1, -1, 1},      // 2
-        {1, -1, 1},       // 3
+        {-1, -1, 1},     // 0
+        {1, -1, 1},      // 1
+        {-1, -1, -1},      // 2
+        {1, -1, -1},       // 3
         {0, 1, 0},        // 4
+    };
+    
+    std::vector<glm::vec3> colors = {
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1},
+        {0, 0, 0},
+        {1, 1, 1},
     };
     
     std::vector<glm::ivec3> indices = {
@@ -24,6 +32,7 @@ PyramidMesh::PyramidMesh()
     MeshBuilder builder;
     builder.vertices = vertexData;
     builder.indices = indices;
+    builder.colors = colors;
     
     BuiltMeshData data = builder.BuildMesh();
     
