@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class IKeyboardInputCallback;
 using namespace MouseLogs;
 
 #define DEFAULT_WINDOW_WIDTH 800
@@ -21,6 +22,7 @@ public:
     
     /** Fetch the engine context instance */
     static MouseEngineContext* GetInstance();
+    std::vector<IKeyboardInputCallback*> inputObjects;
     
 private:
     GLFWwindow* contextWindow;
@@ -43,4 +45,11 @@ protected:
 public:
     /** Starts the full engine loop */
     void EngineLoop();
+
+    /**
+     * Registers an object for receiving input.
+     * 
+     * @param object The object to register.
+     */
+    void RegisterForInput(IKeyboardInputCallback* object);
 };

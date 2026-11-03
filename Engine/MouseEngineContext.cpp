@@ -1,5 +1,6 @@
 ﻿#include "MouseEngineContext.h"
 
+#include "BaseCamera.h"
 #include "Shader.h"
 #include "Content/Meshes/CubeMesh.h"
 #include "Content/Meshes/PyramidMesh.h"
@@ -88,6 +89,10 @@ void MouseEngineContext::ToggleWireframe()
 {
     wireframe = !wireframe;
     glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
+    if (wireframe)
+        glDisable(GL_CULL_FACE);
+    else
+        glEnable(GL_CULL_FACE);
 }
 
 void MouseEngineContext::EngineLoop()
@@ -95,37 +100,38 @@ void MouseEngineContext::EngineLoop()
     Shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
                   R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
     
-    CubeMesh cube1 = CubeMesh();
-    cube1.transform.SetScale(glm::vec3(0.2f));
-    cube1.transform.SetPosition(glm::vec3(0.6f, 0.0f, 0.0f));
+    PyramidMesh cube1 = PyramidMesh();
+    cube1.transform.SetScale(glm::vec3(1));
+    cube1.transform.SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
     
-    CubeMesh cube2 = CubeMesh();
-    cube2.transform.SetScale(glm::vec3(0.2f));
-    cube2.transform.SetPosition(glm::vec3(-0.6f, 0.0f, 0.0f));
+    BaseCamera camera = BaseCamera();
+    camera.transform.SetPosition(glm::vec3(-15, 0, 0));
+    camera.SetAspectRatio(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     
-    PyramidMesh pyramid1 = PyramidMesh();
-    pyramid1.transform.SetScale(glm::vec3(0.2f));
-    pyramid1.transform.SetPosition(glm::vec3(0.0f, -0.6f, 0.0f));
+    // glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
     
     while (!glfwWindowShouldClose(contextWindow))
     {
         glClear(GL_COLOR_BUFFER_BIT);
+        // glClear(GL_DEPTH_BUFFER_BIT);
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
-        // house->Render(&shader);
-        cube1.transform.SetRotation(glm::vec3(glfwGetTime()));
-        cube2.transform.SetRotation(glm::vec3(-glfwGetTime()));
-        pyramid1.transform.SetRotation(glm::vec3(glfwGetTime(), 0.0f, glfwGetTime() * 0.35f));
+        cube1.transform.SetRotation(glm::vec3(glfwGetTime() * 25));
         
+        shader.SetUniform("u_view", camera.GetView());
+        shader.SetUniform("u_projection", camera.GetProjection());
         
         cube1.Render(&shader);
-        cube2.Render(&shader);
-        pyramid1.Render(&shader);
-        
         glfwSwapBuffers(contextWindow);
         
         glfwPollEvents();
     }
+}
+
+void MouseEngineContext::RegisterForInput(IKeyboardInputCallback* object)
+{
+    inputObjects.emplace_back(object);
 }
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -137,6 +143,10 @@ void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode
         if (key == GLFW_KEY_F1)
             ToggleWireframe();
     }
+
+    for (IKeyboardInputCallback* object : inputObjects)
+        if (object != nullptr)
+            object->InputCallback(window, key, scancode, action, mods);
 }
 
 void MouseEngineContext::StaticInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

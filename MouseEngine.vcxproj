@@ -138,9 +138,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\BaseMesh.cpp" />
+    <ClCompile Include="Engine\BaseCamera.cpp" />
     <ClCompile Include="Engine\Content\Meshes\CubeMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\TriangleMesh.cpp" />
+    <ClCompile Include="Engine\Interfaces\IKeyboardInputCallback.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
     <ClCompile Include="Engine\MeshBuilder.cpp" />
     <ClCompile Include="Engine\MouseEngineContext.cpp" />
@@ -153,9 +155,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BaseMesh.h" />
+    <ClInclude Include="Engine\BaseCamera.h" />
     <ClInclude Include="Engine\Content\Meshes\CubeMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\TriangleMesh.h" />
+    <ClInclude Include="Engine\Interfaces\IKeyboardInputCallback.h" />
     <ClInclude Include="Engine\LogManager.h" />
     <ClInclude Include="Engine\MeshBuilder.h" />
     <ClInclude Include="Engine\MouseEngineContext.h" />
