@@ -28,9 +28,9 @@ void Transform::UpdateAxisVectors()
     forward.y = sin(glm::radians(rotation.x));
     forward.z = sin(glm::radians(rotation.y)) * cos(glm::radians(rotation.x));
     
-    right = glm::cross(glm::vec3(0, 1, 0), forward);
+    right = glm::cross(forward, glm::vec3(0, 1, 0));
     
-    up = glm::cross(forward, right);
+    up = glm::cross(right, forward);
 }
 
 void Transform::SetPosition(glm::vec3 value)

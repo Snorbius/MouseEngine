@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "BaseCamera.h"
+#include "InputManager.h"
 #include "Object.h"
 #include "Shader.h"
 #include "Content/Meshes/CubeMesh.h"
@@ -10,6 +11,7 @@
 #include "Temporary/AssessmentHouse.h"
 #include "TimeManager.h"
 #include "Content/Meshes/SphereMesh.h"
+#include "Interfaces/IKeyboardInputCallback.h"
 
 
 MouseEngineContext::MouseEngineContext()
@@ -23,7 +25,8 @@ MouseEngineContext::MouseEngineContext()
         return;
     house = new AssessmentHouse();
 
-    timeManager = new TimeManager();
+    Time = new TimeManager();
+    Input = new InputManager(contextWindow);
 
     print_debug_line("Engine context created");
 }
@@ -31,7 +34,8 @@ MouseEngineContext::MouseEngineContext()
 MouseEngineContext::~MouseEngineContext()
 {
     delete house;
-    delete timeManager;
+    delete Time;
+    delete Input;
 }
 
 MouseEngineContext* MouseEngineContext::GetInstance()
@@ -100,16 +104,16 @@ void MouseEngineContext::ToggleWireframe()
 {
     wireframe = !wireframe;
     glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
-    if (wireframe)
-        glDisable(GL_CULL_FACE);
-    else
+    // if (wireframe)
+    //     glDisable(GL_CULL_FACE);
+    // else
         glEnable(GL_CULL_FACE);
 }
 
 void MouseEngineContext::HandleProcess()
 {
-    timeManager->Update();
-    float deltaTime = timeManager->GetWorldDeltaTimef();
+    Time->Update();
+    float deltaTime = Time->GetWorldDeltaTimef();
     
     for (Object* object : processObjects)
     {

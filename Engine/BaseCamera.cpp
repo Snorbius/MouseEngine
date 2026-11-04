@@ -3,12 +3,8 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
+#include "InputManager.h"
 #include "MouseEngineContext.h"
-
-BaseCamera::BaseCamera()
-{
-    MouseEngineContext::GetInstance()->RegisterForInput(this);
-}
 
 glm::mat4 BaseCamera::GetView() const
 {
@@ -32,40 +28,33 @@ void BaseCamera::SetAspectRatio(float ratio)
     aspectRatio = ratio;
 }
 
-bool BaseCamera::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if (action == GLFW_PRESS || action == GLFW_REPEAT)
-    {
-        switch (key)
-        {
-        case GLFW_KEY_A:
-            transform.Translate(transform.GetRight() * 0.1f);
-            break;
-        case GLFW_KEY_D:
-            transform.Translate(-transform.GetRight() * 0.1f);
-            break;
-        case GLFW_KEY_W:
-            transform.Translate(transform.GetForward() * 0.1f);
-            break;
-        case GLFW_KEY_S:
-            transform.Translate(-transform.GetForward() * 0.1f);
-            break;
-        case GLFW_KEY_SPACE: 
-            transform.Translate(transform.GetUp() * 0.1f);
-            break;
-        case GLFW_KEY_LEFT_CONTROL:
-            transform.Translate(-transform.GetUp() * 0.1f);
-            break;
-        default: ;
-        }
-    }
-    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-        print_line("YAHOO :D");
-    
-    return false;
-}
-
 void BaseCamera::Process(float deltaTime)
 {
+    glm::vec3 move = glm::vec3(0.0f);
+    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_W))
+        move.z += 1.0f;
+    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_S))
+        move.z -= 1.0f;
+    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_D))
+        move.x += 1.0f;
+    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_A))
+        move.x -= 1.0f;
+    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_SPACE))
+        move.y += 1.0f;
+    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_LEFT_CONTROL))
+        move.y -= 1.0f;
     
+    if (glm::length(move) < 0.01)
+        return;
+    
+    const float speed = 10.0f;
+    
+    glm::vec3 moveVector = glm::vec3(0.0f);
+    moveVector += move.x * transform.GetRight();
+    moveVector += move.y * transform.GetUp();
+    moveVector += move.z * transform.GetForward();
+    
+    moveVector = glm::normalize(moveVector);
+    
+    transform.Translate(moveVector * speed * deltaTime);
 }

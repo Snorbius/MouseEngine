@@ -1,12 +1,11 @@
 ﻿#pragma once
 #include "Object.h"
 #include "Transform.h"
-#include "Interfaces/IKeyboardInputCallback.h"
 
-class BaseCamera: public Object, IKeyboardInputCallback
+class BaseCamera: public Object
 {
 public:
-    BaseCamera();
+    BaseCamera() = default;
     
 private:
     glm::vec3 up = glm::vec3(0, 1, 0);
@@ -26,7 +25,6 @@ public:
     
     void SetAspectRatio(float ratio);
     void SetAspectRatio(float width, float height) { SetAspectRatio(width / height); }
-    bool InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) override;
     
     void Process(float deltaTime) override;
 };

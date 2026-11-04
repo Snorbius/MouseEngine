@@ -22,13 +22,13 @@ private:
     void UpdateAxisVectors();
     
 public:
-    glm::vec3 GetPosition() const { return position; }
-    glm::vec3 GetScale() const { return scale; }
-    glm::vec3 GetRotation() const { return rotation; }
-    glm::vec3 GetForward() const { return forward; }
-    glm::vec3 GetRight() const { return right; }
-    glm::vec3 GetUp() const { return up; }
-    glm::mat4 GetTransformMatrix() const { return transformMatrix; }
+    glm::vec3 GetPosition() const           { return position; }
+    glm::vec3 GetScale() const              { return scale; }
+    glm::vec3 GetRotation() const           { return rotation; }
+    glm::vec3 GetForward() const            { return forward; }
+    glm::vec3 GetRight() const              { return right; }
+    glm::vec3 GetUp() const                 { return up; }
+    glm::mat4 GetTransformMatrix() const    { return transformMatrix; }
     
     void SetPosition(glm::vec3 value);
     void Translate(glm::vec3 value);

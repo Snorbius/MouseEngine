@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class InputManager;
 class TimeManager;
 
 class Object;
@@ -49,7 +50,8 @@ protected:
     ~MouseEngineContext();
     
 public:
-    TimeManager* timeManager;
+    TimeManager* Time;
+    InputManager* Input;
     
     /** Starts the full engine loop */
     void EngineLoop();
