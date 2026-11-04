@@ -64,3 +64,8 @@ bool BaseCamera::InputCallback(GLFWwindow* window, int key, int scancode, int ac
     
     return false;
 }
+
+void BaseCamera::Process(float deltaTime)
+{
+    transform.Rotate(glm::vec3(0, 2, 0));
+}

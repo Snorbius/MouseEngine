@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class Object;
 class IKeyboardInputCallback;
 using namespace MouseLogs;
 
@@ -22,6 +23,7 @@ public:
     
     /** Fetch the engine context instance */
     static MouseEngineContext* GetInstance();
+    std::vector<Object*> processObjects;
     std::vector<IKeyboardInputCallback*> inputObjects;
     
 private:
@@ -33,6 +35,8 @@ private:
     bool InitialiseGLAD();
     bool InitialiseDebugContext();
     void ToggleWireframe();
+    
+    void HandleProcess();
     
 protected:
     static inline MouseEngineContext* engineContextInstance;
@@ -52,4 +56,18 @@ public:
      * @param object The object to register.
      */
     void RegisterForInput(IKeyboardInputCallback* object);
+
+    /**
+     * Registers the object to receive a process call every engine tick.
+     * NOTE: This should not be called manually, use Object::SetProcessEnabled instead.
+     * @param object The object to enable process for.
+     */
+    void RegisterForProcess(Object* object);
+    
+    /**
+     * Unregisters the object from receiving a process call every engine tick.
+     * NOTE: This should not be called manually, use Object::SetProcessEnabled instead.
+     * @param object The object to disable process for.
+     */
+    void UnRegisterForProcess(Object* object);
 };

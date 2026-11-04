@@ -1,8 +1,9 @@
 ﻿#pragma once
+#include "Object.h"
 #include "Transform.h"
 #include "Interfaces/IKeyboardInputCallback.h"
 
-class BaseCamera: IKeyboardInputCallback
+class BaseCamera: public Object, IKeyboardInputCallback
 {
 public:
     BaseCamera();
@@ -26,4 +27,6 @@ public:
     void SetAspectRatio(float ratio);
     void SetAspectRatio(float width, float height) { SetAspectRatio(width / height); }
     bool InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) override;
+    
+    void Process(float deltaTime) override;
 };

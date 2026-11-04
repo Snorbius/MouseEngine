@@ -1,6 +1,9 @@
 ﻿#include "MouseEngineContext.h"
 
+#include <algorithm>
+
 #include "BaseCamera.h"
+#include "Object.h"
 #include "Shader.h"
 #include "Content/Meshes/CubeMesh.h"
 #include "Content/Meshes/PyramidMesh.h"
@@ -95,6 +98,15 @@ void MouseEngineContext::ToggleWireframe()
         glEnable(GL_CULL_FACE);
 }
 
+void MouseEngineContext::HandleProcess()
+{
+    for (Object* object : processObjects)
+    {
+        // Thanks to the ~Object deconstructor, this value *should* never be null, might need to revisit
+        object->Process(0.0f);
+    }
+}
+
 void MouseEngineContext::EngineLoop()
 {
     Shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
@@ -123,6 +135,9 @@ void MouseEngineContext::EngineLoop()
         shader.SetUniform("u_projection", camera.GetProjection());
         
         cube1.Render(&shader);
+        
+        HandleProcess();
+        
         glfwSwapBuffers(contextWindow);
         
         glfwPollEvents();
@@ -132,6 +147,20 @@ void MouseEngineContext::EngineLoop()
 void MouseEngineContext::RegisterForInput(IKeyboardInputCallback* object)
 {
     inputObjects.emplace_back(object);
+}
+
+void MouseEngineContext::RegisterForProcess(Object* object)
+{
+    // Only add it to the list if it doesn't already exist. This might not be worth it for performance reasons?
+    if (std::ranges::find(processObjects, object) == processObjects.end()) 
+        processObjects.emplace_back(object);
+}
+
+void MouseEngineContext::UnRegisterForProcess(Object* object)
+{
+    auto index = std::ranges::find(processObjects, object);
+    if (index != processObjects.end())
+        processObjects.erase(index);
 }
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

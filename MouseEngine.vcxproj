@@ -146,6 +146,7 @@
     <ClCompile Include="Engine\LogManager.cpp" />
     <ClCompile Include="Engine\MeshBuilder.cpp" />
     <ClCompile Include="Engine\MouseEngineContext.cpp" />
+    <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Renderable.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\Temporary\AssessmentHouse.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Engine\LogManager.h" />
     <ClInclude Include="Engine\MeshBuilder.h" />
     <ClInclude Include="Engine\MouseEngineContext.h" />
+    <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Renderable.h" />
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\Temporary\AssessmentHouse.h" />
