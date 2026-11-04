@@ -141,6 +141,7 @@
     <ClCompile Include="Engine\BaseCamera.cpp" />
     <ClCompile Include="Engine\Content\Meshes\CubeMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
+    <ClCompile Include="Engine\Content\Meshes\SphereMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\TriangleMesh.cpp" />
     <ClCompile Include="Engine\Interfaces\IKeyboardInputCallback.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Engine\BaseCamera.h" />
     <ClInclude Include="Engine\Content\Meshes\CubeMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />
+    <ClInclude Include="Engine\Content\Meshes\SphereMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\TriangleMesh.h" />
     <ClInclude Include="Engine\Interfaces\IKeyboardInputCallback.h" />
     <ClInclude Include="Engine\LogManager.h" />

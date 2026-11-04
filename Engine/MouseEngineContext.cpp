@@ -9,6 +9,7 @@
 #include "Content/Meshes/PyramidMesh.h"
 #include "Temporary/AssessmentHouse.h"
 #include "TimeManager.h"
+#include "Content/Meshes/SphereMesh.h"
 
 
 MouseEngineContext::MouseEngineContext()
@@ -123,20 +124,22 @@ void MouseEngineContext::EngineLoop()
                   R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
     
     PyramidMesh cube1 = PyramidMesh();
-    cube1.transform.SetScale(glm::vec3(1));
+    cube1.transform.SetScale(glm::vec3(0.15f));
     cube1.transform.SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
     
     BaseCamera camera = BaseCamera();
     camera.transform.SetPosition(glm::vec3(-15, 0, 0));
     camera.SetAspectRatio(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     
-    // glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+    
+    SphereMesh sphere;
     
     while (!glfwWindowShouldClose(contextWindow))
     {
         glClear(GL_COLOR_BUFFER_BIT);
-        // glClear(GL_DEPTH_BUFFER_BIT);
+        glClear(GL_DEPTH_BUFFER_BIT);
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
         cube1.transform.SetRotation(glm::vec3(glfwGetTime() * 25));
@@ -144,7 +147,9 @@ void MouseEngineContext::EngineLoop()
         shader.SetUniform("u_view", camera.GetView());
         shader.SetUniform("u_projection", camera.GetProjection());
         
+        sphere.Render(&shader);
         cube1.Render(&shader);
+        
         
         HandleProcess();
         

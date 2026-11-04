@@ -3,7 +3,7 @@
 class TimeManager
 {
 public:
-    TimeManager();
+    TimeManager() = default;
     
 private:
     double lastTime = 0.0f;
