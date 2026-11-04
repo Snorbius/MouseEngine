@@ -8,22 +8,29 @@
 #include "Content/Meshes/CubeMesh.h"
 #include "Content/Meshes/PyramidMesh.h"
 #include "Temporary/AssessmentHouse.h"
+#include "TimeManager.h"
 
 
 MouseEngineContext::MouseEngineContext()
 {
     // Order is important
-    InitialiseGLFW();
-    InitialiseGLAD();
-    InitialiseDebugContext();
+    if (!InitialiseGLFW())
+        return;
+    if (!InitialiseGLAD())
+        return;
+    if (!InitialiseDebugContext())
+        return;
     house = new AssessmentHouse();
-    
+
+    timeManager = new TimeManager();
+
     print_debug_line("Engine context created");
 }
 
 MouseEngineContext::~MouseEngineContext()
 {
     delete house;
+    delete timeManager;
 }
 
 MouseEngineContext* MouseEngineContext::GetInstance()
@@ -100,10 +107,13 @@ void MouseEngineContext::ToggleWireframe()
 
 void MouseEngineContext::HandleProcess()
 {
+    timeManager->Update();
+    float deltaTime = timeManager->GetWorldDeltaTimef();
+    
     for (Object* object : processObjects)
     {
         // Thanks to the ~Object deconstructor, this value *should* never be null, might need to revisit
-        object->Process(0.0f);
+        object->Process(deltaTime);
     }
 }
 

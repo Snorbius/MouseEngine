@@ -7,6 +7,8 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class TimeManager;
+
 class Object;
 class IKeyboardInputCallback;
 using namespace MouseLogs;
@@ -27,7 +29,7 @@ public:
     std::vector<IKeyboardInputCallback*> inputObjects;
     
 private:
-    GLFWwindow* contextWindow;
+    GLFWwindow* contextWindow = nullptr;
     AssessmentHouse* house;
     bool wireframe = false;
     
@@ -47,6 +49,8 @@ protected:
     ~MouseEngineContext();
     
 public:
+    TimeManager* timeManager;
+    
     /** Starts the full engine loop */
     void EngineLoop();
 

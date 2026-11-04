@@ -9,8 +9,10 @@ public:
     virtual ~Object();
     
 private:
-    MouseEngineContext* EngineContext;
     bool processEnabled = true;
+    
+protected:
+    MouseEngineContext* EngineContext;
     
 public:
     /** Set whether the object should process. Process is called once every engine tick. */
