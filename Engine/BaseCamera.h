@@ -16,6 +16,9 @@ private:
     float farPlane = 100.0f;
     bool orthographic = false;
     
+    void HandleMovement(float deltaTime);
+    void HandleLook(float deltaTime);
+    
 public:
     Transform transform;
     

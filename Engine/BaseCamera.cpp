@@ -1,5 +1,6 @@
 ﻿#include "BaseCamera.h"
 
+#include <format>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
@@ -20,11 +21,11 @@ glm::mat4 BaseCamera::GetView() const
 glm::mat4 BaseCamera::GetProjection() const
 {
     const float orthosize = 6;
-    
-    return 
+
+    return
         orthographic
-        ? glm::ortho(-orthosize * aspectRatio, orthosize * aspectRatio, -orthosize, orthosize, nearPlane, farPlane)
-        : glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+            ? glm::ortho(-orthosize * aspectRatio, orthosize * aspectRatio, -orthosize, orthosize, nearPlane, farPlane)
+            : glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
 }
 
 void BaseCamera::SetIsOrthographic(bool value)
@@ -37,7 +38,7 @@ void BaseCamera::SetAspectRatio(float ratio)
     aspectRatio = ratio;
 }
 
-void BaseCamera::Process(float deltaTime)
+void BaseCamera::HandleMovement(float deltaTime)
 {
     glm::vec3 move = glm::vec3(0.0f);
     if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_W))
@@ -52,26 +53,44 @@ void BaseCamera::Process(float deltaTime)
         move.y += 1.0f;
     if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_LEFT_CONTROL))
         move.y -= 1.0f;
-    
+
     if (glm::length(move) < 0.01)
         return;
-    
+
     const float speed = 10.0f;
-    
+
     glm::vec3 moveVector = glm::vec3(0.0f);
     moveVector += move.x * transform.GetRight();
     moveVector += move.y * transform.GetUp();
     moveVector += move.z * transform.GetForward();
-    
+
     moveVector = glm::normalize(moveVector);
-    
+
     transform.Translate(moveVector * speed * deltaTime);
+}
+
+void BaseCamera::HandleLook(float deltaTime)
+{
+    if (!EngineContext->HasFocus())
+        return;
+    
+    glm::vec2 mouseDelta = EngineContext->Input->GetDeltaMousePos();
+    print_line(std::format("{} {}", mouseDelta.x, mouseDelta.y));
+
+    const float sens = 7.5f;
+    transform.Rotate(glm::vec3(-mouseDelta.y, mouseDelta.x, 0) * sens * deltaTime);
+}
+
+void BaseCamera::Process(float deltaTime)
+{
+    HandleMovement(deltaTime);
+    HandleLook(deltaTime);
 }
 
 bool BaseCamera::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_F2 && action == GLFW_PRESS)
         SetIsOrthographic(!orthographic);
-    
+
     return false;
 }

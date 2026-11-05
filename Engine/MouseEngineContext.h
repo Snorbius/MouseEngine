@@ -76,4 +76,10 @@ public:
      * @param object The object to disable process for.
      */
     void UnRegisterForProcess(Object* object);
+
+    /**
+     * Returns whether the application has focus or not.
+     * @return Whether it has focus
+     */
+    bool HasFocus() const;
 };

@@ -114,6 +114,7 @@ void MouseEngineContext::ToggleWireframe()
 void MouseEngineContext::HandleProcess()
 {
     Time->Update();
+    Input->Update();
     float deltaTime = Time->GetWorldDeltaTimef();
     
     for (Object* object : processObjects)
@@ -139,6 +140,8 @@ void MouseEngineContext::EngineLoop()
     
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+    
+    glfwSetInputMode(contextWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     SphereMesh sphere;
     
@@ -185,6 +188,11 @@ void MouseEngineContext::UnRegisterForProcess(Object* object)
     auto index = std::ranges::find(processObjects, object);
     if (index != processObjects.end())
         processObjects.erase(index);
+}
+
+bool MouseEngineContext::HasFocus() const
+{
+    return glfwGetWindowAttrib(contextWindow, GLFW_FOCUSED);
 }
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
