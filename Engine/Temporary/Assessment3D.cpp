@@ -16,7 +16,13 @@ void Assessment3D::Render(Shader* shader)
     float time = EngineContext->Time->GetTotalElapsedTimef();
     float offset = ((sin(time) + 1) / 2) * 2.0f;
     pyramid.transform.SetScale(glm::vec3(1 + pow(offset * 0.5f, 2.0f)));
+    glm::vec3 pScale = pyramid.transform.GetScale();
+    pyramid.transform.SetScale(pScale);
     pyramid.Render(shader);
+    pyramid.transform.SetScale({pScale.x, pScale.y * -1, pScale.z});
+    glFrontFace(GL_CW);
+    pyramid.Render(shader);
+    glFrontFace(GL_CCW);
 
     
     const glm::vec3 cubeOffsets[] = {
