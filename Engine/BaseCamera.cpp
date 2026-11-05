@@ -6,21 +6,30 @@
 #include "InputManager.h"
 #include "MouseEngineContext.h"
 
+BaseCamera::BaseCamera()
+{
+    EngineContext->RegisterForInput(this);
+}
+
 glm::mat4 BaseCamera::GetView() const
 {
-    // glm::vec3 rotation = transform.GetRotation();
-    // glm::vec3 direction;
-    // direction.x = cos(glm::radians(rotation.y)) * cos(glm::radians(rotation.x));
-    // direction.y = sin(glm::radians(rotation.x));
-    // direction.z = sin(glm::radians(rotation.y)) * cos(glm::radians(rotation.x));
-    
     glm::vec3 pos2 = transform.GetPosition();
     return glm::lookAt(pos2, pos2 + transform.GetForward(), glm::vec3(0, 1, 0));
 }
 
 glm::mat4 BaseCamera::GetProjection() const
 {
-    return glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+    const float orthosize = 6;
+    
+    return 
+        orthographic
+        ? glm::ortho(-orthosize * aspectRatio, orthosize * aspectRatio, -orthosize, orthosize, nearPlane, farPlane)
+        : glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+}
+
+void BaseCamera::SetIsOrthographic(bool value)
+{
+    orthographic = value;
 }
 
 void BaseCamera::SetAspectRatio(float ratio)
@@ -57,4 +66,12 @@ void BaseCamera::Process(float deltaTime)
     moveVector = glm::normalize(moveVector);
     
     transform.Translate(moveVector * speed * deltaTime);
+}
+
+bool BaseCamera::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_F2 && action == GLFW_PRESS)
+        SetIsOrthographic(!orthographic);
+    
+    return false;
 }
