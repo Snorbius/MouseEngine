@@ -41,11 +41,23 @@ CubeMesh::CubeMesh()
         {4, 6, 2},    // Bottom
     };
     
+    std::vector<glm::vec2> uvs = {
+        {0, 0},
+        {0, 1},
+        {1, 0},
+        {1, 1},
+        {0, 0},
+        {0, 1},
+        {1, 0},
+        {1, 1},
+    };
+    
     
     MeshBuilder builder;
     builder.vertices = vertices;
     builder.indices = indices;
     builder.colors = color;
+    builder.uvs = uvs;
     
     useEbo = true;
     BuiltMeshData data = builder.BuildMesh();

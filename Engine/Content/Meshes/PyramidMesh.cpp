@@ -29,10 +29,19 @@ PyramidMesh::PyramidMesh()
         {3, 2, 4},    // Front
     };
     
+    std::vector<glm::vec2> uvs = {
+        {0, 0},
+        {0, 1},
+        {1, 0},
+        {1, 1},
+        {0.5f, 0.5f},
+    };
+    
     MeshBuilder builder;
     builder.vertices = vertexData;
     builder.indices = indices;
     builder.colors = colors;
+    builder.uvs = uvs;
     
     BuiltMeshData data = builder.BuildMesh();
     

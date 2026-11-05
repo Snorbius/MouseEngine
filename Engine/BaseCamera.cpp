@@ -1,5 +1,6 @@
 ﻿#include "BaseCamera.h"
 
+#include <algorithm>
 #include <format>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
@@ -77,7 +78,12 @@ void BaseCamera::HandleLook(float deltaTime)
     glm::vec2 mouseDelta = EngineContext->Input->GetDeltaMousePos();
 
     const float sens = 7.5f;
-    transform.Rotate(glm::vec3(-mouseDelta.y, mouseDelta.x, 0) * sens * deltaTime);
+    
+    float xRot = transform.GetRotation().x - mouseDelta.y * sens * deltaTime;
+    xRot = std::clamp(xRot, -80.0f, 80.0f);
+    float yRot = transform.GetRotation().y + mouseDelta.x * sens * deltaTime;
+    
+    transform.SetRotation({xRot, yRot, 0});
 }
 
 void BaseCamera::Process(float deltaTime)

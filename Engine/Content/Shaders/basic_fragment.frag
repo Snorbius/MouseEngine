@@ -2,12 +2,14 @@
 out vec4 FragColor;
 
 uniform vec4 u_color;
+
+uniform sampler2D texture1;
   
 in vec4 vertexColor;
+in vec2 vertexUv;
 
 void main()
 {
-    // FragColor = u_color;
-    FragColor = vertexColor;
-    //FragColor = vec4(0.0f, 1.0f, 0.0f, 1.0f);
+    //FragColor = vertexColor;
+    FragColor = texture(texture1, vertexUv) * vertexColor;
 } 

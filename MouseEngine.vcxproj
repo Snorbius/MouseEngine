@@ -153,10 +153,12 @@
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\Temporary\Assessment3D.cpp" />
     <ClCompile Include="Engine\Temporary\AssessmentHouse.cpp" />
+    <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TimeManager.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="glad\glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="stbi\stbi_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\BaseMesh.h" />
@@ -175,12 +177,16 @@
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\Temporary\Assessment3D.h" />
     <ClInclude Include="Engine\Temporary\AssessmentHouse.h" />
+    <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\TimeManager.h" />
     <ClInclude Include="Engine\Transform.h" />
+    <ClInclude Include="stbi\stbi_image.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
     <Content Include="Engine\Content\Shaders\basic_vertex.vert" />
+    <Content Include="Engine\Content\Textures\hampy.jpg" />
+    <Content Include="Engine\Content\Textures\hampy.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

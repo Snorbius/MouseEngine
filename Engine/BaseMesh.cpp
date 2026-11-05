@@ -71,7 +71,7 @@ BaseMesh::BaseMesh()
     glEnableVertexAttribArray(1);
     
     // Uv
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)(2 * sizeof(float)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
     
     glBindVertexArray(0);

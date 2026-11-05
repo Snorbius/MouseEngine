@@ -1,11 +1,13 @@
 ﻿#include "MouseEngineContext.h"
 
 #include <algorithm>
+#include <format>
 
 #include "BaseCamera.h"
 #include "InputManager.h"
 #include "Object.h"
 #include "Shader.h"
+#include "Texture.h"
 #include "Content/Meshes/CubeMesh.h"
 #include "Content/Meshes/PyramidMesh.h"
 #include "Temporary/AssessmentHouse.h"
@@ -146,6 +148,9 @@ void MouseEngineContext::EngineLoop()
     SphereMesh sphere;
     
     Assessment3D collection;
+    
+    Texture tex(R"(C:\code\cpp\MouseEngine\Engine\Content\Textures\hampy.jpg)");
+    tex.Use();
     
     while (!glfwWindowShouldClose(contextWindow))
     {
