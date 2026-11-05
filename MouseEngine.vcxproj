@@ -151,6 +151,7 @@
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Renderable.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
+    <ClCompile Include="Engine\Temporary\Assessment3D.cpp" />
     <ClCompile Include="Engine\Temporary\AssessmentHouse.cpp" />
     <ClCompile Include="Engine\TimeManager.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Renderable.h" />
     <ClInclude Include="Engine\Shader.h" />
+    <ClInclude Include="Engine\Temporary\Assessment3D.h" />
     <ClInclude Include="Engine\Temporary\AssessmentHouse.h" />
     <ClInclude Include="Engine\TimeManager.h" />
     <ClInclude Include="Engine\Transform.h" />

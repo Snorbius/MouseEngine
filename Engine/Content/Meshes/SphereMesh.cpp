@@ -87,9 +87,3 @@ SphereMesh::SphereMesh()
     useEbo = true;
     UpdateVertexData(data.vertexData, data.indices);
 }
-
-void SphereMesh::Process(float deltaTime)
-{
-    // transform.SetRotation({0, 45, 0});
-    transform.Rotate(glm::vec3(0, 30, 0) * deltaTime);
-}

@@ -2,10 +2,8 @@
 #include "../../BaseMesh.h"
 #include "../../Object.h"
 
-class SphereMesh: public BaseMesh, Object
+class SphereMesh: public BaseMesh
 {
 public:
     SphereMesh();
-    
-    void Process(float deltaTime) override;
 };

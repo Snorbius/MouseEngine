@@ -12,6 +12,7 @@
 #include "TimeManager.h"
 #include "Content/Meshes/SphereMesh.h"
 #include "Interfaces/IKeyboardInputCallback.h"
+#include "Temporary/Assessment3D.h"
 
 
 MouseEngineContext::MouseEngineContext()
@@ -104,9 +105,9 @@ void MouseEngineContext::ToggleWireframe()
 {
     wireframe = !wireframe;
     glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
-    // if (wireframe)
-    //     glDisable(GL_CULL_FACE);
-    // else
+    if (wireframe)
+        glDisable(GL_CULL_FACE);
+    else
         glEnable(GL_CULL_FACE);
 }
 
@@ -132,13 +133,16 @@ void MouseEngineContext::EngineLoop()
     cube1.transform.SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
     
     BaseCamera camera = BaseCamera();
-    camera.transform.SetPosition(glm::vec3(-15, 0, 0));
+    camera.transform.SetPosition(glm::vec3(0, 0, 15));
+    camera.transform.SetRotation({0, -90.0f, 0});
     camera.SetAspectRatio(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     
     SphereMesh sphere;
+    
+    Assessment3D collection;
     
     while (!glfwWindowShouldClose(contextWindow))
     {
@@ -151,9 +155,10 @@ void MouseEngineContext::EngineLoop()
         shader.SetUniform("u_view", camera.GetView());
         shader.SetUniform("u_projection", camera.GetProjection());
         
-        sphere.Render(&shader);
-        cube1.Render(&shader);
+        // sphere.Render(&shader);
+        // cube1.Render(&shader);
         
+        collection.Render(&shader);
         
         HandleProcess();
         

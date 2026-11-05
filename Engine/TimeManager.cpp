@@ -7,4 +7,6 @@ void TimeManager::Update()
     double current = glfwGetTime();
     deltaTime = current - lastTime;
     lastTime = current;
+    
+    time += deltaTime;
 }
