@@ -25,6 +25,10 @@ BuiltMeshData MeshBuilder::BuildMesh()
         vertexData.emplace_back(color.r);
         vertexData.emplace_back(color.g);
         vertexData.emplace_back(color.b);
+        
+        glm::vec2 uv = uvs.size() > i ? uvs[i] : glm::vec2(0.0f);
+        vertexData.emplace_back(uv.x);
+        vertexData.emplace_back(uv.y);
     }
     
     std::vector<int> indexData;

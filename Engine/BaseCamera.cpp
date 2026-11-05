@@ -75,7 +75,6 @@ void BaseCamera::HandleLook(float deltaTime)
         return;
     
     glm::vec2 mouseDelta = EngineContext->Input->GetDeltaMousePos();
-    print_line(std::format("{} {}", mouseDelta.x, mouseDelta.y));
 
     const float sens = 7.5f;
     transform.Rotate(glm::vec3(-mouseDelta.y, mouseDelta.x, 0) * sens * deltaTime);
