@@ -3,6 +3,7 @@
 #include <glm/ext/matrix_clip_space.hpp>
 
 #include "../MouseEngineContext.h"
+#include "../Shader.h"
 #include "../TimeManager.h"
 
 Assessment3D::Assessment3D()
@@ -15,6 +16,9 @@ void Assessment3D::Render(Shader* shader)
 {
     float time = EngineContext->Time->GetTotalElapsedTimef();
     float offset = ((sin(time) + 1) / 2) * 2.0f;
+    
+    shader->SetUniform("u_texture_color_alpha", 0.5f);
+    
     pyramid.transform.SetScale(glm::vec3(1 + pow(offset * 0.5f, 2.0f)));
     glm::vec3 pScale = pyramid.transform.GetScale();
     pyramid.transform.SetScale(pScale);
@@ -41,6 +45,7 @@ void Assessment3D::Render(Shader* shader)
         cube.Render(shader);
     }
     
+    shader->SetUniform("u_texture_color_alpha", 1.0f);
     const int numSpheres = 16;
 
     for (int i = 0; i < numSpheres; ++i)
