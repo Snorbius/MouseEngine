@@ -66,10 +66,10 @@ int Shader::GetUniformIndex(const std::string& name)
     // Returning -1 is still fine, opengl will simply silently ignore it
     // https://registry.khronos.org/OpenGL-Refpages/gl4/html/glUniform.xhtml
     if (index == -1)
-        print_warning(std::format("Tried accessing uniform \"{}\" that does not exist."
+        print_warning(std::format("Tried accessing uniform \"{}\" that does not exist. "
                                   "Remember that unused uniforms get compiled away.", name));
-    else
-        uniforms.emplace_back(name, index); // Add the location to the known uniforms
+        
+    uniforms.emplace_back(name, index); // Add the location to the known uniforms
         
     return index;
 }
