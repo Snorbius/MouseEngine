@@ -60,7 +60,7 @@ BaseMesh::BaseMesh()
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     
-    float stride = sizeof(float) * 8;
+    int stride = sizeof(float) * 11;
     
     // Location
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, reinterpret_cast<void*>(0));
@@ -73,6 +73,10 @@ BaseMesh::BaseMesh()
     // Uv
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
+    
+    // Normal
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (void*)(8 * sizeof(float)));
+    glEnableVertexAttribArray(3);
     
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

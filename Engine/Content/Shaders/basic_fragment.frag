@@ -8,9 +8,11 @@ uniform sampler2D texture1;
   
 in vec4 vertexColor;
 in vec2 vertexUv;
+in vec3 vertexNormal;
 
 void main()
 {
-    //FragColor = vertexColor;
+    // FragColor = vertexColor;
     FragColor = mix(texture(texture1, vertexUv), vertexColor, u_texture_color_alpha);
+    // FragColor = vec4(vertexNormal, 1.0f);
 } 

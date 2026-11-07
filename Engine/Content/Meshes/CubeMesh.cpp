@@ -56,6 +56,7 @@ CubeMesh::CubeMesh()
     */
     
     // 24 vertex configuration - flat sides and better uvs
+    
     std::vector<glm::vec3> vertices = {
         {-1, -1, 1}, // Back
         {-1, 1, 1},
@@ -114,6 +115,8 @@ CubeMesh::CubeMesh()
     builder.indices = indices;
     builder.colors = color;
     builder.uvs = uvs;
+    
+    builder.CalculateNormals();
     
     useEbo = true;
     BuiltMeshData data = builder.BuildMesh();
