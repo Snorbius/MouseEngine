@@ -22,11 +22,35 @@ glm::mat4 BaseCamera::GetView() const
 glm::mat4 BaseCamera::GetProjection() const
 {
     const float orthosize = 6;
-
-    return
-        orthographic
-            ? glm::ortho(-orthosize * aspectRatio, orthosize * aspectRatio, -orthosize, orthosize, nearPlane, farPlane)
-            : glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+    
+    if (!orthographic)
+        return glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+        
+    // return glm::ortho(-orthosize * aspectRatio, orthosize * aspectRatio, -orthosize, orthosize, nearPlane, farPlane);
+       
+    float left = -orthosize * aspectRatio;
+    float right = orthosize * aspectRatio;
+    float bottom = -orthosize;
+    float top = orthosize;
+    float near = nearPlane;
+    float far = farPlane;
+    
+    
+    float sx = 2.0f / (right - left);   // Converts the X axis to a range of 2
+    float sy = 2.0f / (top - bottom);   // Converts the Y axis to a range of 2
+    float sz = 2.0f / (far - near);     // Converts the Z axis to a range of 2
+    
+    float tx = - (right + left) / (right - left);    // Offsets the X axis to be between -1 and 1
+    float ty = - (top + bottom) / (top - bottom);    // Offsets the Y axis to be between -1 and 1
+    float tz = - (far + near)   / (far - near);      // Offsets the Z axis to be between -1 and 1
+    
+    // Transposed to match opengls ordering
+    return glm::transpose(glm::mat4(
+        sx,         0.0f,       0.0f,       tx,
+        0.0f,       sy,         0.0f,       ty,
+        0.0f,       0.0f,       -sz,        tz,
+        0.0f,       0.0f,       0.0f,       1.0f
+    ));
 }
 
 void BaseCamera::SetIsOrthographic(bool value)
