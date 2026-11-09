@@ -1,7 +1,5 @@
 ﻿#include "TriangleMesh.h"
 
-#include <glad/glad.h>
-
 #include "../../MeshBuilder.h"
 #include "../../Shader.h"
 
@@ -23,6 +21,6 @@ TriangleMesh::TriangleMesh()
     
     BuiltMeshData data = builder.BuildMesh();
     
-    useEbo = true;
-    UpdateVertexData(data.vertexData, data.indices);
+    mesh->useEbo = true;
+    mesh->UpdateVertexData(data.vertexData, data.indices);
 }

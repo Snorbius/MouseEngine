@@ -45,6 +45,6 @@ PyramidMesh::PyramidMesh()
     
     BuiltMeshData data = builder.BuildMesh();
     
-    useEbo = true;
-    UpdateVertexData(data.vertexData, data.indices);
+    mesh->useEbo = true;
+    mesh->UpdateVertexData(data.vertexData, data.indices);
 }

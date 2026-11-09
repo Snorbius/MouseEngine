@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "Renderable.h"
-#include "Transform.h"
 
 class BaseMesh: public Renderable
 {
@@ -18,9 +17,11 @@ protected:
     unsigned int vbo;
     unsigned int vao;
     unsigned int ebo;
-    
-    bool useEbo = false;
 
+public:
+    /** Whether to use indices for rendering */
+    bool useEbo = false;
+    
     /**
      * Updates the vertex data for the mesh. This function is intended for non-ebo usage.
      * @param data The vertex data.
@@ -38,9 +39,6 @@ protected:
      */
     void UpdateVertexData(const float* vertexData, const int* indices, int dataSize, int indicesSize);
     void UpdateVertexData(const std::vector<float>& vertexData, const std::vector<int>& indices);
-    
-public:
-    Transform transform;
     
     void Render(Shader* shader) override;
 };

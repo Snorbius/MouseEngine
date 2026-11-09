@@ -131,9 +131,6 @@ void MouseEngineContext::HandleProcess()
 
 void MouseEngineContext::EngineLoop()
 {
-    // Shader shader(R"(Engine/Content/Shaders/basic_vertex.vert)",
-    //               R"(Engine/Content/Shaders/basic_fragment.frag)");
-    
     Shader shader = *Assets->LoadShader({
         .vertexPath = R"(Engine/Content/Shaders/basic_vertex.vert)", 
         .fragmentPath = R"(Engine/Content/Shaders/basic_fragment.frag)"

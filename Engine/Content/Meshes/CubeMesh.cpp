@@ -118,7 +118,7 @@ CubeMesh::CubeMesh()
     
     builder.CalculateNormals();
     
-    useEbo = true;
+    mesh->useEbo = true;
     BuiltMeshData data = builder.BuildMesh();
-    UpdateVertexData(data.vertexData, data.indices);
+    mesh->UpdateVertexData(data.vertexData, data.indices);
 }

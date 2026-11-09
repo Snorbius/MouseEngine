@@ -3,6 +3,7 @@
 #include "../Content/Meshes/CubeMesh.h"
 #include "../Content/Meshes/PyramidMesh.h"
 #include "../Content/Meshes/SphereMesh.h"
+#include "../Object.h"
 
 class Assessment3D: public Object, Renderable
 {

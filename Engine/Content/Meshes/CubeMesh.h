@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "../../BaseMesh.h"
+#include "../Components/MeshComponent.h"
 
-class CubeMesh: public BaseMesh
+class CubeMesh: public MeshComponent
 {
 public:
     CubeMesh();

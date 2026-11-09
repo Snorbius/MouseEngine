@@ -84,6 +84,6 @@ SphereMesh::SphereMesh()
     builder.colors = vertices;
     
     auto data = builder.BuildMesh();
-    useEbo = true;
-    UpdateVertexData(data.vertexData, data.indices);
+    mesh->useEbo = true;
+    mesh->UpdateVertexData(data.vertexData, data.indices);
 }

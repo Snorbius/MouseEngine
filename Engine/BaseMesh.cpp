@@ -95,8 +95,6 @@ BaseMesh::~BaseMesh()
 
 void BaseMesh::Render(Shader* shader)
 {
-    shader->SetUniform("u_transform", transform.GetTransformMatrix());
-    
     shader->Use();
     glBindVertexArray(vao);
     
