@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <format>
 
+#include "AssetManager.h"
 #include "BaseCamera.h"
 #include "InputManager.h"
 #include "Object.h"
@@ -30,6 +31,7 @@ MouseEngineContext::MouseEngineContext()
 
     Time = new TimeManager();
     Input = new InputManager(contextWindow);
+    Assets = new AssetManager();
 
     print_debug_line("Engine context created");
 }
@@ -39,6 +41,7 @@ MouseEngineContext::~MouseEngineContext()
     delete house;
     delete Time;
     delete Input;
+    delete Assets;
 }
 
 MouseEngineContext* MouseEngineContext::GetInstance()
@@ -128,8 +131,13 @@ void MouseEngineContext::HandleProcess()
 
 void MouseEngineContext::EngineLoop()
 {
-    Shader shader(R"(Engine/Content/Shaders/basic_vertex.vert)",
-                  R"(Engine/Content/Shaders/basic_fragment.frag)");
+    // Shader shader(R"(Engine/Content/Shaders/basic_vertex.vert)",
+    //               R"(Engine/Content/Shaders/basic_fragment.frag)");
+    
+    Shader shader = *Assets->LoadShader({
+        .vertexPath = R"(Engine/Content/Shaders/basic_vertex.vert)", 
+        .fragmentPath = R"(Engine/Content/Shaders/basic_fragment.frag)"
+    });
     
     PyramidMesh cube1 = PyramidMesh();
     cube1.transform.SetScale(glm::vec3(0.15f));

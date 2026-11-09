@@ -8,10 +8,27 @@
 
 class Transform;
 
+struct ShaderStruct
+{
+    std::string vertexPath;
+    std::string fragmentPath;
+    
+    bool operator==(const ShaderStruct& other) const
+    {
+        return vertexPath == other.vertexPath && fragmentPath == other.fragmentPath;
+    }
+    
+    bool operator<(const ShaderStruct& other) const
+    {
+        return vertexPath < other.vertexPath;
+    }
+};
+
 class Shader
 {
 public:
-    Shader(std::string vertexPath, std::string fragmentPath);
+    Shader(const ShaderStruct& shader);
+    Shader(const std::string& vertexPath, const std::string& fragmentPath);
 
 private:
     unsigned int programId = 0;
@@ -19,7 +36,7 @@ private:
     // <uniform_name, uniform_location>
     std::vector<std::tuple<std::string, int>> uniforms;
 
-    static std::string ReadFile(std::string input);
+    static std::string ReadFile(const std::string& input);
     static unsigned int LoadShader(const char* source, GLenum type);
     
     int GetUniformIndex(const std::string& name);
@@ -31,7 +48,7 @@ public:
      * @param fragmentPath Path to the fragment shader
      * @return 0 if successful, -1 otherwise
      */
-    int Initialize(std::string vertexPath, std::string fragmentPath);
+    int Initialize(const std::string& vertexPath, const std::string& fragmentPath);
 
     /** Sets the specified uniform with the specified value. It is NOT necessary to bind the shader first.
      * You can probably figure out the value type based on the parameters :)) */

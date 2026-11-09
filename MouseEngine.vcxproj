@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\AssetManager.cpp" />
     <ClCompile Include="Engine\BaseMesh.cpp" />
     <ClCompile Include="Engine\BaseCamera.cpp" />
     <ClCompile Include="Engine\Content\Meshes\CubeMesh.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="stbi\stbi_image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\AssetManager.h" />
     <ClInclude Include="Engine\BaseMesh.h" />
     <ClInclude Include="Engine\BaseCamera.h" />
     <ClInclude Include="Engine\Content\Meshes\CubeMesh.h" />

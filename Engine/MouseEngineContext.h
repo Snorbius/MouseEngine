@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class AssetManager;
 class InputManager;
 class TimeManager;
 
@@ -52,6 +53,7 @@ protected:
 public:
     TimeManager* Time;
     InputManager* Input;
+    AssetManager* Assets;
     
     /** Starts the full engine loop */
     void EngineLoop();
