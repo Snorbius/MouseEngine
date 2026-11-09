@@ -128,8 +128,8 @@ void MouseEngineContext::HandleProcess()
 
 void MouseEngineContext::EngineLoop()
 {
-    Shader shader(R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_vertex.vert)",
-                  R"(C:\code\cpp\MouseEngine\Engine\Content\Shaders\basic_fragment.frag)");
+    Shader shader(R"(Engine/Content/Shaders/basic_vertex.vert)",
+                  R"(Engine/Content/Shaders/basic_fragment.frag)");
     
     PyramidMesh cube1 = PyramidMesh();
     cube1.transform.SetScale(glm::vec3(0.15f));
@@ -149,7 +149,7 @@ void MouseEngineContext::EngineLoop()
     
     Assessment3D collection;
     
-    Texture tex(R"(C:\code\cpp\MouseEngine\Engine\Content\Textures\hampy.jpg)");
+    Texture tex(R"(Engine/Content/Textures/hampy.jpg)");
     tex.Use();
     
     while (!glfwWindowShouldClose(contextWindow))
