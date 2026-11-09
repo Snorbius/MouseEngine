@@ -140,6 +140,7 @@
     <ClCompile Include="Engine\AssetManager.cpp" />
     <ClCompile Include="Engine\BaseMesh.cpp" />
     <ClCompile Include="Engine\BaseCamera.cpp" />
+    <ClCompile Include="Engine\Content\Components\MeshComponent.cpp" />
     <ClCompile Include="Engine\Content\Meshes\CubeMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\SphereMesh.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Engine\Interfaces\IKeyboardInputCallback.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
     <ClCompile Include="Engine\MeshBuilder.cpp" />
+    <ClCompile Include="Engine\MeshLoader.cpp" />
     <ClCompile Include="Engine\MouseEngineContext.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Renderable.cpp" />
@@ -165,6 +167,7 @@
     <ClInclude Include="Engine\AssetManager.h" />
     <ClInclude Include="Engine\BaseMesh.h" />
     <ClInclude Include="Engine\BaseCamera.h" />
+    <ClInclude Include="Engine\Content\Components\MeshComponent.h" />
     <ClInclude Include="Engine\Content\Meshes\CubeMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\SphereMesh.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="Engine\Interfaces\IKeyboardInputCallback.h" />
     <ClInclude Include="Engine\LogManager.h" />
     <ClInclude Include="Engine\MeshBuilder.h" />
+    <ClInclude Include="Engine\MeshLoader.h" />
     <ClInclude Include="Engine\MouseEngineContext.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Renderable.h" />
@@ -185,6 +189,7 @@
     <ClInclude Include="stbi\stbi_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Engine\Content\Meshes\monkey.obj" />
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
     <Content Include="Engine\Content\Shaders\basic_vertex.vert" />
     <Content Include="Engine\Content\Textures\hampy.jpg" />

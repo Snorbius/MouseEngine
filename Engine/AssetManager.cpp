@@ -1,5 +1,8 @@
 ﻿#include "AssetManager.h"
 
+#include "BaseMesh.h"
+#include "MeshLoader.h"
+
 AssetManager::~AssetManager()
 {
     for (const std::pair<const ShaderStruct, Shader*>& shader : loadedShaders)
@@ -7,6 +10,12 @@ AssetManager::~AssetManager()
             delete shader.second;
     
     loadedShaders.clear();
+
+    for (std::pair<const std::string, BaseMesh*>& mesh : loadedMeshes)
+        if (mesh.second != nullptr)
+            delete mesh.second;
+    
+    loadedMeshes.clear();
 }
 
 Shader* AssetManager::LoadShader(const ShaderStruct& shader, bool unique)
@@ -19,4 +28,16 @@ Shader* AssetManager::LoadShader(const ShaderStruct& shader, bool unique)
         loadedShaders[shader] = newShader;
     
     return newShader;
+}
+
+BaseMesh* AssetManager::LoadMesh(const std::string& meshPath, bool unique)
+{
+    if (!unique && loadedMeshes.contains(meshPath))
+        return loadedMeshes[meshPath];
+    
+    BaseMesh* mesh = MeshLoader::LoadMesh(meshPath);
+    if (!unique)
+        loadedMeshes[meshPath] = mesh;
+    
+    return mesh;
 }
