@@ -18,5 +18,5 @@ void main()
     
     vertexColor = vec4(aColor, 1.0f);
     vertexUv = aUv;
-    vertexNormal = aNormal;
+    vertexNormal = normalize(u_transform * vec4(aNormal, 0.0)).xyz;
 }
