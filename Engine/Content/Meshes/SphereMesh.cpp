@@ -6,6 +6,8 @@
 
 SphereMesh::SphereMesh()
 {
+    mesh = new BaseMesh();
+    
     const int rings = 16;
     const int slices = 32;
     
@@ -86,4 +88,9 @@ SphereMesh::SphereMesh()
     auto data = builder.BuildMesh();
     mesh->useEbo = true;
     mesh->UpdateVertexData(data.vertexData, data.indices);
+}
+
+SphereMesh::~SphereMesh()
+{
+    delete mesh;
 }

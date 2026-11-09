@@ -5,4 +5,5 @@ class CubeMesh: public MeshComponent
 {
 public:
     CubeMesh();
+    ~CubeMesh() override;
 };

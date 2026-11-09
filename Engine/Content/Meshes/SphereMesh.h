@@ -5,4 +5,5 @@ class SphereMesh: public MeshComponent
 {
 public:
     SphereMesh();
+    ~SphereMesh() override;
 };

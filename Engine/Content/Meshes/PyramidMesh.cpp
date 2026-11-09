@@ -4,6 +4,8 @@
 
 PyramidMesh::PyramidMesh()
 {
+    mesh = new BaseMesh();
+    
     std::vector<glm::vec3> vertexData = {
         {-1, -1, 1},     // 0
         {1, -1, 1},      // 1
@@ -47,4 +49,9 @@ PyramidMesh::PyramidMesh()
     
     mesh->useEbo = true;
     mesh->UpdateVertexData(data.vertexData, data.indices);
+}
+
+PyramidMesh::~PyramidMesh()
+{
+    delete mesh;
 }

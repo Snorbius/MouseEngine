@@ -6,10 +6,6 @@
 class MeshComponent: Renderable
 {
 public:
-    MeshComponent();
-    ~MeshComponent();
-    
-public:
     BaseMesh* mesh;
     Transform transform;
     

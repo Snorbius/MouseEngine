@@ -4,6 +4,8 @@
 
 CubeMesh::CubeMesh()
 {
+    mesh = new BaseMesh();
+    
     // 8 vertex configuration - no flat sides
     /* 
     std::vector<glm::vec3> vertices = {
@@ -121,4 +123,9 @@ CubeMesh::CubeMesh()
     mesh->useEbo = true;
     BuiltMeshData data = builder.BuildMesh();
     mesh->UpdateVertexData(data.vertexData, data.indices);
+}
+
+CubeMesh::~CubeMesh()
+{
+    delete mesh;
 }

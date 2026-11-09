@@ -5,6 +5,8 @@
 
 TriangleMesh::TriangleMesh()
 {
+    mesh = new BaseMesh();
+    
     std::vector<glm::vec3> vertexData = {
         {-1.0f, 1.0f, 0.0f},
         {-1.0f, -1.0f, 0.0f},
@@ -23,4 +25,9 @@ TriangleMesh::TriangleMesh()
     
     mesh->useEbo = true;
     mesh->UpdateVertexData(data.vertexData, data.indices);
+}
+
+TriangleMesh::~TriangleMesh()
+{
+    delete mesh;
 }

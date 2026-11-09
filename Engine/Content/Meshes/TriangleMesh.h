@@ -5,4 +5,5 @@ class TriangleMesh: public MeshComponent
 {
 public:
     TriangleMesh();
+    ~TriangleMesh() override;
 };

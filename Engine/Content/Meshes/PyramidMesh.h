@@ -5,4 +5,5 @@ class PyramidMesh: public MeshComponent
 {
 public:
     PyramidMesh();
+    ~PyramidMesh() override;
 };
