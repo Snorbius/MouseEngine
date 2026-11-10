@@ -41,3 +41,13 @@ BaseMesh* AssetManager::LoadMesh(const std::string& meshPath, bool unique)
     
     return mesh;
 }
+
+std::vector<BaseMesh*> AssetManager::GetAllLoadedMeshes()
+{
+    std::vector<BaseMesh*> result;
+    result.reserve(loadedMeshes.size());
+    for (std::pair<const std::string, BaseMesh*>& pair : loadedMeshes)
+        result.emplace_back(pair.second);
+
+    return result;
+}

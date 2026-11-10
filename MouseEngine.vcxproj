@@ -155,6 +155,7 @@
     <ClCompile Include="Engine\Renderable.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\Temporary\Assessment3D.cpp" />
+    <ClCompile Include="Engine\Temporary\AssessmentGraphicalPolish.cpp" />
     <ClCompile Include="Engine\Temporary\AssessmentHouse.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TimeManager.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Engine\Renderable.h" />
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\Temporary\Assessment3D.h" />
+    <ClInclude Include="Engine\Temporary\AssessmentGraphicalPolish.h" />
     <ClInclude Include="Engine\Temporary\AssessmentHouse.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\TimeManager.h" />
@@ -189,6 +191,7 @@
     <ClInclude Include="stbi\stbi_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Engine\Content\Meshes\cirno.obj" />
     <Content Include="Engine\Content\Meshes\monkey.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot_highres.obj" />

@@ -16,6 +16,7 @@
 #include "Content/Meshes/SphereMesh.h"
 #include "Interfaces/IKeyboardInputCallback.h"
 #include "Temporary/Assessment3D.h"
+#include "Temporary/AssessmentGraphicalPolish.h"
 
 
 MouseEngineContext::MouseEngineContext()
@@ -157,10 +158,6 @@ void MouseEngineContext::EngineLoop()
     Texture tex(R"(Engine/Content/Textures/hampy.jpg)");
     tex.Use();
     
-    MeshComponent monkey;
-    monkey.transform.SetPosition({0, 3, 0});
-    monkey.mesh = Assets->LoadMesh(R"(Engine/Content/Meshes/monkey.obj)");
-    
     while (!glfwWindowShouldClose(contextWindow))
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -174,8 +171,6 @@ void MouseEngineContext::EngineLoop()
         
         // sphere.Render(&shader);
         // cube1.Render(&shader);
-        
-        monkey.Render(&shader);
         
         collection.Render(&shader);
         

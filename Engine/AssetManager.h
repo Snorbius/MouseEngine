@@ -34,4 +34,10 @@ public:
      * @return The mesh object.
      */
     BaseMesh* LoadMesh(const std::string& meshPath, bool unique = false);
+
+    /**
+     * Get a list of all loaded meshes. Look into yourself and ask if you really need to use this function :).
+     * @return The meshes.
+     */
+    std::vector<BaseMesh*> GetAllLoadedMeshes();
 };
