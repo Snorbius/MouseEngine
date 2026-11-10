@@ -50,9 +50,76 @@ BaseMesh* MeshLoader::LoadMeshNaiveLoader(const std::string& meshPath)
             ss >> uv.x >> uv.y;
             tempUvs.emplace_back(uv);
         }
+        
+        // Fan triangulation, thanks Martin
+        if (prefix == "f")
+        {
+            std::vector<std::string> faceTokens;
+            std::string token;
+            while (ss >> token)
+                faceTokens.emplace_back(token);
+            
+            if (faceTokens.size() < 3)
+                continue;
+
+            for (int i = 1; i < faceTokens.size() - 1; ++i)
+            {
+                int triangleIndices[] = {0, i, i + 1};
+                glm::ivec3 resultingIndices = glm::ivec3(0);
+
+                for (int k = 0; k < 3; ++k)
+                {
+                    std::string kToken = faceTokens[triangleIndices[k]];
+                    size_t firstSlash = kToken.find('/');
+                    size_t secondSlash = kToken.find('/', firstSlash + 1);
+                    
+                    unsigned int posIndex = std::stoi(kToken.substr(0, firstSlash)) - 1;
+                    unsigned int uvIndex = std::stoi(kToken.substr(firstSlash + 1, secondSlash - firstSlash - 1)) - 1;
+                    unsigned int normalIndex = std::stoi(kToken.substr(secondSlash + 1)) - 1;
+                    
+                    glm::vec3 vPos = tempPos[posIndex];
+                    glm::vec3 vNorm = tempNormals[normalIndex];
+                    glm::vec2 vUv = tempUvs[uvIndex];
+                    
+                    int existingIndex = -1;
+
+                    for (int i = 0; i < builder.vertices.size(); ++i)
+                    {
+                        if (builder.vertices[i] == vPos
+                            && builder.normals[i] == vNorm
+                            && builder.uvs[i] == vUv)
+                        {
+                            existingIndex = i;
+                            break;
+                        }
+                    }
+                    
+                    if (existingIndex == -1)
+                    {
+                        resultingIndices[k] = builder.vertices.size();
+                        
+                        builder.vertices.emplace_back(vPos);
+                        builder.normals.emplace_back(vNorm);
+                        builder.uvs.emplace_back(vUv);
+                    }
+                    else
+                    {
+                        resultingIndices[k] = existingIndex;
+                    }
+                }
+                
+                builder.indices.emplace_back(resultingIndices);
+            }
+        }
     }
     
-    return nullptr;
+    file.close();
+    
+    BaseMesh* mesh = new BaseMesh();
+    mesh->useEbo = true;
+    mesh->UpdateVertexData(builder.BuildMesh());
+    
+    return mesh;
 }
 
 BaseMesh* MeshLoader::LoadMeshExternalLoader(const std::string& meshPath)

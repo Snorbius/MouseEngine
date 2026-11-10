@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <vector>
 
+#include "MeshBuilder.h"
 #include "Renderable.h"
 
 class BaseMesh: public Renderable
@@ -39,6 +40,7 @@ public:
      */
     void UpdateVertexData(const float* vertexData, const int* indices, int dataSize, int indicesSize);
     void UpdateVertexData(const std::vector<float>& vertexData, const std::vector<int>& indices);
+    void UpdateVertexData(const BuiltMeshData& data) { UpdateVertexData(data.vertexData, data.indices); }
     
     void Render(Shader* shader) override;
 };

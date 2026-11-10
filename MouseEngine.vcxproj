@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Engine\Content\Meshes\monkey.obj" />
+    <Content Include="Engine\Content\Meshes\smooth_monkey.obj" />
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
     <Content Include="Engine\Content\Shaders\basic_vertex.vert" />
     <Content Include="Engine\Content\Textures\hampy.jpg" />
