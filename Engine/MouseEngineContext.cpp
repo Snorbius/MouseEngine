@@ -158,6 +158,8 @@ void MouseEngineContext::EngineLoop()
     Texture tex(R"(Engine/Content/Textures/hampy.jpg)");
     tex.Use();
     
+    AssessmentGraphicalPolish polish;
+    
     while (!glfwWindowShouldClose(contextWindow))
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -171,6 +173,8 @@ void MouseEngineContext::EngineLoop()
         
         // sphere.Render(&shader);
         // cube1.Render(&shader);
+        
+        polish.Render(&shader);
         
         collection.Render(&shader);
         
