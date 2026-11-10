@@ -13,6 +13,8 @@ Texture::Texture(const std::string& imagePath)
 
 void Texture::LoadImage(const std::string& imagePath)
 {
+    stbi_set_flip_vertically_on_load(true);
+    
     auto data = stbi_load(imagePath.c_str(), &width, &height, &channels, 4);
     
     if (!data)
