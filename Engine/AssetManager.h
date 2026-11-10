@@ -3,6 +3,7 @@
 
 #include "Shader.h"
 
+class Texture;
 class BaseMesh;
 
 class AssetManager
@@ -14,6 +15,7 @@ public:
 private:
     std::map<ShaderStruct, Shader*> loadedShaders;
     std::map<std::string, BaseMesh*> loadedMeshes;
+    std::map<std::string, Texture*> loadedTextures;
     
 public:
     /**
@@ -34,6 +36,14 @@ public:
      * @return The mesh object.
      */
     BaseMesh* LoadMesh(const std::string& meshPath, bool unique = false);
+
+    /**
+     * Loads a texture from an image file.
+     * @param texturePath The path to the texture file.
+     * @param unique Whether it should load a unique copy.
+     * @return The texture object.
+     */
+    Texture* LoadTextures(const std::string& texturePath, bool unique = false);
 
     /**
      * Get a list of all loaded meshes. Look into yourself and ask if you really need to use this function :).

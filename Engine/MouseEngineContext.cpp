@@ -155,7 +155,7 @@ void MouseEngineContext::EngineLoop()
     
     Assessment3D collection;
     
-    Texture tex(R"(Engine/Content/Textures/hampy.jpg)");
+    Texture tex = *Assets->LoadTextures(R"(Engine/Content/Textures/hampy.jpg)");
     tex.Use();
     
     AssessmentGraphicalPolish polish;
