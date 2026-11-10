@@ -43,7 +43,7 @@ public:
      * @param unique Whether it should load a unique copy.
      * @return The texture object.
      */
-    Texture* LoadTextures(const std::string& texturePath, bool unique = false);
+    Texture* LoadTexture(const std::string& texturePath, bool unique = false);
 
     /**
      * Get a list of all loaded meshes. Look into yourself and ask if you really need to use this function :).

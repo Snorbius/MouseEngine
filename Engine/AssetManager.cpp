@@ -46,7 +46,7 @@ BaseMesh* AssetManager::LoadMesh(const std::string& meshPath, bool unique)
     return mesh;
 }
 
-Texture* AssetManager::LoadTextures(const std::string& texturePath, bool unique)
+Texture* AssetManager::LoadTexture(const std::string& texturePath, bool unique)
 {
     if (!unique && loadedTextures.contains(texturePath))
         return loadedTextures[texturePath];
