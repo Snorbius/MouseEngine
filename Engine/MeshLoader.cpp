@@ -77,9 +77,9 @@ BaseMesh* MeshLoader::LoadMeshNaiveLoader(const std::string& meshPath)
                     unsigned int uvIndex = std::stoi(kToken.substr(firstSlash + 1, secondSlash - firstSlash - 1)) - 1;
                     unsigned int normalIndex = std::stoi(kToken.substr(secondSlash + 1)) - 1;
                     
-                    glm::vec3 vPos = tempPos[posIndex];
-                    glm::vec3 vNorm = tempNormals[normalIndex];
-                    glm::vec2 vUv = tempUvs[uvIndex];
+                    glm::vec3 vPos = posIndex < tempPos.size() ? tempPos[posIndex] : glm::vec3(0);
+                    glm::vec3 vNorm = normalIndex < tempNormals.size() ? tempNormals[normalIndex] : glm::vec3(0);
+                    glm::vec2 vUv = uvIndex < tempUvs.size() ? tempUvs[uvIndex] : glm::vec2(0);
                     
                     int existingIndex = -1;
 
