@@ -25,6 +25,8 @@ BaseMesh* MeshLoader::LoadMeshNaiveLoader(const std::string& meshPath)
     std::vector<glm::vec3> tempNormals;
     std::vector<glm::vec2> tempUvs;
     
+    std::string name = "unknown";
+    
     std::string line;
     while (std::getline(file, line))
     {
@@ -32,21 +34,25 @@ BaseMesh* MeshLoader::LoadMeshNaiveLoader(const std::string& meshPath)
         std::string prefix;
         ss >> prefix;
         
+        if (prefix == "o")
+        {
+            ss >> name;
+        }
         if (prefix == "v")
         {
-            glm::vec3 pos;
+            glm::vec3 pos = glm::vec3(0);
             ss >> pos.x >> pos.y >> pos.z;
             tempPos.emplace_back(pos);
         }
         else if (prefix == "vn")
         {
-            glm::vec3 normal;
+            glm::vec3 normal = glm::vec3(0);
             ss >> normal.x >> normal.y >> normal.z;
             tempNormals.emplace_back(normal);
         }
         else if (prefix == "vt")
         {
-            glm::vec2 uv;
+            glm::vec2 uv = glm::vec2(0);
             ss >> uv.x >> uv.y;
             tempUvs.emplace_back(uv);
         }
@@ -116,8 +122,11 @@ BaseMesh* MeshLoader::LoadMeshNaiveLoader(const std::string& meshPath)
     file.close();
     
     BaseMesh* mesh = new BaseMesh();
+    mesh->meshName = name;
     mesh->useEbo = true;
     mesh->UpdateVertexData(builder.BuildMesh());
+    
+    MouseLogs::print_debug_line(std::format("Loaded mesh \"{}\" with {} vertices and {} triangles.", mesh->meshName, builder.vertices.size(), builder.indices.size()));
     
     return mesh;
 }

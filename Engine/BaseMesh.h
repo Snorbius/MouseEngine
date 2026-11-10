@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <string>
 #include <vector>
 
 #include "MeshBuilder.h"
@@ -20,6 +21,8 @@ protected:
     unsigned int ebo;
 
 public:
+    std::string meshName;
+    
     /** Whether to use indices for rendering */
     bool useEbo = false;
     
