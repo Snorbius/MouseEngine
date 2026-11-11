@@ -851,3 +851,4 @@ FodyWeavers.xsd
 #*.lscache
 
 .idea/
+imgui.ini

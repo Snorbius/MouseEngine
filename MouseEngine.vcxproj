@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\code\dependencies\include;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\code\dependencies\include;$(Solutiondir)\Engine\imgui-docking;$(Solutiondir)\Engine\imgui-docking\backends;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\code\dependencies\libs;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,6 +145,14 @@
     <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\SphereMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\TriangleMesh.cpp" />
+    <ClCompile Include="Engine\imgui-docking\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Engine\imgui-docking\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Engine\imgui-docking\imgui.cpp" />
+    <ClCompile Include="Engine\imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="Engine\imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="Engine\imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="Engine\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Engine\ImGuiWindows\MaterialCreator.cpp" />
     <ClCompile Include="Engine\InputManager.cpp" />
     <ClCompile Include="Engine\Interfaces\IKeyboardInputCallback.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
@@ -153,6 +161,8 @@
     <ClCompile Include="Engine\MouseEngineContext.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
     <ClCompile Include="Engine\Renderable.cpp" />
+    <ClCompile Include="Engine\Resources\Material.cpp" />
+    <ClCompile Include="Engine\Resources\Resource.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\Temporary\Assessment3D.cpp" />
     <ClCompile Include="Engine\Temporary\AssessmentGraphicalPolish.cpp" />
@@ -173,6 +183,16 @@
     <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\SphereMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\TriangleMesh.h" />
+    <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Engine\imgui-docking\imconfig.h" />
+    <ClInclude Include="Engine\imgui-docking\imgui.h" />
+    <ClInclude Include="Engine\imgui-docking\imgui_internal.h" />
+    <ClInclude Include="Engine\imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="Engine\imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="Engine\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Engine\ImGuiWindows\MaterialCreator.h" />
     <ClInclude Include="Engine\InputManager.h" />
     <ClInclude Include="Engine\Interfaces\IKeyboardInputCallback.h" />
     <ClInclude Include="Engine\LogManager.h" />
@@ -181,6 +201,8 @@
     <ClInclude Include="Engine\MouseEngineContext.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\Renderable.h" />
+    <ClInclude Include="Engine\Resources\Material.h" />
+    <ClInclude Include="Engine\Resources\Resource.h" />
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\Temporary\Assessment3D.h" />
     <ClInclude Include="Engine\Temporary\AssessmentGraphicalPolish.h" />
@@ -200,6 +222,13 @@
     <Content Include="Engine\Content\Textures\Cirno_256.png" />
     <Content Include="Engine\Content\Textures\hampy.jpg" />
     <Content Include="Engine\Content\Textures\hampy.png" />
+    <Content Include="Engine\imgui-docking\.editorconfig" />
+    <Content Include="Engine\imgui-docking\.gitattributes" />
+    <Content Include="Engine\imgui-docking\.gitignore" />
+    <Content Include="Engine\imgui-docking\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\Content\Materials\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

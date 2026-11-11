@@ -20,7 +20,7 @@ struct ShaderStruct
     
     bool operator<(const ShaderStruct& other) const
     {
-        return vertexPath < other.vertexPath;
+        return vertexPath + fragmentPath < other.vertexPath + other.fragmentPath; // TODO: *Fairly* unlikely to cause problems but I should find a better solution for this
     }
 };
 

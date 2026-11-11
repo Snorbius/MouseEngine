@@ -2,15 +2,18 @@
 #include "../Object.h"
 #include "../Content/Components/MeshComponent.h"
 
+class Material;
 class Texture;
 
 class AssessmentGraphicalPolish: Object, Renderable
 {
+private:
+    Material* cirnoMaterial;
+    
 public:
     AssessmentGraphicalPolish();
     
 public:
-    Texture* cirnoTexture;
     MeshComponent cirno;
     
     void Render(Shader* shader) override;

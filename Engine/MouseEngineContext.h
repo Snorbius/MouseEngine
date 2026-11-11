@@ -39,6 +39,7 @@ private:
     bool InitialiseGLAD();
     bool InitialiseDebugContext();
     void ToggleWireframe();
+    void InitialiseImGui();
     
     void HandleProcess();
     

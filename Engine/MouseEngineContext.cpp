@@ -18,6 +18,13 @@
 #include "Temporary/Assessment3D.h"
 #include "Temporary/AssessmentGraphicalPolish.h"
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#include "ImGuiWindows/MaterialCreator.h"
+#include "Resources/Material.h"
+#include "Resources/Resource.h"
+
 
 MouseEngineContext::MouseEngineContext()
 {
@@ -28,6 +35,8 @@ MouseEngineContext::MouseEngineContext()
         return;
     if (!InitialiseDebugContext())
         return;
+    InitialiseImGui();
+    
     house = new AssessmentHouse();
 
     Time = new TimeManager();
@@ -39,6 +48,10 @@ MouseEngineContext::MouseEngineContext()
 
 MouseEngineContext::~MouseEngineContext()
 {
+    ImGui_ImplGlfw_Shutdown();
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui::DestroyContext();
+    
     delete house;
     delete Time;
     delete Input;
@@ -117,6 +130,20 @@ void MouseEngineContext::ToggleWireframe()
         glEnable(GL_CULL_FACE);
 }
 
+void MouseEngineContext::InitialiseImGui()
+{
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+    ImGui_ImplGlfw_InitForOpenGL(contextWindow, true);
+    ImGui_ImplOpenGL3_Init();
+}
+
 void MouseEngineContext::HandleProcess()
 {
     Time->Update();
@@ -149,7 +176,7 @@ void MouseEngineContext::EngineLoop()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     
-    glfwSetInputMode(contextWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    // glfwSetInputMode(contextWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     SphereMesh sphere;
     
@@ -160,8 +187,16 @@ void MouseEngineContext::EngineLoop()
     
     AssessmentGraphicalPolish polish;
     
+    MaterialCreator m;
+    
     while (!glfwWindowShouldClose(contextWindow))
     {
+        ImGui_ImplGlfw_NewFrame();
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui::NewFrame();
+        
+        m.DrawWindow();
+        
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_DEPTH_BUFFER_BIT);
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
@@ -179,6 +214,14 @@ void MouseEngineContext::EngineLoop()
         // collection.Render(&shader);
         
         HandleProcess();
+       
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        
+        GLFWwindow* backupContext = glfwGetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        glfwMakeContextCurrent(backupContext);
         
         glfwSwapBuffers(contextWindow);
         
