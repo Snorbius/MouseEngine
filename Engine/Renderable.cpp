@@ -7,14 +7,14 @@
 
 void Renderable::RenderObject(std::string name, Transform transform, Shader* shader)
 {
-    std::vector<BaseMesh*> meshes = MouseEngineContext::GetInstance()->Assets->GetAllLoadedMeshes();
+    std::map<std::string, BaseMesh*> meshes = MouseEngineContext::GetInstance()->Assets->GetAllLoadedMeshes();
 
     BaseMesh* mesh = nullptr;
-    for (BaseMesh*& base_mesh : meshes)
+    for (std::pair<const std::string, BaseMesh*>& pair : meshes)
     {
-        if (base_mesh->meshName == name)
+        if (pair.second->meshName == name)
         {
-            mesh = base_mesh;
+            mesh = pair.second;
             break;
         }
     }

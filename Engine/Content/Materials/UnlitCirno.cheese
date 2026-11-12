@@ -1,0 +1,4 @@
+Material
+fragmentPath:Engine/Content/Shaders/unlit_textured.frag
+texturePath:Engine/Content/Textures/Cirno_256.png
+vertexPath:Engine/Content/Shaders/basic_vertex.vert

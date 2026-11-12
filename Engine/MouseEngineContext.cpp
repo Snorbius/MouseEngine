@@ -33,8 +33,10 @@ MouseEngineContext::MouseEngineContext()
         return;
     if (!InitialiseGLAD())
         return;
+#if DEBUG_ENABLED
     if (!InitialiseDebugContext())
         return;
+#endif
     InitialiseImGui();
     
     house = new AssessmentHouse();
@@ -187,7 +189,7 @@ void MouseEngineContext::EngineLoop()
     
     AssessmentGraphicalPolish polish;
     
-    MaterialCreator m;
+    MaterialCreator materialWindow;
     
     while (!glfwWindowShouldClose(contextWindow))
     {
@@ -195,16 +197,19 @@ void MouseEngineContext::EngineLoop()
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
         
-        m.DrawWindow();
+        materialWindow.DrawWindow();
         
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_DEPTH_BUFFER_BIT);
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
         cube1.transform.SetRotation(glm::vec3(glfwGetTime() * 25));
-        
-        shader.SetUniform("u_view", camera.GetView());
-        shader.SetUniform("u_projection", camera.GetProjection());
+
+        for (auto element : Assets->GetAllLoadedShaders())
+        {
+            element.second->SetUniform("u_view", camera.GetView());
+            element.second->SetUniform("u_projection", camera.GetProjection());
+        }
         
         // sphere.Render(&shader);
         // cube1.Render(&shader);

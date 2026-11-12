@@ -8,27 +8,44 @@
 
 AssessmentGraphicalPolish::AssessmentGraphicalPolish()
 {
-    cirnoMaterial = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
-    cirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
-    cirno.transform.SetPosition({0, -2, 0});
-    cirno.transform.SetScale({3, 3, 3});
+    shadedCirnoMaterial = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
+    unlitCirnoMaterial = Resource::LoadResource<Material>(R"(Engine/Content/Materials/UnlitCirno.cheese)");
+    shadedCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
+    unlitCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
+    
+    shadedCirno.transform.SetPosition({3, -2, 0});
+    shadedCirno.transform.SetScale({3, 3, 3});
+    
+    unlitCirno.transform.SetPosition({-3, -2, 0});
+    unlitCirno.transform.SetScale({3, 3, 3});
 }
 
 void AssessmentGraphicalPolish::Render(Shader* shader)
 {
-    if (cirnoMaterial != nullptr)
+    if (shadedCirnoMaterial != nullptr)
     {
-        cirnoMaterial->shader->SetUniform("u_texture_color_alpha", 0.0f);
-        cirnoMaterial->Use();
+        shadedCirnoMaterial->shader->SetUniform("u_texture_color_alpha", 0.0f);
+        shadedCirnoMaterial->Use();
     }
-    cirno.Render(cirnoMaterial != nullptr ? cirnoMaterial->shader : shader);
+    shadedCirno.Render(shadedCirnoMaterial != nullptr ? shadedCirnoMaterial->shader : shader);
+    
+    if (unlitCirnoMaterial != nullptr)
+        unlitCirnoMaterial->Use();
+    glCheckError();
+    
+    unlitCirno.Render(unlitCirnoMaterial != nullptr ? unlitCirnoMaterial->shader : shader);
+    // unlitCirno.Render(shader);
+    glCheckError();
 }
 
 void AssessmentGraphicalPolish::Process(float deltaTime)
 {
     float time = EngineContext->Time->GetTotalElapsedTimef();
     
-    cirno.transform.Rotate(glm::vec3(0, 1, 0) * deltaTime * 145.0f);
-    glm::vec3 s = cirno.transform.GetScale();
-    cirno.transform.SetScale({s.x, s.x + sin(time * 12.5f) * 0.15 * s.x, s.z});
+    shadedCirno.transform.Rotate(glm::vec3(0, 1, 0) * deltaTime * -145.0f);
+    unlitCirno.transform.Rotate(glm::vec3(0, 1, 0) * deltaTime * 145.0f);
+    glm::vec3 s = shadedCirno.transform.GetScale();
+    glm::vec3 newScale = glm::vec3(s.x, s.x + sin(time * 12.5f) * 0.15 * s.x, s.z);
+    shadedCirno.transform.SetScale(newScale);
+    unlitCirno.transform.SetScale(newScale);
 }

@@ -46,8 +46,14 @@ public:
     Texture* LoadTexture(const std::string& texturePath, bool unique = false);
 
     /**
-     * Get a list of all loaded meshes. Look into yourself and ask if you really need to use this function :).
+     * Get a map containing all loaded meshes.
      * @return The meshes.
      */
-    std::vector<BaseMesh*> GetAllLoadedMeshes();
+    std::map<std::string, BaseMesh*> GetAllLoadedMeshes() { return loadedMeshes; }
+
+    /**
+     * Get a map containing all loaded shaders.
+     * @return The shaders.
+     */
+    std::map<ShaderStruct, Shader*> GetAllLoadedShaders() { return loadedShaders; }
 };

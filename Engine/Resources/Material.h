@@ -7,11 +7,12 @@ class Shader;
 class Material: public Resource
 {
 protected:
-    std::string GetResourceIdentifier() override { return "Material"; }
     
 public:
     Shader* shader;
     Texture* texture;
+    
+    std::string GetResourceIdentifier() override { return "Material"; }
     
     void InitializeResource() override;
     

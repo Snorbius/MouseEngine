@@ -15,12 +15,16 @@ public:
     
 private:
     
-protected:
-    virtual std::string GetResourceIdentifier() { return "BaseResource"; }
-    
 public:
     std::map<std::string, std::string> values;
 
+    /**
+     * Fetches a resource identifier for a specific resource type. This is meant to be overriden for each resource subclass.
+     * The identifier should tell you what the resource is, such as "material", "scene", "mesh" or similar.
+     * @return The unique resource identifier
+     */
+    virtual std::string GetResourceIdentifier() { return "BaseResource"; }
+    
     /**
      * Virtual function called when a resource has been loaded. Should likely never be called manually.
      */

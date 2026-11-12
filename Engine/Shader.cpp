@@ -99,6 +99,11 @@ int Shader::Initialize(const std::string& vertexPath, const std::string& fragmen
         return -1;
     }
     
+    glDetachShader(programId, vertexShader);
+    glDeleteShader(vertexShader);
+    glDetachShader(programId, fragmentShader);
+    glDeleteShader(fragmentShader);
+    
     glCheckError();
     
     return 0;

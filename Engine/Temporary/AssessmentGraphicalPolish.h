@@ -8,13 +8,15 @@ class Texture;
 class AssessmentGraphicalPolish: Object, Renderable
 {
 private:
-    Material* cirnoMaterial;
+    Material* shadedCirnoMaterial;
+    Material* unlitCirnoMaterial;
     
 public:
     AssessmentGraphicalPolish();
     
 public:
-    MeshComponent cirno;
+    MeshComponent shadedCirno;
+    MeshComponent unlitCirno;
     
     void Render(Shader* shader) override;
     void Process(float deltaTime) override;

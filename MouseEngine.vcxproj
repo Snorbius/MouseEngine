@@ -213,12 +213,15 @@
     <ClInclude Include="stbi\stbi_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Engine\Content\Materials\Basic.cheese" />
+    <Content Include="Engine\Content\Materials\UnlitCirno.cheese" />
     <Content Include="Engine\Content\Meshes\cirno.obj" />
     <Content Include="Engine\Content\Meshes\monkey.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot_highres.obj" />
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
     <Content Include="Engine\Content\Shaders\basic_vertex.vert" />
+    <Content Include="Engine\Content\Shaders\unlit_textured.frag" />
     <Content Include="Engine\Content\Textures\Cirno_256.png" />
     <Content Include="Engine\Content\Textures\hampy.jpg" />
     <Content Include="Engine\Content\Textures\hampy.png" />
@@ -226,9 +229,6 @@
     <Content Include="Engine\imgui-docking\.gitattributes" />
     <Content Include="Engine\imgui-docking\.gitignore" />
     <Content Include="Engine\imgui-docking\LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\Content\Materials\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
