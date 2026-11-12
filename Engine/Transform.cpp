@@ -50,6 +50,11 @@ void Transform::SetScale(glm::vec3 value)
     UpdateData();
 }
 
+void Transform::SetScale(float uniformScale)
+{
+    SetScale(glm::vec3(uniformScale));
+}
+
 void Transform::SetRotation(glm::vec3 value)
 {
     rotation = value;

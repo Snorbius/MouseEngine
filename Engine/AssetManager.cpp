@@ -22,6 +22,11 @@ AssetManager::~AssetManager()
     loadedTextures.clear();
 }
 
+Resource* AssetManager::FetchResource(const std::string& filePath)
+{
+    return loadedResources.contains(filePath) ? loadedResources[filePath] : nullptr;
+}
+
 Shader* AssetManager::LoadShader(const ShaderStruct& shader, bool unique)
 {
     if (!unique && loadedShaders.contains(shader))

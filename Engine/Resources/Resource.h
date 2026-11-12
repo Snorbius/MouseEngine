@@ -5,7 +5,9 @@
 #include <map>
 #include <string>
 
+#include "../AssetManager.h"
 #include "../LogManager.h"
+#include "../MouseEngineContext.h"
 
 class Resource
 {
@@ -54,12 +56,16 @@ public:
     template<class T>
     static T* LoadResource(std::string filePath) //inline to make template work
     {
+        T* res = static_cast<T*>(MouseEngineContext::GetInstance()->Assets->FetchResource(filePath));
+        if (res != nullptr)
+            return res;
+        
         if (!std::filesystem::exists(filePath))
-            MouseLogs::print_line(std::format("Could not find specified file: {}", filePath));
+            print_line(std::format("Could not find specified file: {}", filePath));
         
         if (!filePath.ends_with(".cheese"))
         {
-            MouseLogs::print_warning("You are trying to load a resource file that does not end with .cheese. "
+            print_warning("You are trying to load a resource file that does not end with .cheese. "
                                      "Make sure that this is what you want.");
         }
             
@@ -67,11 +73,11 @@ public:
             
         if (!file.is_open())
         {
-            MouseLogs::print_warning(std::format("Could not open file located at: {}", filePath));
+            print_warning(std::format("Could not open file located at: {}", filePath));
             return nullptr;
         }
-            
-        T* res = new T();
+        
+        res = new T();
             
         std::string line;
         while (std::getline(file, line))
@@ -84,6 +90,8 @@ public:
         }
             
         res->InitializeResource();
+        
+        MouseEngineContext::GetInstance()->Assets->RegisterResource(filePath, res);
         
         return res;
     }

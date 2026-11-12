@@ -10,6 +10,7 @@ class AssessmentGraphicalPolish: Object, Renderable
 private:
     Material* shadedCirnoMaterial;
     Material* unlitCirnoMaterial;
+    Material* monkeyMaterial;
     
 public:
     AssessmentGraphicalPolish();
@@ -17,6 +18,7 @@ public:
 public:
     MeshComponent shadedCirno;
     MeshComponent unlitCirno;
+    MeshComponent monkey;
     
     void Render(Shader* shader) override;
     void Process(float deltaTime) override;

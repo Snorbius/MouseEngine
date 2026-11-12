@@ -10,14 +10,17 @@ AssessmentGraphicalPolish::AssessmentGraphicalPolish()
 {
     shadedCirnoMaterial = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
     unlitCirnoMaterial = Resource::LoadResource<Material>(R"(Engine/Content/Materials/UnlitCirno.cheese)");
+    monkeyMaterial = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
+    
     shadedCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
     unlitCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
+    monkey.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/monkey.obj");
     
     shadedCirno.transform.SetPosition({3, -2, 0});
-    shadedCirno.transform.SetScale({3, 3, 3});
+    shadedCirno.transform.SetScale(2);
     
     unlitCirno.transform.SetPosition({-3, -2, 0});
-    unlitCirno.transform.SetScale({3, 3, 3});
+    unlitCirno.transform.SetScale(2);
 }
 
 void AssessmentGraphicalPolish::Render(Shader* shader)
@@ -31,11 +34,11 @@ void AssessmentGraphicalPolish::Render(Shader* shader)
     
     if (unlitCirnoMaterial != nullptr)
         unlitCirnoMaterial->Use();
-    glCheckError();
-    
     unlitCirno.Render(unlitCirnoMaterial != nullptr ? unlitCirnoMaterial->shader : shader);
-    // unlitCirno.Render(shader);
-    glCheckError();
+
+    if (monkeyMaterial != nullptr)
+        monkeyMaterial->Use();
+    monkey.Render(monkeyMaterial != nullptr ? monkeyMaterial->shader : shader);
 }
 
 void AssessmentGraphicalPolish::Process(float deltaTime)

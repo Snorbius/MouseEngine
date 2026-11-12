@@ -33,6 +33,7 @@ public:
     void SetPosition(glm::vec3 value);
     void Translate(glm::vec3 value);
     void SetScale(glm::vec3 value);
+    void SetScale(float uniformScale);
     void SetRotation(glm::vec3 value);
     void Rotate(glm::vec3 value);
 };

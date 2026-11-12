@@ -3,6 +3,7 @@
 
 #include "Shader.h"
 
+class Resource;
 class Texture;
 class BaseMesh;
 
@@ -19,7 +20,20 @@ private:
     
     std::vector<Shader*> allShaders;
     
+    std::map<std::string, Resource*> loadedResources;
+    
 public:
+    /** Registers a loaded resource in the asset manager. Used internally by the engine, not meant to be called manually */
+    void RegisterResource(const std::string& key, Resource* value) { loadedResources[key] = value; }
+
+    /**
+     * Fetches an already-loaded resource based on its file path. Use Resource::LoadResource to guarantee it gets loaded.
+     * Returns null if the resource at that path has not been loaded yet.
+     * @param filePath The path to the file.
+     * @return The resource, or null if there is none.
+     */
+    Resource* FetchResource(const std::string& filePath);
+    
     /**
      * Loads a shader based on the shader parameter. The 'unique' parameter determines if it should load a unique copy
      * of the shader. Use this whenever you want to make changes that should not be applied to every other copy of the
