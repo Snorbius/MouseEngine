@@ -2,7 +2,7 @@
 out vec4 FragColor;
 
 uniform vec4 u_color;
-uniform float u_texture_color_alpha = 0.5;
+uniform float u_texture_color_alpha = 0.0;
 
 uniform float ambientStrength = 0.20f;
 uniform vec3 sunDirection = vec3(0.7071067811865476, 0.7071067811865476, 0.0);

@@ -7,11 +7,6 @@ class Texture;
 
 class AssessmentGraphicalPolish: Object, Renderable
 {
-private:
-    Material* shadedCirnoMaterial;
-    Material* unlitCirnoMaterial;
-    Material* monkeyMaterial;
-    
 public:
     AssessmentGraphicalPolish();
     
