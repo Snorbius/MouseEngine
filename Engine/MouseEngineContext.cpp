@@ -205,10 +205,10 @@ void MouseEngineContext::EngineLoop()
         
         cube1.transform.SetRotation(glm::vec3(glfwGetTime() * 25));
 
-        for (auto element : Assets->GetAllLoadedShaders())
+        for (Shader* element : Assets->GetAllLoadedShaders())
         {
-            element.second->SetUniform("u_view", camera.GetView());
-            element.second->SetUniform("u_projection", camera.GetProjection());
+            element->SetUniform("u_view", camera.GetView());
+            element->SetUniform("u_projection", camera.GetProjection());
         }
         
         // sphere.Render(&shader);

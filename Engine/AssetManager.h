@@ -17,6 +17,8 @@ private:
     std::map<std::string, BaseMesh*> loadedMeshes;
     std::map<std::string, Texture*> loadedTextures;
     
+    std::vector<Shader*> allShaders;
+    
 public:
     /**
      * Loads a shader based on the shader parameter. The 'unique' parameter determines if it should load a unique copy
@@ -52,8 +54,8 @@ public:
     std::map<std::string, BaseMesh*> GetAllLoadedMeshes() { return loadedMeshes; }
 
     /**
-     * Get a map containing all loaded shaders.
+     * Get a list containing all loaded shaders.
      * @return The shaders.
      */
-    std::map<ShaderStruct, Shader*> GetAllLoadedShaders() { return loadedShaders; }
+    std::vector<Shader*> GetAllLoadedShaders() { return allShaders; }
 };

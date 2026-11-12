@@ -31,6 +31,8 @@ Shader* AssetManager::LoadShader(const ShaderStruct& shader, bool unique)
     if (!unique)
         loadedShaders[shader] = newShader;
     
+    allShaders.emplace_back(newShader);
+    
     return newShader;
 }
 
