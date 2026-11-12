@@ -166,10 +166,6 @@ void MouseEngineContext::EngineLoop()
         .fragmentPath = R"(Engine/Content/Shaders/basic_fragment.frag)"
     });
     
-    PyramidMesh cube1 = PyramidMesh();
-    cube1.transform.SetScale(glm::vec3(0.15f));
-    cube1.transform.SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-    
     BaseCamera camera = BaseCamera();
     camera.transform.SetPosition(glm::vec3(0, 0, 15));
     camera.transform.SetRotation({0, -90.0f, 0});
@@ -178,18 +174,12 @@ void MouseEngineContext::EngineLoop()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     
-    // glfwSetInputMode(contextWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    
-    SphereMesh sphere;
-    
-    Assessment3D collection;
-    
-    Texture tex = *Assets->LoadTexture(R"(Engine/Content/Textures/hampy.jpg)");
-    tex.Use();
-    
     AssessmentGraphicalPolish polish;
     
     MaterialCreator materialWindow;
+    
+    Input->SetMouseCaptured(true);
+    Input->SetMouseVisibility(false);
     
     while (!glfwWindowShouldClose(contextWindow))
     {
@@ -203,20 +193,13 @@ void MouseEngineContext::EngineLoop()
         glClear(GL_DEPTH_BUFFER_BIT);
         glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
-        cube1.transform.SetRotation(glm::vec3(glfwGetTime() * 25));
-
         for (Shader* element : Assets->GetAllLoadedShaders())
         {
             element->SetUniform("u_view", camera.GetView());
             element->SetUniform("u_projection", camera.GetProjection());
         }
         
-        // sphere.Render(&shader);
-        // cube1.Render(&shader);
-        
         polish.Render(&shader);
-        
-        // collection.Render(&shader);
         
         HandleProcess();
        
@@ -266,6 +249,12 @@ void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode
             house->SwapRoofColor();
         if (key == GLFW_KEY_F1)
             ToggleWireframe();
+    }
+    
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        Input->SetMouseCaptured(!Input->GetMouseCaptured());
+        Input->SetMouseVisibility(!Input->GetMouseVisible());
     }
 
     for (IKeyboardInputCallback* object : inputObjects)
