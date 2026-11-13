@@ -36,4 +36,5 @@ public:
     void SetScale(float uniformScale);
     void SetRotation(glm::vec3 value);
     void Rotate(glm::vec3 value);
+    void PointAt(glm::vec3 targetPosition);
 };

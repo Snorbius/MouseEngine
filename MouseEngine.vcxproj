@@ -218,9 +218,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Engine\Content\Materials\Basic.cheese" />
+    <Content Include="Engine\Content\Materials\MouseMaterial.cheese" />
     <Content Include="Engine\Content\Materials\UnlitCirno.cheese" />
     <Content Include="Engine\Content\Meshes\cirno.obj" />
+    <Content Include="Engine\Content\Meshes\homtdog.obj" />
     <Content Include="Engine\Content\Meshes\monkey.obj" />
+    <Content Include="Engine\Content\Meshes\mouse.obj" />
+    <Content Include="Engine\Content\Meshes\Safi.obj" />
+    <Content Include="Engine\Content\Meshes\sphere.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot_highres.obj" />
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
@@ -229,6 +234,8 @@
     <Content Include="Engine\Content\Textures\Cirno_256.png" />
     <Content Include="Engine\Content\Textures\hampy.jpg" />
     <Content Include="Engine\Content\Textures\hampy.png" />
+    <Content Include="Engine\Content\Textures\MouseTexture.png" />
+    <Content Include="Engine\Content\Textures\Safi.png" />
     <Content Include="Engine\imgui-docking\.editorconfig" />
     <Content Include="Engine\imgui-docking\.gitattributes" />
     <Content Include="Engine\imgui-docking\.gitignore" />

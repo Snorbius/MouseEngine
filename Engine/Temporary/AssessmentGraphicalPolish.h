@@ -14,6 +14,10 @@ public:
     MeshComponent shadedCirno;
     MeshComponent unlitCirno;
     MeshComponent monkey;
+    MeshComponent icoSphere;
+    MeshComponent mouse;
+    MeshComponent hotdog;
+    MeshComponent safi;
     
     void Render(Shader* shader) override;
     void Process(float deltaTime) override;

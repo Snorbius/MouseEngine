@@ -1,6 +1,7 @@
 ﻿#include "Transform.h"
 
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 Transform::Transform()
 {
@@ -65,4 +66,14 @@ void Transform::SetRotation(glm::vec3 value)
 void Transform::Rotate(glm::vec3 value)
 {
     SetRotation(rotation + value);
+}
+
+void Transform::PointAt(glm::vec3 targetPosition)
+{
+    if (targetPosition == position)
+        return;
+    
+    
+    glm::vec3 forwardVector = glm::normalize(targetPosition - position);
+    SetRotation(eulerAngles(glm::quatLookAt(forwardVector, glm::vec3(0, 1, 0))) * (180.0f/glm::pi<float>()));
 }
