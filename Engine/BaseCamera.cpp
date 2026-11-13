@@ -95,7 +95,8 @@ void BaseCamera::HandleMovement(float deltaTime)
 
 void BaseCamera::HandleLook(float deltaTime)
 {
-    if (!EngineContext->HasFocus())
+    if (!EngineContext->HasFocus()
+        || !(EngineContext->Input->GetMouseCaptured() && !EngineContext->Input->GetMouseVisible()))
         return;
     
     glm::vec2 mouseDelta = EngineContext->Input->GetDeltaMousePos();

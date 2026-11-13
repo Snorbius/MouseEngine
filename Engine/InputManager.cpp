@@ -21,6 +21,8 @@ void InputManager::UpdateMouseStatus()
         mode = GLFW_CURSOR_HIDDEN;
             
     glfwSetInputMode(window, GLFW_CURSOR, mode);
+    
+    glfwGetCursorPos(window, &lastMousePos.x, &lastMousePos.y);
 }
 
 void InputManager::Update()

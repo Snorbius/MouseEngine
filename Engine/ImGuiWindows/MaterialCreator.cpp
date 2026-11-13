@@ -53,7 +53,7 @@ void MaterialCreator::CreateMaterial()
     material.SaveToFile(filePath);
 }
 
-void MaterialCreator::DrawWindow()
+void MaterialCreator::Draw()
 {
     ImGui::SetNextWindowPos({0, 0}, ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize({400, 400}, ImGuiCond_FirstUseEver);

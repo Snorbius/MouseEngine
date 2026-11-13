@@ -21,6 +21,8 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "ImGuiWindows/EngineMenuBar.h"
+#include "ImGuiWindows/EngineUI.h"
 #include "ImGuiWindows/MaterialCreator.h"
 #include "Resources/Material.h"
 #include "Resources/Resource.h"
@@ -176,7 +178,7 @@ void MouseEngineContext::EngineLoop()
     
     AssessmentGraphicalPolish polish;
     
-    MaterialCreator materialWindow;
+    EngineUI engineUI;
     
     Input->SetMouseCaptured(true);
     Input->SetMouseVisibility(false);
@@ -187,7 +189,7 @@ void MouseEngineContext::EngineLoop()
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
         
-        materialWindow.DrawWindow();
+        engineUI.Draw();
         
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_DEPTH_BUFFER_BIT);

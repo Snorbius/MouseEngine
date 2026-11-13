@@ -21,5 +21,5 @@ private:
     void CreateMaterial();
     
 public:
-    void DrawWindow();
+    void Draw();
 };

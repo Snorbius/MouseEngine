@@ -152,6 +152,8 @@
     <ClCompile Include="Engine\imgui-docking\imgui_draw.cpp" />
     <ClCompile Include="Engine\imgui-docking\imgui_tables.cpp" />
     <ClCompile Include="Engine\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Engine\ImGuiWindows\EngineMenuBar.cpp" />
+    <ClCompile Include="Engine\ImGuiWindows\EngineUI.cpp" />
     <ClCompile Include="Engine\ImGuiWindows\MaterialCreator.cpp" />
     <ClCompile Include="Engine\InputManager.cpp" />
     <ClCompile Include="Engine\Interfaces\IKeyboardInputCallback.cpp" />
@@ -192,6 +194,8 @@
     <ClInclude Include="Engine\imgui-docking\imstb_rectpack.h" />
     <ClInclude Include="Engine\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Engine\imgui-docking\imstb_truetype.h" />
+    <ClInclude Include="Engine\ImGuiWindows\EngineMenuBar.h" />
+    <ClInclude Include="Engine\ImGuiWindows\EngineUI.h" />
     <ClInclude Include="Engine\ImGuiWindows\MaterialCreator.h" />
     <ClInclude Include="Engine\InputManager.h" />
     <ClInclude Include="Engine\Interfaces\IKeyboardInputCallback.h" />
