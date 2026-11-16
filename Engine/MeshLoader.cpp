@@ -148,12 +148,15 @@ BaseMesh* MeshLoader::LoadMeshExternalLoader(const std::string& meshPath)
         builder.normals.emplace_back(normal.X, normal.Y, normal.Z);
         builder.uvs.emplace_back(uv.X, uv.Y);
     }
+    
+    
 
     for (int i = 0; i < loader.LoadedIndices.size(); i += 3)
         builder.indices.emplace_back(loader.LoadedIndices[i + 0], loader.LoadedIndices[i + 1], loader.LoadedIndices[i + 2]);
     
     BaseMesh* mesh = new BaseMesh();
     mesh->useEbo = true;
+    mesh->meshName = loader.LoadedMeshes[0].MeshName;
     
     BuiltMeshData data = builder.BuildMesh();
     mesh->UpdateVertexData(data.vertexData, data.indices);
