@@ -12,11 +12,11 @@
 
 using namespace MouseLogs;
 
-Shader::Shader(const ShaderStruct& shader) : Shader(shader.vertexPath, shader.fragmentPath) { }
+Shader::Shader(const ShaderStruct& shader) : Shader(shader.vertexPath, shader.fragmentPath, false) { }
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath, bool readAsSource)
 {
-    Initialize(vertexPath, fragmentPath);
+    Initialize(vertexPath, fragmentPath, readAsSource);
 }
 
 std::string Shader::ReadFile(const std::string& input)
@@ -76,13 +76,13 @@ int Shader::GetUniformIndex(const std::string& name)
     return index;
 }
 
-int Shader::Initialize(const std::string& vertexPath, const std::string& fragmentPath)
+int Shader::Initialize(const std::string& vertexPath, const std::string& fragmentPath, bool readAsSource)
 {
     int result;
     char log[512];
     
-    std::string vertexSource = ReadFile(vertexPath);
-    std::string fragmentSource = ReadFile(fragmentPath);
+    std::string vertexSource = readAsSource ? vertexPath : ReadFile(vertexPath);
+    std::string fragmentSource = readAsSource ? fragmentPath : ReadFile(fragmentPath);
     unsigned int vertexShader = LoadShader(vertexSource.c_str(), GL_VERTEX_SHADER);
     unsigned int fragmentShader = LoadShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
     

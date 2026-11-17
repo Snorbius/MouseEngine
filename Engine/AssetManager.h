@@ -45,6 +45,15 @@ public:
     Shader* LoadShader(const ShaderStruct& shader, bool unique = false);
 
     /**
+     * Registers a shader into the asset manager. Registered shaders will automatically get certain uniforms
+     * (like view and perspective matrix) set.
+     * Note: This should only be used in a scenario where you construct a shader manually, loading a shader through 
+     * AssetManager::LoadShader will automatically register it.
+     * @param shader Shader to register.
+     */
+    void RegisterShader(Shader* shader);
+    
+    /**
      * Loads a mesh from a mesh file. The 'unique' parameter can be used if you plan to alter the mesh data 
      * during run-time.
      * @param meshPath The path to the mesh file.

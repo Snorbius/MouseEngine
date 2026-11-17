@@ -3,6 +3,7 @@
 #include "BaseMesh.h"
 #include "MeshLoader.h"
 #include "Texture.h"
+#include "Resources/Material.h"
 
 AssetManager::~AssetManager()
 {
@@ -20,6 +21,8 @@ AssetManager::~AssetManager()
         if (texture.second != nullptr)
             delete texture.second;
     loadedTextures.clear();
+    
+    Material::CleanUp();
 }
 
 Resource* AssetManager::FetchResource(const std::string& filePath)
@@ -39,6 +42,13 @@ Shader* AssetManager::LoadShader(const ShaderStruct& shader, bool unique)
     allShaders.emplace_back(newShader);
     
     return newShader;
+}
+
+void AssetManager::RegisterShader(Shader* shader)
+{
+    if (shader == nullptr)
+        return;
+    allShaders.push_back(shader);
 }
 
 BaseMesh* AssetManager::LoadMesh(const std::string& meshPath, bool unique)

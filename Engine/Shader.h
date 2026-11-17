@@ -28,7 +28,7 @@ class Shader
 {
 public:
     Shader(const ShaderStruct& shader);
-    Shader(const std::string& vertexPath, const std::string& fragmentPath);
+    Shader(const std::string& vertexPath, const std::string& fragmentPath, bool readAsSource = false);
 
 private:
     unsigned int programId = 0;
@@ -48,7 +48,7 @@ public:
      * @param fragmentPath Path to the fragment shader
      * @return 0 if successful, -1 otherwise
      */
-    int Initialize(const std::string& vertexPath, const std::string& fragmentPath);
+    int Initialize(const std::string& vertexPath, const std::string& fragmentPath, bool readAsSource = false);
 
     /** Sets the specified uniform with the specified value. It is NOT necessary to bind the shader first.
      * You can probably figure out the value type based on the parameters :)) */

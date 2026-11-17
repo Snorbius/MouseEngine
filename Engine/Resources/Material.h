@@ -4,9 +4,13 @@
 class Texture;
 class Shader;
 
+
+
+
 class Material: public Resource
 {
-protected:
+private:
+    static Material* fallbackMaterial;
     
 public:
     Shader* shader;
@@ -17,4 +21,7 @@ public:
     void InitializeResource() override;
     
     void Use();
+    
+    static Material* GetFallbackMaterial();
+    static void CleanUp();
 };
