@@ -9,26 +9,26 @@
 AssessmentGraphicalPolish::AssessmentGraphicalPolish()
 {
     shadedCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
-    shadedCirno.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
+    shadedCirno.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
     
     unlitCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
     // unlitCirno.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/UnlitCirno.cheese)");
-    unlitCirno.material = Material::GetFallbackMaterial();
+    unlitCirno.SetMaterial(Material::GetFallbackMaterial());
     
     monkey.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/monkey.obj");
-    monkey.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
+    monkey.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
     
     icoSphere.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/sphere.obj");
-    icoSphere.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
+    icoSphere.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
     
     mouse.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/mouse.obj");
-    mouse.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/MouseMaterial.cheese)");
+    mouse.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/MouseMaterial.cheese)"));
     
     hotdog.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/homtdog.obj");
-    hotdog.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)");
+    hotdog.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
     
     safi.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/mouse.obj");
-    safi.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/SafiMaterial.cheese)");
+    safi.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/SafiMaterial.cheese)"));
     
     shadedCirno.transform.SetPosition({3, -2, 0});
     shadedCirno.transform.SetScale(2);
@@ -48,19 +48,6 @@ AssessmentGraphicalPolish::AssessmentGraphicalPolish()
     
     safi.transform.SetPosition({0, 0, -15});
     safi.transform.SetScale(8);
-}
-
-void AssessmentGraphicalPolish::Render(Shader* shader)
-{
-    shadedCirno.Render(shader);
-    unlitCirno.Render(shader);
-    monkey.Render(shader);
-    icoSphere.Render(shader);
-    mouse.Render(shader);
-    hotdog.Render(shader);
-    safi.Render(shader);
-    
-    Renderable::RenderObject("Mouse", hotdog.transform, shader);
 }
 
 void AssessmentGraphicalPolish::Process(float deltaTime)

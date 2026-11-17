@@ -5,6 +5,7 @@
 
 #include "AssetManager.h"
 #include "BaseCamera.h"
+#include "BaseRenderer.h"
 #include "InputManager.h"
 #include "Object.h"
 #include "Shader.h"
@@ -30,6 +31,8 @@
 
 MouseEngineContext::MouseEngineContext()
 {
+    engineContextInstance = this;
+    
     // Order is important
     if (!InitialiseGLFW())
         return;
@@ -40,12 +43,13 @@ MouseEngineContext::MouseEngineContext()
         return;
 #endif
     InitialiseImGui();
-    
-    house = new AssessmentHouse();
 
     Time = new TimeManager();
     Input = new InputManager(contextWindow);
     Assets = new AssetManager();
+    Renderer = new BaseRenderer();
+    
+    house = new AssessmentHouse();
 
     print_debug_line("Engine context created");
 }
@@ -60,6 +64,7 @@ MouseEngineContext::~MouseEngineContext()
     delete Time;
     delete Input;
     delete Assets;
+    delete Renderer;
 }
 
 MouseEngineContext* MouseEngineContext::GetInstance()
@@ -183,6 +188,12 @@ void MouseEngineContext::EngineLoop()
     Input->SetMouseCaptured(true);
     Input->SetMouseVisibility(false);
     
+    MeshComponent test(
+        Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"),
+        nullptr
+    );
+    test.transform.SetScale(4);
+    
     while (!glfwWindowShouldClose(contextWindow))
     {
         ImGui_ImplGlfw_NewFrame();
@@ -201,7 +212,9 @@ void MouseEngineContext::EngineLoop()
             element->SetUniform("u_projection", camera.GetProjection());
         }
         
-        polish.Render(&shader);
+        Renderer->RenderScreen();
+        
+        // test.Render(nullptr);
         
         HandleProcess();
        

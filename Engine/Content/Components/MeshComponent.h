@@ -5,12 +5,20 @@
 
 class Material;
 
-class MeshComponent: Renderable
+class MeshComponent: public Renderable
 {
 public:
-    BaseMesh* mesh;
+    MeshComponent();
+    MeshComponent(BaseMesh* aMesh, Material* aMaterial);
+    
+private:
+    Material* material = nullptr;
+    
+public:
+    BaseMesh* mesh = nullptr;
     Transform transform;
-    Material* material;
     
     void Render(Shader* shader) override;
+    Material* GetMaterial() const { return material; }
+    void SetMaterial(Material* newMaterial);
 };

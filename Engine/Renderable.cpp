@@ -3,7 +3,13 @@
 #include <format>
 
 #include "AssetManager.h"
+#include "BaseRenderer.h"
 #include "MouseEngineContext.h"
+
+Renderable::~Renderable()
+{
+    MouseEngineContext::GetInstance()->Renderer->UnregisterRenderable(this);
+}
 
 void Renderable::RenderObject(std::string name, Transform transform, Shader* shader)
 {

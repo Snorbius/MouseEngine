@@ -5,7 +5,7 @@
 class Material;
 class Texture;
 
-class AssessmentGraphicalPolish: Object, Renderable
+class AssessmentGraphicalPolish: public Object
 {
 public:
     AssessmentGraphicalPolish();
@@ -19,6 +19,5 @@ public:
     MeshComponent hotdog;
     MeshComponent safi;
     
-    void Render(Shader* shader) override;
     void Process(float deltaTime) override;
 };

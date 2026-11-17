@@ -34,6 +34,8 @@ void Material::Use()
         shader->Use();
     if (texture != nullptr)
         texture->Use();
+    else
+        glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Material* Material::GetFallbackMaterial()

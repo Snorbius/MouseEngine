@@ -18,7 +18,7 @@ private:
     std::map<std::string, BaseMesh*> loadedMeshes;
     std::map<std::string, Texture*> loadedTextures;
     
-    std::vector<Shader*> allShaders;
+    std::vector<Shader*> allShaders = {};
     
     std::map<std::string, Resource*> loadedResources;
     

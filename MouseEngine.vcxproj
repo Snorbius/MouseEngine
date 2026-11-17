@@ -140,6 +140,7 @@
     <ClCompile Include="Engine\AssetManager.cpp" />
     <ClCompile Include="Engine\BaseMesh.cpp" />
     <ClCompile Include="Engine\BaseCamera.cpp" />
+    <ClCompile Include="Engine\BaseRenderer.cpp" />
     <ClCompile Include="Engine\Content\Components\MeshComponent.cpp" />
     <ClCompile Include="Engine\Content\Meshes\CubeMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Engine\AssetManager.h" />
     <ClInclude Include="Engine\BaseMesh.h" />
     <ClInclude Include="Engine\BaseCamera.h" />
+    <ClInclude Include="Engine\BaseRenderer.h" />
     <ClInclude Include="Engine\Content\Components\MeshComponent.h" />
     <ClInclude Include="Engine\Content\Meshes\CubeMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />

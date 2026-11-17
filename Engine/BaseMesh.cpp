@@ -95,7 +95,6 @@ BaseMesh::~BaseMesh()
 
 void BaseMesh::Render(Shader* shader)
 {
-    shader->Use();
     glBindVertexArray(vao);
     
     if (useEbo)
