@@ -36,6 +36,8 @@ public:
     
     BaseCamera* activeCamera; 
     
+    int numPlayers = 1;
+    
 private:
     GLFWwindow* contextWindow = nullptr;
     AssessmentHouse* house;

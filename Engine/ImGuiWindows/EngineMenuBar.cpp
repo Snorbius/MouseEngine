@@ -2,6 +2,7 @@
 
 #include "EngineUI.h"
 #include "imgui.h"
+#include "../MouseEngineContext.h"
 
 EngineMenuBar::EngineMenuBar(EngineUI* root)
 {
@@ -15,6 +16,18 @@ void EngineMenuBar::Draw()
         if (ImGui::BeginMenu("Window"))
         {
             ImGui::MenuItem("Material", nullptr, &root->showMaterialWindow);
+            
+            ImGui::EndMenu();
+        }
+        
+        if (ImGui::BeginMenu("Players"))
+        {
+            if (ImGui::BeginMenu("Amount"))
+            {
+                ImGui::SliderInt("Number of players", &MouseEngineContext::GetInstance()->numPlayers, 1, 4);
+                
+                ImGui::EndMenu();
+            }
             
             ImGui::EndMenu();
         }

@@ -214,8 +214,32 @@ void MouseEngineContext::EngineLoop()
             element->SetUniform("u_view", camera.GetView());
             element->SetUniform("u_projection", camera.GetProjection());
         }
+
+        if (numPlayers > 1)
+        {
+            int rows = static_cast<int>(ceil(sqrt(numPlayers - 1)));
+            int columns = static_cast<int>(ceil(sqrt(numPlayers)));
+            int viewportWidth = framebufferSize.x / columns;
+            int viewportHeight = framebufferSize.y / rows;
+            
+            for (int i = 0; i < numPlayers; ++i)
+            {
+                int x = viewportWidth * (i % columns);
+                // int y = viewportHeight * (i % columns * columns);
+                int y = viewportHeight * floor((i / columns));
+                
+                activeCamera->SetAspectRatio(static_cast<float>(viewportWidth), static_cast<float>(viewportHeight));
+                Renderer->SetViewportDimensions(x, y, viewportWidth, viewportHeight);
+                Renderer->RenderScreen();
+            }
+        }
+        else
+        {
+            activeCamera->SetAspectRatio(static_cast<float>(framebufferSize.x), static_cast<float>(framebufferSize.y));
+            Renderer->SetViewportDimensions(0, 0, framebufferSize.x, framebufferSize.y);
+            Renderer->RenderScreen();
+        }
         
-        Renderer->RenderScreen();
         
         HandleProcess();
        
