@@ -2,8 +2,17 @@
 
 #include "Resources/Material.h"
 
+void BaseRenderer::ClearScreen()
+{
+    glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
+}
+
 void BaseRenderer::RenderScreen()
 {
+    ClearScreen();
+    
     for (std::pair<Material* const, std::vector<Renderable*>>& vectorElement : objectsToRender)
     {
         vectorElement.first->Use();
@@ -48,4 +57,20 @@ void BaseRenderer::UnregisterRenderable(Renderable* renderable)
     
     if (index != v.end())
         v.erase(index);
+}
+
+void BaseRenderer::SetClearColor(glm::vec4 color)
+{
+    clearColor = color;
+}
+
+void BaseRenderer::SetViewportDimensions(int x, int y, int width, int height)
+{
+    viewport.x = x;
+    viewport.y = y;
+    viewport.z = width;
+    viewport.w = height;
+    
+    glViewport(x, y, width, height);
+    glScissor(x, y, width, height);
 }

@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class BaseCamera;
 class BaseRenderer;
 class AssetManager;
 class InputManager;
@@ -31,6 +32,10 @@ public:
     std::vector<Object*> processObjects;
     std::vector<IKeyboardInputCallback*> inputObjects;
     
+    glm::ivec2 framebufferSize = glm::ivec2(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+    
+    BaseCamera* activeCamera; 
+    
 private:
     GLFWwindow* contextWindow = nullptr;
     AssessmentHouse* house;
@@ -48,6 +53,8 @@ protected:
     static inline MouseEngineContext* engineContextInstance;
     static void StaticInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     void InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static void StaticResizeCallback(GLFWwindow* window, int width, int height);
+    void ResizeCallback(GLFWwindow* window, int width, int height);
     
     MouseEngineContext();
     ~MouseEngineContext();

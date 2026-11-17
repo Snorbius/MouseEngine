@@ -95,6 +95,7 @@ bool MouseEngineContext::InitialiseGLFW()
     glfwMakeContextCurrent(contextWindow);
     
     glfwSetKeyCallback(contextWindow, StaticInputCallback);
+    glfwSetFramebufferSizeCallback(contextWindow, StaticResizeCallback);
     
     return true;
 }
@@ -177,6 +178,7 @@ void MouseEngineContext::EngineLoop()
     camera.transform.SetPosition(glm::vec3(0, 0, 15));
     camera.transform.SetRotation({0, -90.0f, 0});
     camera.SetAspectRatio(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+    activeCamera = &camera;
     
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -196,15 +198,16 @@ void MouseEngineContext::EngineLoop()
     
     while (!glfwWindowShouldClose(contextWindow))
     {
+        glDisable(GL_SCISSOR_TEST);
+        Renderer->SetClearColor(glm::vec4(1.0f, 0.9f, 1.0f, 1.0f));
+        Renderer->ClearScreen();
+        glEnable(GL_SCISSOR_TEST);
+        
         ImGui_ImplGlfw_NewFrame();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
         
         engineUI.Draw();
-        
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClear(GL_DEPTH_BUFFER_BIT);
-        glClearColor(1.0f, 0.9f, 1.0f, 1.0f);
         
         for (Shader* element : Assets->GetAllLoadedShaders())
         {
@@ -213,8 +216,6 @@ void MouseEngineContext::EngineLoop()
         }
         
         Renderer->RenderScreen();
-        
-        // test.Render(nullptr);
         
         HandleProcess();
        
@@ -275,6 +276,21 @@ void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode
     for (IKeyboardInputCallback* object : inputObjects)
         if (object != nullptr)
             object->InputCallback(window, key, scancode, action, mods);
+}
+
+void MouseEngineContext::StaticResizeCallback(GLFWwindow* window, int width, int height)
+{
+    engineContextInstance->ResizeCallback(window, width, height);
+}
+
+void MouseEngineContext::ResizeCallback(GLFWwindow* window, int width, int height)
+{
+    framebufferSize.x = width;
+    framebufferSize.y = height;
+    
+    Renderer->SetViewportDimensions(0, 0, width, height);
+    if (activeCamera != nullptr)
+        activeCamera->SetAspectRatio(static_cast<float>(width), static_cast<float>(height));
 }
 
 void MouseEngineContext::StaticInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
