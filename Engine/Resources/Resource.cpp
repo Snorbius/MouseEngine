@@ -10,7 +10,10 @@ void Resource::AddValue(std::string key, std::string value, bool override)
     if (override && values.contains(key))
         return;
     
-    values[key] = value;
+    if (!values.contains(key))
+        values[key] = {};
+    
+    values[key].push_back(value);
 }
 
 void Resource::SaveToFile(std::string path)
@@ -36,8 +39,9 @@ void Resource::SaveToFile(std::string path)
     
     matFile << GetResourceIdentifier() << "\n";
 
-    for (std::pair<const std::string, std::string>& pair : values)
-        matFile << std::format("{}:{}", pair.first, pair.second) << "\n";
+    for (std::pair<const std::string, std::vector<std::string>>& pair : values)
+        for (const std::string& entry : pair.second)
+            matFile << std::format("{}:{}", pair.first, entry) << "\n";
     
     matFile.close();
 }

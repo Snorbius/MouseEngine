@@ -16,9 +16,9 @@ void Material::InitializeResource()
     
     MouseEngineContext* engineContext = MouseEngineContext::GetInstance();
     
-    std::string vertexPath = values["vertexPath"];
-    std::string fragmentPath = values["fragmentPath"];
-    std::string texturePath = values.contains("texturePath") ? values["texturePath"] : "";
+    std::string vertexPath = values["vertexPath"][0];
+    std::string fragmentPath = values["fragmentPath"][0];
+    std::string texturePath = values.contains("texturePath") ? values["texturePath"][0] : "";
     
     shader = engineContext->Assets->LoadShader({vertexPath, fragmentPath});
     if (!texturePath.empty())

@@ -18,7 +18,7 @@ public:
 private:
     
 public:
-    std::map<std::string, std::string> values;
+    std::map<std::string, std::vector<std::string>> values;
 
     /**
      * Fetches a resource identifier for a specific resource type. This is meant to be overriden for each resource subclass.
@@ -35,6 +35,7 @@ public:
     
     /**
      * Virtual function called when a resource has been loaded. Should likely never be called manually.
+     * The "values" map has been populated at this point and is meant to be used during initialization.
      */
     virtual void InitializeResource() = 0;
     
