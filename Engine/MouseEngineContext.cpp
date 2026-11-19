@@ -2,29 +2,26 @@
 
 #include <algorithm>
 #include <format>
+#include <utility>
 
 #include "AssetManager.h"
 #include "BaseCamera.h"
 #include "BaseRenderer.h"
+#include "FlyingPlayer.h"
+#include "FlyingPlayerWithCamera.h"
 #include "InputManager.h"
 #include "Object.h"
 #include "Shader.h"
 #include "Texture.h"
-#include "Content/Meshes/CubeMesh.h"
-#include "Content/Meshes/PyramidMesh.h"
 #include "Temporary/AssessmentHouse.h"
 #include "TimeManager.h"
-#include "Content/Meshes/SphereMesh.h"
 #include "Interfaces/IKeyboardInputCallback.h"
-#include "Temporary/Assessment3D.h"
 #include "Temporary/AssessmentGraphicalPolish.h"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "ImGuiWindows/EngineMenuBar.h"
 #include "ImGuiWindows/EngineUI.h"
-#include "ImGuiWindows/MaterialCreator.h"
 #include "Resources/Material.h"
 #include "Resources/Resource.h"
 
@@ -65,6 +62,12 @@ MouseEngineContext::~MouseEngineContext()
     delete Input;
     delete Assets;
     delete Renderer;
+
+    for (int i = static_cast<int>(players.size()) - 1; i >= 0; --i)
+    {
+        delete players[i];
+    }
+    players.clear();
 }
 
 MouseEngineContext* MouseEngineContext::GetInstance()
@@ -174,11 +177,11 @@ void MouseEngineContext::EngineLoop()
         .fragmentPath = R"(Engine/Content/Shaders/basic_fragment.frag)"
     });
     
-    BaseCamera camera = BaseCamera();
-    camera.transform.SetPosition(glm::vec3(0, 0, 15));
-    camera.transform.SetRotation({0, -90.0f, 0});
-    camera.SetAspectRatio(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
-    activeCamera = &camera;
+    // BaseCamera camera = BaseCamera();
+    // camera.transform.SetPosition(glm::vec3(0, 0, 15));
+    // camera.transform.SetRotation({0, -90.0f, 0});
+    // camera.SetAspectRatio(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+    // activeCamera = &camera;
     
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -209,12 +212,26 @@ void MouseEngineContext::EngineLoop()
         
         engineUI.Draw();
         
-        for (Shader* element : Assets->GetAllLoadedShaders())
+        // Handle player amount
+        if (std::cmp_less(players.size(), numPlayers))
         {
-            element->SetUniform("u_view", camera.GetView());
-            element->SetUniform("u_projection", camera.GetProjection());
+            for (int i = static_cast<int>(players.size()); i < numPlayers; ++i)
+            {
+                FlyingPlayerWithCamera* newPlayer = new FlyingPlayerWithCamera();
+                newPlayer->SetInputMode(i % 2 == 0 ? WASD : ARROWS);
+                players.push_back(newPlayer);
+            }
         }
-
+        if (std::cmp_greater(players.size(), numPlayers))
+        {
+            for (int i = static_cast<int>(players.size()) - 1; i >= numPlayers; --i)
+            {
+                delete players[i];
+                players.erase(players.begin() + i);
+            }
+        }
+        
+        
         if (numPlayers > 1)
         {
             int rows = static_cast<int>(ceil(sqrt(numPlayers - 1)));
@@ -228,14 +245,21 @@ void MouseEngineContext::EngineLoop()
                 // int y = viewportHeight * (i % columns * columns);
                 int y = viewportHeight * floor((i / columns));
                 
-                activeCamera->SetAspectRatio(static_cast<float>(viewportWidth), static_cast<float>(viewportHeight));
+                
+                players[i]->playerCamera->MakeActive();
+                    
+                if (activeCamera != nullptr)
+                    activeCamera->SetAspectRatio(static_cast<float>(viewportWidth), static_cast<float>(viewportHeight));
                 Renderer->SetViewportDimensions(x, y, viewportWidth, viewportHeight);
                 Renderer->RenderScreen();
             }
         }
         else
         {
-            activeCamera->SetAspectRatio(static_cast<float>(framebufferSize.x), static_cast<float>(framebufferSize.y));
+            players[0]->playerCamera->MakeActive();
+            
+            if (activeCamera != nullptr)
+                activeCamera->SetAspectRatio(static_cast<float>(framebufferSize.x), static_cast<float>(framebufferSize.y));
             Renderer->SetViewportDimensions(0, 0, framebufferSize.x, framebufferSize.y);
             Renderer->RenderScreen();
         }
@@ -260,6 +284,15 @@ void MouseEngineContext::EngineLoop()
 void MouseEngineContext::RegisterForInput(IKeyboardInputCallback* object)
 {
     inputObjects.emplace_back(object);
+}
+
+void MouseEngineContext::UnregisterForInput(IKeyboardInputCallback* object)
+{
+    auto index = std::ranges::find(inputObjects, object);
+    if (index == inputObjects.end())
+        return;
+    
+    inputObjects.erase(index);
 }
 
 void MouseEngineContext::RegisterForProcess(Object* object)

@@ -1,6 +1,12 @@
 ﻿#include "BaseRenderer.h"
 
+#include "BaseCamera.h"
 #include "Resources/Material.h"
+
+BaseRenderer::BaseRenderer()
+{
+    EngineContext = MouseEngineContext::GetInstance();
+}
 
 void BaseRenderer::ClearScreen()
 {
@@ -12,6 +18,15 @@ void BaseRenderer::ClearScreen()
 void BaseRenderer::RenderScreen()
 {
     ClearScreen();
+    
+    if (EngineContext->activeCamera != nullptr)
+    {
+        for (Shader* element : EngineContext->Assets->GetAllLoadedShaders())
+        {
+            element->SetUniform("u_view", EngineContext->activeCamera->GetView());
+            element->SetUniform("u_projection", EngineContext->activeCamera->GetProjection());
+        }
+    }
     
     for (std::pair<Material* const, std::vector<Renderable*>>& vectorElement : objectsToRender)
     {

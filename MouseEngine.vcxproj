@@ -141,11 +141,14 @@
     <ClCompile Include="Engine\BaseMesh.cpp" />
     <ClCompile Include="Engine\BaseCamera.cpp" />
     <ClCompile Include="Engine\BaseRenderer.cpp" />
+    <ClCompile Include="Engine\CameraBoom.cpp" />
     <ClCompile Include="Engine\Content\Components\MeshComponent.cpp" />
     <ClCompile Include="Engine\Content\Meshes\CubeMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\SphereMesh.cpp" />
     <ClCompile Include="Engine\Content\Meshes\TriangleMesh.cpp" />
+    <ClCompile Include="Engine\FlyingPlayer.cpp" />
+    <ClCompile Include="Engine\FlyingPlayerWithCamera.cpp" />
     <ClCompile Include="Engine\imgui-docking\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="Engine\imgui-docking\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Engine\imgui-docking\imgui.cpp" />
@@ -163,6 +166,7 @@
     <ClCompile Include="Engine\MeshLoader.cpp" />
     <ClCompile Include="Engine\MouseEngineContext.cpp" />
     <ClCompile Include="Engine\Object.cpp" />
+    <ClCompile Include="Engine\Object3D.cpp" />
     <ClCompile Include="Engine\Renderable.cpp" />
     <ClCompile Include="Engine\Resources\Material.cpp" />
     <ClCompile Include="Engine\Resources\Resource.cpp" />
@@ -182,11 +186,14 @@
     <ClInclude Include="Engine\BaseMesh.h" />
     <ClInclude Include="Engine\BaseCamera.h" />
     <ClInclude Include="Engine\BaseRenderer.h" />
+    <ClInclude Include="Engine\CameraBoom.h" />
     <ClInclude Include="Engine\Content\Components\MeshComponent.h" />
     <ClInclude Include="Engine\Content\Meshes\CubeMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\SphereMesh.h" />
     <ClInclude Include="Engine\Content\Meshes\TriangleMesh.h" />
+    <ClInclude Include="Engine\FlyingPlayer.h" />
+    <ClInclude Include="Engine\FlyingPlayerWithCamera.h" />
     <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_glfw.h" />
     <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
@@ -206,6 +213,7 @@
     <ClInclude Include="Engine\MeshLoader.h" />
     <ClInclude Include="Engine\MouseEngineContext.h" />
     <ClInclude Include="Engine\Object.h" />
+    <ClInclude Include="Engine\Object3D.h" />
     <ClInclude Include="Engine\Renderable.h" />
     <ClInclude Include="Engine\Resources\Material.h" />
     <ClInclude Include="Engine\Resources\Resource.h" />

@@ -1,6 +1,5 @@
 ﻿#include "BaseCamera.h"
 
-#include <algorithm>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
@@ -10,6 +9,8 @@
 BaseCamera::BaseCamera()
 {
     EngineContext->RegisterForInput(this);
+    SetProcessEnabled(false);
+    EngineContext->activeCamera = this;
 }
 
 glm::mat4 BaseCamera::GetView() const
@@ -62,58 +63,9 @@ void BaseCamera::SetAspectRatio(float ratio)
     aspectRatio = ratio;
 }
 
-void BaseCamera::HandleMovement(float deltaTime)
+void BaseCamera::MakeActive()
 {
-    glm::vec3 move = glm::vec3(0.0f);
-    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_W))
-        move.z += 1.0f;
-    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_S))
-        move.z -= 1.0f;
-    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_D))
-        move.x += 1.0f;
-    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_A))
-        move.x -= 1.0f;
-    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_SPACE))
-        move.y += 1.0f;
-    if (EngineContext->Input->IsKeyPressedDown(GLFW_KEY_LEFT_CONTROL))
-        move.y -= 1.0f;
-
-    if (glm::length(move) < 0.01)
-        return;
-
-    const float speed = 10.0f;
-
-    glm::vec3 moveVector = glm::vec3(0.0f);
-    moveVector += move.x * transform.GetRight();
-    moveVector += move.y * transform.GetUp();
-    moveVector += move.z * transform.GetForward();
-
-    moveVector = glm::normalize(moveVector);
-
-    transform.Translate(moveVector * speed * deltaTime);
-}
-
-void BaseCamera::HandleLook(float deltaTime)
-{
-    if (!EngineContext->HasFocus()
-        || !(EngineContext->Input->GetMouseCaptured() && !EngineContext->Input->GetMouseVisible()))
-        return;
-    
-    glm::vec2 mouseDelta = EngineContext->Input->GetDeltaMousePos();
-
-    const float sens = 7.5f;
-    
-    float xRot = transform.GetRotation().x - mouseDelta.y * sens * deltaTime;
-    xRot = std::clamp(xRot, -80.0f, 80.0f);
-    float yRot = transform.GetRotation().y + mouseDelta.x * sens * deltaTime;
-    
-    transform.SetRotation({xRot, yRot, 0});
-}
-
-void BaseCamera::Process(float deltaTime)
-{
-    HandleMovement(deltaTime);
-    HandleLook(deltaTime);
+    EngineContext->activeCamera = this;
 }
 
 bool BaseCamera::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

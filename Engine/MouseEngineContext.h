@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class FlyingPlayerWithCamera;
 class BaseCamera;
 class BaseRenderer;
 class AssetManager;
@@ -43,6 +44,8 @@ private:
     AssessmentHouse* house;
     bool wireframe = false;
     
+    std::vector<FlyingPlayerWithCamera*> players;
+    
     bool InitialiseGLFW();
     bool InitialiseGLAD();
     bool InitialiseDebugContext();
@@ -77,6 +80,12 @@ public:
      */
     void RegisterForInput(IKeyboardInputCallback* object);
 
+    /**
+     * Unregisters an object for keyboard input callbacks.
+     * @param object The object to unregister.
+     */
+    void UnregisterForInput(IKeyboardInputCallback* object);
+    
     /**
      * Registers the object to receive a process call every engine tick.
      * NOTE: This should not be called manually, use Object::SetProcessEnabled instead.

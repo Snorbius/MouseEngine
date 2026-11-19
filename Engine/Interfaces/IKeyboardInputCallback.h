@@ -5,7 +5,9 @@ struct GLFWwindow;
 class IKeyboardInputCallback
 {
 public:
-    virtual ~IKeyboardInputCallback() {}
+    
+public:
+    virtual ~IKeyboardInputCallback();
     
     /** Called when the player performs a keyboard input. You must first register the object for input, 
      * see EngineContext::RegisterForInput.

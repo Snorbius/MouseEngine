@@ -20,5 +20,5 @@ public:
     bool GetProcessEnabled() const { return processEnabled; }
     
     /** Called every engine tick if process is enabled. */
-    virtual void Process(float deltaTime) = 0;
+    virtual void Process(float deltaTime) {}
 };

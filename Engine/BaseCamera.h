@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "Object.h"
+#include "Object3D.h"
 #include "Transform.h"
 #include "Interfaces/IKeyboardInputCallback.h"
 
-class BaseCamera: public Object, IKeyboardInputCallback
+class BaseCamera: public Object3D, IKeyboardInputCallback
 {
 public:
     BaseCamera();
@@ -16,12 +16,7 @@ private:
     float farPlane = 100.0f;
     bool orthographic = false;
     
-    void HandleMovement(float deltaTime);
-    void HandleLook(float deltaTime);
-    
 public:
-    Transform transform;
-    
     /** Get the current field of view for this camera. Only has an effect if the camera is in perspective mode (not orthographic). */
     float GetFov() const { return fov; }
     /** Get the current aspect ratio for this camera. */
@@ -40,7 +35,8 @@ public:
     void SetAspectRatio(float ratio);
     void SetAspectRatio(float width, float height) { SetAspectRatio(width / height); }
     
-    void Process(float deltaTime) override;
+    /** Sets this camera to the currently active one */
+    void MakeActive();
     
     bool InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) override;
 };

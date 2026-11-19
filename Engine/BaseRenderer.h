@@ -3,12 +3,18 @@
 #include <vector>
 #include <glm/vec4.hpp>
 
+class MouseEngineContext;
 class Renderable;
 class Material;
 
 class BaseRenderer
 {
+public:
+    BaseRenderer();
+    
 private:
+    MouseEngineContext* EngineContext;
+    
     std::map<Material*, std::vector<Renderable*>> objectsToRender;
     std::map<Renderable*, Material*> renderableMaterialMap;
     
