@@ -26,6 +26,12 @@ public:
      * @return The unique resource identifier
      */
     virtual std::string GetResourceIdentifier() { return "BaseResource"; }
+
+    /**
+     * Fetches a resources unique file ending. This is meant to be overriden for each resource subclass.
+     * @return The file ending for the specific resource.
+     */
+    virtual std::string GetResourceFileEnding() { return "cheese"; }
     
     /**
      * Virtual function called when a resource has been loaded. Should likely never be called manually.
@@ -41,8 +47,8 @@ public:
     void AddValue(std::string key, std::string value, bool override = false);
 
     /**
-     * Saves this resource as a file at the given location. All resource files will be appended with ".cheese" if the 
-     * path does not already include it. 
+     * Saves this resource as a file at the given location. All resource files will be appended with 
+     * whatever GetResourceFileEnding returns if the path does not already include it.
      * Does not currently support overriding existing files.
      * @param path The path to the file.
      */
@@ -63,10 +69,12 @@ public:
         if (!std::filesystem::exists(filePath))
             print_line(std::format("Could not find specified file: {}", filePath));
         
-        if (!filePath.ends_with(".cheese"))
+        res = new T();
+        
+        if (!filePath.ends_with("." + res->GetResourceFileEnding()))
         {
-            print_warning("You are trying to load a resource file that does not end with .cheese. "
-                                     "Make sure that this is what you want.");
+            print_warning(std::format("You are trying to load a resource file that does not end with the correct file format ({}) "
+                                     "Make sure that this is what you want.", "." + res->GetResourceFileEnding()));
         }
             
         std::fstream file(filePath);
@@ -74,11 +82,10 @@ public:
         if (!file.is_open())
         {
             print_warning(std::format("Could not open file located at: {}", filePath));
+            delete res;
             return nullptr;
         }
         
-        res = new T();
-            
         std::string line;
         while (std::getline(file, line))
         {

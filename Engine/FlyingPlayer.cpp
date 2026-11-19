@@ -9,7 +9,7 @@
 FlyingPlayer::FlyingPlayer()
 {
     playerMesh.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/sphere.obj");
-    playerMesh.SetMaterial(Material::LoadResource<Material>("Engine/Content/Materials/MouseMaterial.cheese"));
+    playerMesh.SetMaterial(Material::LoadResource<Material>("Engine/Content/Materials/MouseMaterial.material"));
 }
 
 void FlyingPlayer::HandleMovement(float deltaTime)

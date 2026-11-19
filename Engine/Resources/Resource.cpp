@@ -15,8 +15,9 @@ void Resource::AddValue(std::string key, std::string value, bool override)
 
 void Resource::SaveToFile(std::string path)
 {
-    if (!path.ends_with(".cheese"))
-        path += ".cheese";
+    std::string fileEnding = GetResourceFileEnding();
+    if (!path.ends_with("." + fileEnding))
+        path += "." + fileEnding;
 
     if (std::filesystem::exists(path))
     {

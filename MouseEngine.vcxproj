@@ -227,9 +227,10 @@
     <ClInclude Include="stbi\stbi_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Engine\Content\Materials\Basic.cheese" />
-    <Content Include="Engine\Content\Materials\MouseMaterial.cheese" />
-    <Content Include="Engine\Content\Materials\UnlitCirno.cheese" />
+    <Content Include="Engine\Content\Materials\Basic.material" />
+    <Content Include="Engine\Content\Materials\MouseMaterial.material" />
+    <Content Include="Engine\Content\Materials\SafiMaterial.material" />
+    <Content Include="Engine\Content\Materials\UnlitCirno.material" />
     <Content Include="Engine\Content\Meshes\cirno.obj" />
     <Content Include="Engine\Content\Meshes\homtdog.obj" />
     <Content Include="Engine\Content\Meshes\monkey.obj" />

@@ -17,6 +17,7 @@ public:
     Texture* texture;
     
     std::string GetResourceIdentifier() override { return "Material"; }
+    std::string GetResourceFileEnding() override { return "material"; }
     
     void InitializeResource() override;
     

@@ -19,7 +19,7 @@ void MaterialCreator::CreateMaterial()
         return;
     }
     
-    std::string filePath = std::format("{}/{}.cheese", ENGINE_MATERIAL_PATH, materialName);
+    std::string filePath = std::format("{}/{}", ENGINE_MATERIAL_PATH, materialName);
     MouseLogs::print_debug_line(filePath);
     
     if (std::filesystem::exists(filePath))

@@ -9,26 +9,25 @@
 AssessmentGraphicalPolish::AssessmentGraphicalPolish()
 {
     shadedCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
-    shadedCirno.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
+    shadedCirno.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.material)"));
     
     unlitCirno.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/cirno.obj");
-    // unlitCirno.material = Resource::LoadResource<Material>(R"(Engine/Content/Materials/UnlitCirno.cheese)");
     unlitCirno.SetMaterial(Material::GetFallbackMaterial());
     
     monkey.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/monkey.obj");
-    monkey.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
+    monkey.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.material)"));
     
     icoSphere.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/sphere.obj");
-    icoSphere.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
+    icoSphere.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.material)"));
     
     mouse.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/mouse.obj");
-    mouse.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/MouseMaterial.cheese)"));
+    mouse.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/MouseMaterial.material)"));
     
     hotdog.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/homtdog.obj");
-    hotdog.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.cheese)"));
+    hotdog.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/Basic.material)"));
     
     safi.mesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/mouse.obj");
-    safi.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/SafiMaterial.cheese)"));
+    safi.SetMaterial(Resource::LoadResource<Material>(R"(Engine/Content/Materials/SafiMaterial.material)"));
     
     shadedCirno.transform.SetPosition({3, -2, 0});
     shadedCirno.transform.SetScale(2);
