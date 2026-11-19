@@ -22,12 +22,6 @@ void Resource::SaveToFile(std::string path)
     if (!path.ends_with("." + fileEnding))
         path += "." + fileEnding;
 
-    if (std::filesystem::exists(path))
-    {
-        MouseLogs::print_warning(std::format("Could not create file at \"{}\", file already exists.", path));
-        return;
-    }
-    
     std::ofstream matFile(path);
     
     if (!matFile.is_open())
