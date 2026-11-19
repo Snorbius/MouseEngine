@@ -3,6 +3,10 @@
 
 class Scene: public Resource
 {
+public:
+    Scene() = default;
+    ~Scene();
+    
 private:
     void LoadMeshes();
     

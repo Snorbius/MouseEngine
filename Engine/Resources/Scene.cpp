@@ -1,5 +1,11 @@
 ﻿#include "Scene.h"
 
+Scene::~Scene()
+{
+    for (MeshComponent*& meshComponent : sceneMeshes)
+        delete meshComponent;
+}
+
 void Scene::LoadMeshes()
 {
     if (!values.contains("mesh"))
