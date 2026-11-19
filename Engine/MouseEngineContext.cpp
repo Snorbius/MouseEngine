@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <format>
 #include <utility>
+#include <variant>
 
 #include "AssetManager.h"
 #include "BaseCamera.h"
@@ -24,6 +25,7 @@
 #include "ImGuiWindows/EngineUI.h"
 #include "Resources/Material.h"
 #include "Resources/Resource.h"
+#include "Resources/Scene.h"
 
 
 MouseEngineContext::MouseEngineContext()
@@ -46,8 +48,6 @@ MouseEngineContext::MouseEngineContext()
     Assets = new AssetManager();
     Renderer = new BaseRenderer();
     
-    house = new AssessmentHouse();
-
     print_debug_line("Engine context created");
 }
 
@@ -57,7 +57,6 @@ MouseEngineContext::~MouseEngineContext()
     ImGui_ImplOpenGL3_Shutdown();
     ImGui::DestroyContext();
     
-    delete house;
     delete Time;
     delete Input;
     delete Assets;
@@ -177,27 +176,15 @@ void MouseEngineContext::EngineLoop()
         .fragmentPath = R"(Engine/Content/Shaders/basic_fragment.frag)"
     });
     
-    // BaseCamera camera = BaseCamera();
-    // camera.transform.SetPosition(glm::vec3(0, 0, 15));
-    // camera.transform.SetRotation({0, -90.0f, 0});
-    // camera.SetAspectRatio(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
-    // activeCamera = &camera;
-    
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     
-    AssessmentGraphicalPolish polish;
+    Scene* testScene = Scene::LoadResource<Scene>("Engine/Content/Scenes/TestScene.scene");
     
     EngineUI engineUI;
     
     Input->SetMouseCaptured(true);
     Input->SetMouseVisibility(false);
-    
-    MeshComponent test(
-        Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"),
-        nullptr
-    );
-    test.transform.SetScale(4);
     
     while (!glfwWindowShouldClose(contextWindow))
     {
@@ -318,8 +305,6 @@ void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode
 {
     if (action == GLFW_PRESS || action == GLFW_REPEAT)
     {
-        if (key == GLFW_KEY_SPACE)
-            house->SwapRoofColor();
         if (key == GLFW_KEY_F1)
             ToggleWireframe();
     }

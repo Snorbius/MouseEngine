@@ -21,6 +21,11 @@ AssetManager::~AssetManager()
         if (texture.second != nullptr)
             delete texture.second;
     loadedTextures.clear();
+
+    for (std::pair<const std::string, Resource*>& resource : loadedResources)
+        if (resource.second != nullptr)
+            delete resource.second;
+    loadedResources.clear();
     
     Material::CleanUp();
 }
@@ -59,6 +64,8 @@ BaseMesh* AssetManager::LoadMesh(const std::string& meshPath, bool unique)
     BaseMesh* mesh = MeshLoader::LoadMesh(meshPath);
     if (!unique)
         loadedMeshes[meshPath] = mesh;
+    
+    mesh->meshPath = meshPath;
     
     return mesh;
 }

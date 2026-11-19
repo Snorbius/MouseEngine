@@ -41,7 +41,6 @@ public:
     
 private:
     GLFWwindow* contextWindow = nullptr;
-    AssessmentHouse* house;
     bool wireframe = false;
     
     std::vector<FlyingPlayerWithCamera*> players;

@@ -18,6 +18,14 @@ public:
 private:
     
 public:
+    /**
+     * A path to where the resource was loaded from.
+     */
+    std::string resourcePath = "null";
+    
+    /**
+     * A map containing values for the resource. Used by the underlying resource system.
+     */
     std::map<std::string, std::vector<std::string>> values;
 
     /**
@@ -53,7 +61,7 @@ public:
      * Does not currently support overriding existing files.
      * @param path The path to the file.
      */
-    void SaveToFile(std::string path);
+    virtual void SaveToFile(std::string path);
 
     /**
      * Loads a resource from a file. Any values inside the resource will be used to populate the 'values' map.
@@ -71,6 +79,8 @@ public:
             print_line(std::format("Could not find specified file: {}", filePath));
         
         res = new T();
+        
+        res->resourcePath = filePath;
         
         if (!filePath.ends_with("." + res->GetResourceFileEnding()))
         {

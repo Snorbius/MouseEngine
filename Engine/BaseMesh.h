@@ -22,6 +22,7 @@ protected:
 
 public:
     std::string meshName;
+    std::string meshPath = "unknown";
     
     /** Whether to use indices for rendering */
     bool useEbo = false;
