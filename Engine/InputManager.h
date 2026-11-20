@@ -29,6 +29,15 @@ public:
      * @return Whether it was pressed down.
      */
     bool IsKeyPressedDown(int key) const;
+
+    /**
+     * Gets the axis values of currently connected controllers.
+     * @param controllerIndex The index of the controller.
+     * @param stickIndex The index of the joystick (typically 0 would be left stick, 1 right).
+     * @param deadzone How large the deadzone should be. Defaults to 0.2.
+     * @return The axis values.
+     */
+    glm::vec2 GetControllerAxisValue(int controllerIndex, int stickIndex, float deadzone = 0.2f);
     
     glm::vec2 GetCurrentMousePos() const { return lastMousePos; }
     glm::vec2 GetDeltaMousePos() const { return deltaMousePos; }

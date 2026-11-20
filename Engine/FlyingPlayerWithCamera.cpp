@@ -27,15 +27,22 @@ void FlyingPlayerWithCamera::HandleLook(float deltaTime)
         || !(EngineContext->Input->GetMouseCaptured() && !EngineContext->Input->GetMouseVisible()))
         return;
     
-    glm::vec2 mouseDelta = EngineContext->Input->GetDeltaMousePos();
+    glm::vec2 input = glm::vec2(0);
+    
+    if (inputMode == WASD || inputMode == ARROWS)
+        input = EngineContext->Input->GetDeltaMousePos();
+    else if (inputMode == CONTROLLER1)
+        input = EngineContext->Input->GetControllerAxisValue(0, 1);
+    else if (inputMode == CONTROLLER2)
+        input = EngineContext->Input->GetControllerAxisValue(1, 1);
 
     Transform* targetTransform = &boom.transform;
     
-    const float sens = 7.5f;
+    const float sens = (inputMode == WASD || inputMode == ARROWS) ? 7.5f : 75.0f;
     
-    float xRot = targetTransform->GetRotation().x - mouseDelta.y * sens * deltaTime;
+    float xRot = targetTransform->GetRotation().x - input.y * sens * deltaTime;
     xRot = std::clamp(xRot, -80.0f, 80.0f);
-    float yRot = targetTransform->GetRotation().y + mouseDelta.x * sens * deltaTime;
+    float yRot = targetTransform->GetRotation().y + input.x * sens * deltaTime;
     
     targetTransform->SetRotation({xRot, yRot, 0});
 }

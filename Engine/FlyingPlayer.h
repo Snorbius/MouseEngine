@@ -8,6 +8,8 @@ enum PlayerInputMode
 {
     WASD,
     ARROWS,
+    CONTROLLER1,
+    CONTROLLER2,
 };
 
 class FlyingPlayer: public Object3D
@@ -17,10 +19,12 @@ public:
     
 private:
     MeshComponent playerMesh;
-    PlayerInputMode inputMode = WASD;
     
     void HandleMovement(float deltaTime);
     
+protected:
+    PlayerInputMode inputMode = WASD;
+
 public:
     BaseCamera* playerCamera = nullptr;
     

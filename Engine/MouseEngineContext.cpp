@@ -48,7 +48,7 @@ MouseEngineContext::MouseEngineContext()
     
     print_debug_line("Engine context created");
     
-    LoadScene("Engine/Content/Scenes/TestScene.scene");
+    LoadScene("Engine/Content/Scenes/GroundScene.scene");
     
     RefreshPlayerCount();
 }
@@ -311,13 +311,17 @@ void MouseEngineContext::LoadScene(const std::string& scenePath)
 
 void MouseEngineContext::RefreshPlayerCount()
 {
+    constexpr PlayerInputMode inputModes[4] = {
+        WASD, ARROWS, CONTROLLER1, CONTROLLER2
+    };
+    
     if (std::cmp_less(players.size(), numPlayers))
     {
         for (int i = static_cast<int>(players.size()); i < numPlayers; ++i)
         {
             FlyingPlayerWithCamera* newPlayer = new FlyingPlayerWithCamera();
             RespawnPlayer(newPlayer);
-            newPlayer->SetInputMode(i % 2 == 0 ? WASD : ARROWS);
+            newPlayer->SetInputMode(inputModes[i % 4]);
             players.push_back(newPlayer);
         }
     }
@@ -333,6 +337,9 @@ void MouseEngineContext::RefreshPlayerCount()
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    if (action == GLFW_PRESS && key == GLFW_GAMEPAD_BUTTON_A)
+        print_debug_line("it works :D");
+    
     if (action == GLFW_PRESS || action == GLFW_REPEAT)
     {
         if (key == GLFW_KEY_F1)

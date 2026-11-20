@@ -38,11 +38,11 @@ void MaterialCreator::CreateMaterial()
         MouseLogs::print_line(std::format("Could not find fragment file, aborting: {}", fragmentPath));
         return;
     }
-    if (!std::filesystem::exists(texturePath1))
-    {
-        MouseLogs::print_line(std::format("Could not find texture file, aborting: {}", texturePath1));
-        return;
-    }
+    // if (!std::filesystem::exists(texturePath1))
+    // {
+    //     MouseLogs::print_line(std::format("Could not find texture file, aborting: {}", texturePath1));
+    //     // return;
+    // }
     
     MouseLogs::print_debug_line("Here we goo!!");
     

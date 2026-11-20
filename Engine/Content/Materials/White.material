@@ -1,0 +1,4 @@
+Material
+fragmentPath:Engine/Content/Shaders/basic_colored.frag
+texturePath:
+vertexPath:Engine/Content/Shaders/basic_vertex.vert
