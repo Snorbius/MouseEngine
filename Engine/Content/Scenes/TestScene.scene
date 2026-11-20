@@ -10,3 +10,9 @@ mesh:Engine/Content/Meshes/cirno.obj 4 -2 0 0 0 0 1.5 1.5 1.5 Engine/Content/Mat
 mesh:Engine/Content/Meshes/cirno.obj 6 -2 0 0 0 0 1.75 1.75 1.75 Engine/Content/Materials/Basic.material
 mesh:Engine/Content/Meshes/cirno.obj 8 -2 0 0 0 0 2 2 2 Engine/Content/Materials/Basic.material
 sceneName:TestScene
+start:0 0 -5
+start:3 0 -5
+start:6 0 -5
+start:-3 0 -5
+start:-6 0 -5
+end:0 0 10

@@ -1,14 +1,21 @@
 ﻿#pragma once
 #include "Material.h"
+#include "../Object.h"
 
-class Scene: public Resource
+class Scene: public Resource, Object
 {
 public:
-    Scene() = default;
-    ~Scene();
+    Scene();
+    ~Scene() override;
     
 private:
+    std::vector<glm::vec3> startLocations;
+    std::vector<glm::vec3> endLocations;
+    std::vector<MeshComponent*> endMeshes;
+    
     void LoadMeshes();
+    void FetchStartLocations();
+    void FetchEndLocations();
     
 public:
     std::string sceneName = "placeholder";
@@ -18,4 +25,6 @@ public:
     std::string GetResourceIdentifier() override { return "Scene"; }
     std::string GetResourceFileEnding() override { return "scene"; }
     void SaveToFile(std::string path) override;
+    
+    void Process(float deltaTime) override;
 };

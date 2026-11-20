@@ -193,6 +193,10 @@ void MouseEngineContext::EngineLoop()
         Renderer->ClearScreen();
         glEnable(GL_SCISSOR_TEST);
         
+        
+        HandleProcess();
+        
+        
         ImGui_ImplGlfw_NewFrame();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
@@ -251,9 +255,6 @@ void MouseEngineContext::EngineLoop()
             Renderer->RenderScreen();
         }
         
-        
-        HandleProcess();
-       
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
