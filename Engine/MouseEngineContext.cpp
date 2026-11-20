@@ -14,10 +14,8 @@
 #include "Object.h"
 #include "Shader.h"
 #include "Texture.h"
-#include "Temporary/AssessmentHouse.h"
 #include "TimeManager.h"
 #include "Interfaces/IKeyboardInputCallback.h"
-#include "Temporary/AssessmentGraphicalPolish.h"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -49,6 +47,8 @@ MouseEngineContext::MouseEngineContext()
     Renderer = new BaseRenderer();
     
     print_debug_line("Engine context created");
+    
+    LoadScene("Engine/Content/Scenes/TestScene.scene");
 }
 
 MouseEngineContext::~MouseEngineContext()
@@ -179,8 +179,6 @@ void MouseEngineContext::EngineLoop()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     
-    Scene* testScene = Scene::LoadResource<Scene>("Engine/Content/Scenes/TestScene.scene");
-    
     EngineUI engineUI;
     
     Input->SetMouseCaptured(true);
@@ -200,6 +198,7 @@ void MouseEngineContext::EngineLoop()
         ImGui_ImplGlfw_NewFrame();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
+        ImGui::ShowDemoWindow();
         
         engineUI.Draw();
         
@@ -300,6 +299,20 @@ void MouseEngineContext::UnRegisterForProcess(Object* object)
 bool MouseEngineContext::HasFocus() const
 {
     return glfwGetWindowAttrib(contextWindow, GLFW_FOCUSED);
+}
+
+void MouseEngineContext::LoadScene(const std::string& scenePath)
+{
+    if (!std::filesystem::exists(scenePath))
+        return;
+    
+    Scene* newScene = Scene::LoadResource<Scene>(scenePath);
+    if (newScene == nullptr)
+        return;
+    
+    if (ActiveScene != nullptr)
+        delete ActiveScene;
+    ActiveScene = newScene;
 }
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

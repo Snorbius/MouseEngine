@@ -5,6 +5,11 @@
 
 #include "../LogManager.h"
 
+Resource::~Resource()
+{
+    MouseEngineContext::GetInstance()->Assets->UnregisterResource(resourcePath);
+}
+
 void Resource::AddValue(std::string key, std::string value, bool override)
 {
     if (override && values.contains(key))

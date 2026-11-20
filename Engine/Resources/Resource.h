@@ -13,7 +13,7 @@ class Resource
 {
 public:
     Resource() = default;
-    virtual ~Resource() = default;
+    virtual ~Resource();
     
 private:
     

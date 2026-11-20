@@ -25,6 +25,9 @@ private:
 public:
     /** Registers a loaded resource in the asset manager. Used internally by the engine, not meant to be called manually */
     void RegisterResource(const std::string& key, Resource* value) { loadedResources[key] = value; }
+    
+    /** Unregisters a resource at a given path. Used internally by the engine, not meant to be called manually */
+    void UnregisterResource(const std::string& key) { loadedResources.erase(key); }
 
     /**
      * Fetches an already-loaded resource based on its file path. Use Resource::LoadResource to guarantee it gets loaded.

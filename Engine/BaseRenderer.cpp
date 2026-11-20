@@ -72,6 +72,8 @@ void BaseRenderer::UnregisterRenderable(Renderable* renderable)
     
     if (index != v.end())
         v.erase(index);
+    
+    renderableMaterialMap.erase(renderable);
 }
 
 void BaseRenderer::SetClearColor(glm::vec4 color)

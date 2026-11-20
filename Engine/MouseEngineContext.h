@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class Scene;
 class FlyingPlayerWithCamera;
 class BaseCamera;
 class BaseRenderer;
@@ -44,6 +45,8 @@ private:
     bool wireframe = false;
     
     std::vector<FlyingPlayerWithCamera*> players;
+    
+    Scene* ActiveScene = nullptr;
     
     bool InitialiseGLFW();
     bool InitialiseGLAD();
@@ -104,4 +107,10 @@ public:
      * @return Whether it has focus
      */
     bool HasFocus() const;
+
+    /**
+     * Loads a scene and makes it the currently active one. This will also delete/unload the previous active scene.
+     * @param scenePath The path to the scene.
+     */
+    void LoadScene(const std::string& scenePath);
 };

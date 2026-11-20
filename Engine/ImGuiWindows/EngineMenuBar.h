@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <string>
+#include <vector>
 
 class EngineUI;
 
@@ -9,6 +11,10 @@ public:
     
 private:
     EngineUI* root;
+    
+    std::vector<std::pair<std::string, std::string>> availableScenes;
+    
+    void FetchAvailableScenes();
     
 public:
     void Draw();
