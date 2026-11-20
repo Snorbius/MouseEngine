@@ -49,6 +49,8 @@ MouseEngineContext::MouseEngineContext()
     print_debug_line("Engine context created");
     
     LoadScene("Engine/Content/Scenes/TestScene.scene");
+    
+    RefreshPlayerCount();
 }
 
 MouseEngineContext::~MouseEngineContext()
@@ -175,13 +177,25 @@ void MouseEngineContext::RespawnPlayer(FlyingPlayer* player)
     player->transform.SetPosition(startPos);
 }
 
+void MouseEngineContext::RenderImGui(EngineUI* engineUI)
+{
+    ImGui_ImplGlfw_NewFrame();
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui::NewFrame();
+        
+    engineUI->Draw();
+        
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        
+    GLFWwindow* backupContext = glfwGetCurrentContext();
+    ImGui::UpdatePlatformWindows();
+    ImGui::RenderPlatformWindowsDefault();
+    glfwMakeContextCurrent(backupContext);
+}
+
 void MouseEngineContext::EngineLoop()
 {
-    Shader shader = *Assets->LoadShader({
-        .vertexPath = R"(Engine/Content/Shaders/basic_vertex.vert)", 
-        .fragmentPath = R"(Engine/Content/Shaders/basic_fragment.frag)"
-    });
-    
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     
@@ -192,45 +206,19 @@ void MouseEngineContext::EngineLoop()
     
     while (!glfwWindowShouldClose(contextWindow))
     {
-        glDisable(GL_SCISSOR_TEST);
-        Renderer->SetClearColor(glm::vec4(1.0f, 0.9f, 1.0f, 1.0f));
-        Renderer->ClearScreen();
-        glEnable(GL_SCISSOR_TEST);
-        
+        Renderer->ClearEntireScreen();
         
         HandleProcess();
         
-        
-        ImGui_ImplGlfw_NewFrame();
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui::NewFrame();
-        ImGui::ShowDemoWindow();
-        
-        engineUI.Draw();
-        
-        // Handle player amount
-        if (std::cmp_less(players.size(), numPlayers))
-        {
-            for (int i = static_cast<int>(players.size()); i < numPlayers; ++i)
-            {
-                FlyingPlayerWithCamera* newPlayer = new FlyingPlayerWithCamera();
-                RespawnPlayer(newPlayer);
-                newPlayer->SetInputMode(i % 2 == 0 ? WASD : ARROWS);
-                players.push_back(newPlayer);
-            }
-        }
-        if (std::cmp_greater(players.size(), numPlayers))
-        {
-            for (int i = static_cast<int>(players.size()) - 1; i >= numPlayers; --i)
-            {
-                delete players[i];
-                players.erase(players.begin() + i);
-            }
-        }
-        
-        
         if (numPlayers > 1)
         {
+            constexpr glm::vec4 clearColors[4] = {
+                glm::vec4(1, 0.9, 1, 1),
+                glm::vec4(1, 1, 0.9, 1),
+                glm::vec4(0.9, 1, 1, 1),
+                glm::vec4(0.9, 0.9, 0.9, 1),
+            };
+            
             int rows = static_cast<int>(ceil(sqrt(numPlayers - 1)));
             int columns = static_cast<int>(ceil(sqrt(numPlayers)));
             int viewportWidth = framebufferSize.x / columns;
@@ -247,6 +235,7 @@ void MouseEngineContext::EngineLoop()
                     
                 if (activeCamera != nullptr)
                     activeCamera->SetAspectRatio(static_cast<float>(viewportWidth), static_cast<float>(viewportHeight));
+                Renderer->SetClearColor(clearColors[i % 4]);
                 Renderer->SetViewportDimensions(x, y, viewportWidth, viewportHeight);
                 Renderer->RenderScreen();
             }
@@ -257,17 +246,12 @@ void MouseEngineContext::EngineLoop()
             
             if (activeCamera != nullptr)
                 activeCamera->SetAspectRatio(static_cast<float>(framebufferSize.x), static_cast<float>(framebufferSize.y));
+            Renderer->SetClearColor(glm::vec4(1.0f, 0.9f, 1.0f, 1.0f));
             Renderer->SetViewportDimensions(0, 0, framebufferSize.x, framebufferSize.y);
             Renderer->RenderScreen();
         }
         
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        
-        GLFWwindow* backupContext = glfwGetCurrentContext();
-        ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault();
-        glfwMakeContextCurrent(backupContext);
+        RenderImGui(&engineUI);
         
         glfwSwapBuffers(contextWindow);
         
@@ -323,6 +307,28 @@ void MouseEngineContext::LoadScene(const std::string& scenePath)
 
     for (FlyingPlayerWithCamera*& player : players)
         RespawnPlayer(player);
+}
+
+void MouseEngineContext::RefreshPlayerCount()
+{
+    if (std::cmp_less(players.size(), numPlayers))
+    {
+        for (int i = static_cast<int>(players.size()); i < numPlayers; ++i)
+        {
+            FlyingPlayerWithCamera* newPlayer = new FlyingPlayerWithCamera();
+            RespawnPlayer(newPlayer);
+            newPlayer->SetInputMode(i % 2 == 0 ? WASD : ARROWS);
+            players.push_back(newPlayer);
+        }
+    }
+    if (std::cmp_greater(players.size(), numPlayers))
+    {
+        for (int i = static_cast<int>(players.size()) - 1; i >= numPlayers; --i)
+        {
+            delete players[i];
+            players.erase(players.begin() + i);
+        }
+    }
 }
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

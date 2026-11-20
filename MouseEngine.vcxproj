@@ -143,10 +143,6 @@
     <ClCompile Include="Engine\BaseRenderer.cpp" />
     <ClCompile Include="Engine\CameraBoom.cpp" />
     <ClCompile Include="Engine\Content\Components\MeshComponent.cpp" />
-    <ClCompile Include="Engine\Content\Meshes\CubeMesh.cpp" />
-    <ClCompile Include="Engine\Content\Meshes\PyramidMesh.cpp" />
-    <ClCompile Include="Engine\Content\Meshes\SphereMesh.cpp" />
-    <ClCompile Include="Engine\Content\Meshes\TriangleMesh.cpp" />
     <ClCompile Include="Engine\FlyingPlayer.cpp" />
     <ClCompile Include="Engine\FlyingPlayerWithCamera.cpp" />
     <ClCompile Include="Engine\imgui-docking\backends\imgui_impl_glfw.cpp" />
@@ -172,9 +168,6 @@
     <ClCompile Include="Engine\Resources\Resource.cpp" />
     <ClCompile Include="Engine\Resources\Scene.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
-    <ClCompile Include="Engine\Temporary\Assessment3D.cpp" />
-    <ClCompile Include="Engine\Temporary\AssessmentGraphicalPolish.cpp" />
-    <ClCompile Include="Engine\Temporary\AssessmentHouse.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TimeManager.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
@@ -189,10 +182,6 @@
     <ClInclude Include="Engine\BaseRenderer.h" />
     <ClInclude Include="Engine\CameraBoom.h" />
     <ClInclude Include="Engine\Content\Components\MeshComponent.h" />
-    <ClInclude Include="Engine\Content\Meshes\CubeMesh.h" />
-    <ClInclude Include="Engine\Content\Meshes\PyramidMesh.h" />
-    <ClInclude Include="Engine\Content\Meshes\SphereMesh.h" />
-    <ClInclude Include="Engine\Content\Meshes\TriangleMesh.h" />
     <ClInclude Include="Engine\FlyingPlayer.h" />
     <ClInclude Include="Engine\FlyingPlayerWithCamera.h" />
     <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_glfw.h" />
@@ -220,9 +209,6 @@
     <ClInclude Include="Engine\Resources\Resource.h" />
     <ClInclude Include="Engine\Resources\Scene.h" />
     <ClInclude Include="Engine\Shader.h" />
-    <ClInclude Include="Engine\Temporary\Assessment3D.h" />
-    <ClInclude Include="Engine\Temporary\AssessmentGraphicalPolish.h" />
-    <ClInclude Include="Engine\Temporary\AssessmentHouse.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\TimeManager.h" />
     <ClInclude Include="Engine\Transform.h" />
@@ -254,6 +240,9 @@
     <Content Include="Engine\imgui-docking\.gitattributes" />
     <Content Include="Engine\imgui-docking\.gitignore" />
     <Content Include="Engine\imgui-docking\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\Temporary\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,8 @@
 #include "Material.h"
 #include "../Object.h"
 
+class MeshComponent;
+
 class Scene: public Resource, Object
 {
 public:

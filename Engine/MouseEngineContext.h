@@ -3,9 +3,10 @@
 // ReSharper disable once CppUnusedIncludeDirective
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
 
 #include "LogManager.h"
-#include "Temporary/AssessmentHouse.h"
+#include "ImGuiWindows/EngineUI.h"
 
 class FlyingPlayer;
 class Scene;
@@ -57,7 +58,8 @@ private:
     
     void HandleProcess();
     void RespawnPlayer(FlyingPlayer* player);
-    
+    void RenderImGui(EngineUI* engineUI);
+
 protected:
     static inline MouseEngineContext* engineContextInstance;
     static void StaticInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -115,4 +117,10 @@ public:
      * @param scenePath The path to the scene.
      */
     void LoadScene(const std::string& scenePath);
+
+    /**
+     * Checks the player count and deletes/creates players based on the difference. 
+     * This function is very temporary teehee.
+     */
+    void RefreshPlayerCount();
 };

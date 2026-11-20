@@ -20,8 +20,6 @@ void EngineMenuBar::FetchAvailableScenes()
 
     for (auto const& entry : std::filesystem::directory_iterator(sceneDirectory))
     {
-        print_debug_line(std::format("Found {}", entry.path().string()));
-        
         std::fstream file(entry.path());
             
         if (!file.is_open())
@@ -59,7 +57,10 @@ void EngineMenuBar::Draw()
         {
             if (ImGui::BeginMenu("Amount"))
             {
-                ImGui::SliderInt("Number of players", &MouseEngineContext::GetInstance()->numPlayers, 1, 4);
+                if (ImGui::SliderInt("Number of players", &MouseEngineContext::GetInstance()->numPlayers, 1, 4))
+                {
+                    MouseEngineContext::GetInstance()->RefreshPlayerCount();
+                }
                 
                 ImGui::EndMenu();
             }

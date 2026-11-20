@@ -1,4 +1,5 @@
 ﻿#include "Scene.h"
+#include "../../Content/Components/MeshComponent.h"
 
 Scene::Scene()
 {

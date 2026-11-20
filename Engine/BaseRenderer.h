@@ -56,4 +56,10 @@ public:
      * @param height The height
      */
     void SetViewportDimensions(int x, int y, int width, int height);
+
+    /**
+     * Clears the entire screen using the current clear color.
+     * Scissor testing is temporarily disabled to achieve this.
+     */
+    void ClearEntireScreen();
 };

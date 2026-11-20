@@ -1,6 +1,7 @@
 ﻿#include "BaseRenderer.h"
 
 #include "BaseCamera.h"
+#include "Renderable.h"
 #include "Resources/Material.h"
 
 BaseRenderer::BaseRenderer()
@@ -90,4 +91,11 @@ void BaseRenderer::SetViewportDimensions(int x, int y, int width, int height)
     
     glViewport(x, y, width, height);
     glScissor(x, y, width, height);
+}
+
+void BaseRenderer::ClearEntireScreen()
+{
+    glDisable(GL_SCISSOR_TEST);
+    ClearScreen();
+    glEnable(GL_SCISSOR_TEST);
 }

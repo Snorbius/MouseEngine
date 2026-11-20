@@ -3,6 +3,7 @@
 #include <format>
 
 #include "AssetManager.h"
+#include "BaseMesh.h"
 #include "BaseRenderer.h"
 #include "MouseEngineContext.h"
 
