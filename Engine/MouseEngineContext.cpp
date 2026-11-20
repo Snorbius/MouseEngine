@@ -169,6 +169,12 @@ void MouseEngineContext::HandleProcess()
     }
 }
 
+void MouseEngineContext::RespawnPlayer(FlyingPlayer* player)
+{
+    glm::vec3 startPos = ActiveScene->startLocations[rand() % ActiveScene->startLocations.size()];
+    player->transform.SetPosition(startPos);
+}
+
 void MouseEngineContext::EngineLoop()
 {
     Shader shader = *Assets->LoadShader({
@@ -208,6 +214,7 @@ void MouseEngineContext::EngineLoop()
             for (int i = static_cast<int>(players.size()); i < numPlayers; ++i)
             {
                 FlyingPlayerWithCamera* newPlayer = new FlyingPlayerWithCamera();
+                RespawnPlayer(newPlayer);
                 newPlayer->SetInputMode(i % 2 == 0 ? WASD : ARROWS);
                 players.push_back(newPlayer);
             }
@@ -313,6 +320,9 @@ void MouseEngineContext::LoadScene(const std::string& scenePath)
     if (ActiveScene != nullptr)
         delete ActiveScene;
     ActiveScene = newScene;
+
+    for (FlyingPlayerWithCamera*& player : players)
+        RespawnPlayer(player);
 }
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

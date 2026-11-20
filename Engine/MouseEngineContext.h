@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "Temporary/AssessmentHouse.h"
 
+class FlyingPlayer;
 class Scene;
 class FlyingPlayerWithCamera;
 class BaseCamera;
@@ -55,6 +56,7 @@ private:
     void InitialiseImGui();
     
     void HandleProcess();
+    void RespawnPlayer(FlyingPlayer* player);
     
 protected:
     static inline MouseEngineContext* engineContextInstance;

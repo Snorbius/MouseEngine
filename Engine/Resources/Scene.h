@@ -9,7 +9,6 @@ public:
     ~Scene() override;
     
 private:
-    std::vector<glm::vec3> startLocations;
     std::vector<glm::vec3> endLocations;
     std::vector<MeshComponent*> endMeshes;
     
@@ -20,6 +19,8 @@ private:
 public:
     std::string sceneName = "placeholder";
     std::vector<MeshComponent*> sceneMeshes;
+    std::vector<glm::vec3> startLocations;
+    
     
     void InitializeResource() override;
     std::string GetResourceIdentifier() override { return "Scene"; }
