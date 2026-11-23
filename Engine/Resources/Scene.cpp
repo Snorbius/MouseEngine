@@ -68,7 +68,7 @@ void Scene::FetchStartLocations()
     }
     
     if (startLocations.empty())
-        startLocations.emplace_back(0);
+        startLocations.emplace_back(0.0f);
 }
 
 void Scene::FetchEndLocations()

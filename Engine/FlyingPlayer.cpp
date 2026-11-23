@@ -27,17 +27,17 @@ void FlyingPlayer::HandleMovement(float deltaTime)
         int downKey = inputMode == WASD ? GLFW_KEY_LEFT_CONTROL : GLFW_KEY_RIGHT_CONTROL;
     
     
-        if (EngineContext->Input->IsKeyPressedDown(forwardKey))
+        if (EngineContext->Input->IsKeyHeld(forwardKey))
             move.z += 1.0f;
-        if (EngineContext->Input->IsKeyPressedDown(backwardKey))
+        if (EngineContext->Input->IsKeyHeld(backwardKey))
             move.z -= 1.0f;
-        if (EngineContext->Input->IsKeyPressedDown(rightKey))
+        if (EngineContext->Input->IsKeyHeld(rightKey))
             move.x += 1.0f;
-        if (EngineContext->Input->IsKeyPressedDown(leftKey))
+        if (EngineContext->Input->IsKeyHeld(leftKey))
             move.x -= 1.0f;
-        if (EngineContext->Input->IsKeyPressedDown(upKey))
+        if (EngineContext->Input->IsKeyHeld(upKey))
             move.y += 1.0f;
-        if (EngineContext->Input->IsKeyPressedDown(downKey))
+        if (EngineContext->Input->IsKeyHeld(downKey))
             move.y -= 1.0f;
     }
     else if (inputMode == CONTROLLER1)

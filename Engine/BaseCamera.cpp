@@ -8,9 +8,9 @@
 
 BaseCamera::BaseCamera()
 {
-    EngineContext->RegisterForInput(this);
     SetProcessEnabled(false);
     EngineContext->activeCamera = this;
+    EngineContext->Input->RegisterInputFunction(GLFW_KEY_F2, PRESSED, [this](float){orthographic = !orthographic;});
 }
 
 glm::mat4 BaseCamera::GetView() const
@@ -66,12 +66,4 @@ void BaseCamera::SetAspectRatio(float ratio)
 void BaseCamera::MakeActive()
 {
     EngineContext->activeCamera = this;
-}
-
-bool BaseCamera::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if (key == GLFW_KEY_F2 && action == GLFW_PRESS)
-        SetIsOrthographic(!orthographic);
-
-    return false;
 }

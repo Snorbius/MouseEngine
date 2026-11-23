@@ -15,7 +15,6 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "TimeManager.h"
-#include "Interfaces/IKeyboardInputCallback.h"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -51,6 +50,13 @@ MouseEngineContext::MouseEngineContext()
     LoadScene("Engine/Content/Scenes/GroundScene.scene");
     
     RefreshPlayerCount();
+    
+    Input->RegisterInputFunction(GLFW_KEY_F1, PRESSED, [this](float _){ToggleWireframe();});
+    Input->RegisterInputFunction(GLFW_KEY_ESCAPE, PRESSED, [this](float _)
+    {
+        Input->SetMouseCaptured(!Input->GetMouseCaptured());
+        Input->SetMouseVisibility(!Input->GetMouseVisible());
+    });
 }
 
 MouseEngineContext::~MouseEngineContext()
@@ -161,8 +167,8 @@ void MouseEngineContext::InitialiseImGui()
 void MouseEngineContext::HandleProcess()
 {
     Time->Update();
-    Input->Update();
     float deltaTime = Time->GetWorldDeltaTimef();
+    Input->Update(deltaTime);
     
     for (Object* object : processObjects)
     {
@@ -259,20 +265,6 @@ void MouseEngineContext::EngineLoop()
     }
 }
 
-void MouseEngineContext::RegisterForInput(IKeyboardInputCallback* object)
-{
-    inputObjects.emplace_back(object);
-}
-
-void MouseEngineContext::UnregisterForInput(IKeyboardInputCallback* object)
-{
-    auto index = std::ranges::find(inputObjects, object);
-    if (index == inputObjects.end())
-        return;
-    
-    inputObjects.erase(index);
-}
-
 void MouseEngineContext::RegisterForProcess(Object* object)
 {
     // Only add it to the list if it doesn't already exist. This might not be worth it for performance reasons?
@@ -337,24 +329,7 @@ void MouseEngineContext::RefreshPlayerCount()
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (action == GLFW_PRESS && key == GLFW_GAMEPAD_BUTTON_A)
-        print_debug_line("it works :D");
-    
-    if (action == GLFW_PRESS || action == GLFW_REPEAT)
-    {
-        if (key == GLFW_KEY_F1)
-            ToggleWireframe();
-    }
-    
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    {
-        Input->SetMouseCaptured(!Input->GetMouseCaptured());
-        Input->SetMouseVisibility(!Input->GetMouseVisible());
-    }
-
-    for (IKeyboardInputCallback* object : inputObjects)
-        if (object != nullptr)
-            object->InputCallback(window, key, scancode, action, mods);
+    Input->InputCallback(window, key, scancode, action, mods);
 }
 
 void MouseEngineContext::StaticResizeCallback(GLFWwindow* window, int width, int height)

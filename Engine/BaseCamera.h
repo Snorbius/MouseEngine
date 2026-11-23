@@ -1,9 +1,8 @@
 ﻿#pragma once
 #include "Object3D.h"
 #include "Transform.h"
-#include "Interfaces/IKeyboardInputCallback.h"
 
-class BaseCamera: public Object3D, IKeyboardInputCallback
+class BaseCamera: public Object3D
 {
 public:
     BaseCamera();
@@ -37,6 +36,4 @@ public:
     
     /** Sets this camera to the currently active one */
     void MakeActive();
-    
-    bool InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) override;
 };

@@ -156,7 +156,6 @@
     <ClCompile Include="Engine\ImGuiWindows\EngineUI.cpp" />
     <ClCompile Include="Engine\ImGuiWindows\MaterialCreator.cpp" />
     <ClCompile Include="Engine\InputManager.cpp" />
-    <ClCompile Include="Engine\Interfaces\IKeyboardInputCallback.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
     <ClCompile Include="Engine\MeshBuilder.cpp" />
     <ClCompile Include="Engine\MeshLoader.cpp" />
@@ -197,7 +196,6 @@
     <ClInclude Include="Engine\ImGuiWindows\EngineUI.h" />
     <ClInclude Include="Engine\ImGuiWindows\MaterialCreator.h" />
     <ClInclude Include="Engine\InputManager.h" />
-    <ClInclude Include="Engine\Interfaces\IKeyboardInputCallback.h" />
     <ClInclude Include="Engine\LogManager.h" />
     <ClInclude Include="Engine\MeshBuilder.h" />
     <ClInclude Include="Engine\MeshLoader.h" />
@@ -249,6 +247,7 @@
     <Content Include="Engine\imgui-docking\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Engine\Interfaces\" />
     <Folder Include="Engine\Temporary\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

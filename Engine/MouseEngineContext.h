@@ -80,19 +80,6 @@ public:
     void EngineLoop();
 
     /**
-     * Registers an object for receiving input.
-     * 
-     * @param object The object to register.
-     */
-    void RegisterForInput(IKeyboardInputCallback* object);
-
-    /**
-     * Unregisters an object for keyboard input callbacks.
-     * @param object The object to unregister.
-     */
-    void UnregisterForInput(IKeyboardInputCallback* object);
-    
-    /**
      * Registers the object to receive a process call every engine tick.
      * NOTE: This should not be called manually, use Object::SetProcessEnabled instead.
      * @param object The object to enable process for.
