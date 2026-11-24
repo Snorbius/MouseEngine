@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "../../Renderable.h"
-#include "../../Transform.h"
+#include "../../ECS/Components/Transform.h"
 #include  "../../BaseMesh.h"
 
 class Material;

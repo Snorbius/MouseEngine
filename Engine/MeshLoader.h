@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define USE_NAIVE_LOADER false
+#define USE_NAIVE_LOADER true
 #include <string>
 
 class BaseMesh;

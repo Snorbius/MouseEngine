@@ -8,7 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "LogManager.h"
-#include "Transform.h"
+#include "ECS/Components/Transform.h"
 
 using namespace MouseLogs;
 

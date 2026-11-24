@@ -143,6 +143,11 @@
     <ClCompile Include="Engine\BaseRenderer.cpp" />
     <ClCompile Include="Engine\CameraBoom.cpp" />
     <ClCompile Include="Engine\Content\Components\MeshComponent.cpp" />
+    <ClCompile Include="Engine\ECS\Component.cpp" />
+    <ClCompile Include="Engine\ECS\ComponentContainer.cpp" />
+    <ClCompile Include="Engine\ECS\ComponentSystem.cpp" />
+    <ClCompile Include="Engine\ECS\Components\Transform.cpp" />
+    <ClCompile Include="Engine\ECS\Entity.cpp" />
     <ClCompile Include="Engine\FlyingPlayer.cpp" />
     <ClCompile Include="Engine\FlyingPlayerWithCamera.cpp" />
     <ClCompile Include="Engine\imgui-docking\backends\imgui_impl_glfw.cpp" />
@@ -169,7 +174,6 @@
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TimeManager.cpp" />
-    <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="glad\glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stbi\stbi_image.cpp" />
@@ -181,6 +185,11 @@
     <ClInclude Include="Engine\BaseRenderer.h" />
     <ClInclude Include="Engine\CameraBoom.h" />
     <ClInclude Include="Engine\Content\Components\MeshComponent.h" />
+    <ClInclude Include="Engine\ECS\Component.h" />
+    <ClInclude Include="Engine\ECS\ComponentContainer.h" />
+    <ClInclude Include="Engine\ECS\ComponentSystem.h" />
+    <ClInclude Include="Engine\ECS\Components\Transform.h" />
+    <ClInclude Include="Engine\ECS\Entity.h" />
     <ClInclude Include="Engine\FlyingPlayer.h" />
     <ClInclude Include="Engine\FlyingPlayerWithCamera.h" />
     <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_glfw.h" />
@@ -209,7 +218,6 @@
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\TimeManager.h" />
-    <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="stbi\stbi_image.h" />
   </ItemGroup>
   <ItemGroup>

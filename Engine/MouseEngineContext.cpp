@@ -19,6 +19,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "ECS/ComponentSystem.h"
 #include "ImGuiWindows/EngineUI.h"
 #include "Resources/Material.h"
 #include "Resources/Resource.h"
@@ -44,6 +45,7 @@ MouseEngineContext::MouseEngineContext()
     Input = new InputManager(contextWindow);
     Assets = new AssetManager();
     Renderer = new BaseRenderer();
+    Components = new ComponentSystem();
     
     print_debug_line("Engine context created");
     
@@ -69,6 +71,7 @@ MouseEngineContext::~MouseEngineContext()
     delete Input;
     delete Assets;
     delete Renderer;
+    delete Components;
 
     for (int i = static_cast<int>(players.size()) - 1; i >= 0; --i)
     {
@@ -256,6 +259,8 @@ void MouseEngineContext::EngineLoop()
             Renderer->SetViewportDimensions(0, 0, framebufferSize.x, framebufferSize.y);
             Renderer->RenderScreen();
         }
+        
+        ComponentContainer<Transform>* temp = static_cast<ComponentContainer<Transform>*>(Components->containerStorage[typeid(Transform).hash_code()]);
         
         RenderImGui(&engineUI);
         

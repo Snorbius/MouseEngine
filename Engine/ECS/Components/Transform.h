@@ -3,7 +3,9 @@
 #include <glm/vec3.hpp>
 #include <glm/ext/matrix_float4x4.hpp>
 
-class Transform
+#include "../Component.h"
+
+class Transform: public Component
 {
 public:
     Transform();

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <string>
 
-#include "Transform.h"
+#include "ECS/Components/Transform.h"
 
 class Shader;
 

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Object3D.h"
-#include "Transform.h"
+#include "ECS/Components/Transform.h"
 
 class BaseCamera: public Object3D
 {

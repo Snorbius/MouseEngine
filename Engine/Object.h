@@ -1,8 +1,9 @@
 ﻿#pragma once
+#include "ECS/Entity.h"
 
 class MouseEngineContext;
 
-class Object
+class Object: public Entity
 {
 public:
     Object();
