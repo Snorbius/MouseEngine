@@ -19,6 +19,9 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "ECS/ComponentManager.h"
+#include "ECS/Components/NewMeshComponent.h"
+#include "ECS/Components/TransformComponent.h"
 #include "ImGuiWindows/EngineUI.h"
 #include "Resources/Material.h"
 #include "Resources/Resource.h"
@@ -44,10 +47,11 @@ MouseEngineContext::MouseEngineContext()
     Input = new InputManager(contextWindow);
     Assets = new AssetManager();
     Renderer = new BaseRenderer();
+    Components = new ComponentManager();
     
     print_debug_line("Engine context created");
     
-    LoadScene("Engine/Content/Scenes/GroundScene.scene");
+    LoadScene("Engine/Content/Scenes/FlatPlane.scene");
     
     RefreshPlayerCount();
     
@@ -69,6 +73,7 @@ MouseEngineContext::~MouseEngineContext()
     delete Input;
     delete Assets;
     delete Renderer;
+    delete Components;
 
     for (int i = static_cast<int>(players.size()) - 1; i >= 0; --i)
     {
@@ -209,6 +214,29 @@ void MouseEngineContext::EngineLoop()
     
     Input->SetMouseCaptured(true);
     Input->SetMouseVisibility(false);
+    
+    Entity testEntity = 0;
+    Components->AddComponent<TransformComponent>(testEntity);
+    
+    Entity testEntity1 = 1;
+    TransformComponent trans1;
+    trans1.position = glm::vec3(2, 0, 0);
+    trans1.scale = glm::vec3(2, 2, 2);
+    Components->AddComponent<TransformComponent>(testEntity1, trans1);
+    NewMeshComponent mesh1(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"));
+    Components->AddComponent<NewMeshComponent>(testEntity1, mesh1);
+    
+    Components->AddComponent<NewMeshComponent>(testEntity);
+    
+    Entity testEntity2 = 2;
+    TransformComponent trans2;
+    trans2.scale = glm::vec3(5.0f);
+    Components->AddComponent<TransformComponent>(testEntity2, trans2);
+    
+    auto transContainer = Components->GetContainer<TransformComponent>();
+    auto meshContainer = Components->GetContainer<NewMeshComponent>();
+    
+    Components->RemoveComponent<TransformComponent>(testEntity2);
     
     while (!glfwWindowShouldClose(contextWindow))
     {

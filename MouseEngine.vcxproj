@@ -143,6 +143,11 @@
     <ClCompile Include="Engine\BaseRenderer.cpp" />
     <ClCompile Include="Engine\CameraBoom.cpp" />
     <ClCompile Include="Engine\Content\Components\MeshComponent.cpp" />
+    <ClCompile Include="Engine\ECS\ComponentContainer.cpp" />
+    <ClCompile Include="Engine\ECS\ComponentManager.cpp" />
+    <ClCompile Include="Engine\ECS\Components\NewMeshComponent.cpp" />
+    <ClCompile Include="Engine\ECS\Components\TransformComponent.cpp" />
+    <ClCompile Include="Engine\ECS\EntityManager.cpp" />
     <ClCompile Include="Engine\FlyingPlayer.cpp" />
     <ClCompile Include="Engine\FlyingPlayerWithCamera.cpp" />
     <ClCompile Include="Engine\imgui-docking\backends\imgui_impl_glfw.cpp" />
@@ -181,6 +186,11 @@
     <ClInclude Include="Engine\BaseRenderer.h" />
     <ClInclude Include="Engine\CameraBoom.h" />
     <ClInclude Include="Engine\Content\Components\MeshComponent.h" />
+    <ClInclude Include="Engine\ECS\ComponentContainer.h" />
+    <ClInclude Include="Engine\ECS\ComponentManager.h" />
+    <ClInclude Include="Engine\ECS\Components\NewMeshComponent.h" />
+    <ClInclude Include="Engine\ECS\Components\TransformComponent.h" />
+    <ClInclude Include="Engine\ECS\EntityManager.h" />
     <ClInclude Include="Engine\FlyingPlayer.h" />
     <ClInclude Include="Engine\FlyingPlayerWithCamera.h" />
     <ClInclude Include="Engine\imgui-docking\backends\imgui_impl_glfw.h" />
@@ -229,6 +239,7 @@
     <Content Include="Engine\Content\Meshes\sphere.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot_highres.obj" />
+    <Content Include="Engine\Content\Scenes\FlatPlane.scene" />
     <Content Include="Engine\Content\Scenes\GroundScene.scene" />
     <Content Include="Engine\Content\Scenes\TestScene.scene" />
     <Content Include="Engine\Content\Scenes\TestScene2.scene" />

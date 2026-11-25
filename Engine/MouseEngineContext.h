@@ -8,6 +8,7 @@
 #include "LogManager.h"
 #include "ImGuiWindows/EngineUI.h"
 
+class ComponentManager;
 class FlyingPlayer;
 class Scene;
 class FlyingPlayerWithCamera;
@@ -71,10 +72,12 @@ protected:
     ~MouseEngineContext();
     
 public:
+    // TODO: Why pointers?
     TimeManager* Time;
     InputManager* Input;
     AssetManager* Assets;
     BaseRenderer* Renderer;
+    ComponentManager* Components;
     
     /** Starts the full engine loop */
     void EngineLoop();
