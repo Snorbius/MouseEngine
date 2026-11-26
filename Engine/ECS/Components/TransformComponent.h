@@ -5,25 +5,35 @@
 
 struct TransformComponent
 {
-    TransformComponent() = default;
+    TransformComponent();
     
+private:
     glm::vec3 position = glm::vec3(0.0f);
     glm::vec3 scale = glm::vec3(1.0f);
     glm::vec3 rotation = glm::vec3(0.0f);
+    glm::mat4 transformMatrix;
     
-    glm::mat4 GetTransformMatrix()
-    {
-        glm::mat4 transformMatrix = glm::mat4(1.0f);
+    glm::vec3 forward = glm::vec3(0, 0, 1);
+    glm::vec3 right = glm::vec3(1, 0, 0);
+    glm::vec3 up = glm::vec3(0, 1, 0);
     
-        transformMatrix = glm::translate(transformMatrix, position); // Location
+    void UpdateData();
+    void UpdateAxisVectors();
     
-        // Rotation
-        transformMatrix = glm::rotate(transformMatrix, glm::radians(rotation.x), glm::vec3(1, 0, 0)); 
-        transformMatrix = glm::rotate(transformMatrix, glm::radians(rotation.y), glm::vec3(0, 1, 0));
-        transformMatrix = glm::rotate(transformMatrix, glm::radians(rotation.z), glm::vec3(0, 0, 1));
+public:
+    glm::vec3 GetPosition() const           { return position; }
+    glm::vec3 GetScale() const              { return scale; }
+    glm::vec3 GetRotation() const           { return rotation; }
+    glm::vec3 GetForward() const            { return forward; }
+    glm::vec3 GetRight() const              { return right; }
+    glm::vec3 GetUp() const                 { return up; }
+    glm::mat4 GetTransformMatrix() const    { return transformMatrix; }
     
-        transformMatrix = glm::scale(transformMatrix, scale); // Scale
-        
-        return transformMatrix;
-    }
+    void SetPosition(glm::vec3 value);
+    void Translate(glm::vec3 value);
+    void SetScale(glm::vec3 value);
+    void SetScale(float uniformScale);
+    void SetRotation(glm::vec3 value);
+    void Rotate(glm::vec3 value);
+    void PointAt(glm::vec3 targetPosition);
 };

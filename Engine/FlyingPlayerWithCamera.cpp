@@ -36,15 +36,15 @@ void FlyingPlayerWithCamera::HandleLook(float deltaTime)
     else if (inputMode == CONTROLLER2)
         input = EngineContext->Input->GetControllerAxisValue(1, 1);
 
-    Transform* targetTransform = &boom.transform;
+    TransformComponent& targetTransform = boom.transform;
     
     const float sens = (inputMode == WASD || inputMode == ARROWS) ? 7.5f : 75.0f;
     
-    float xRot = targetTransform->GetRotation().x - input.y * sens * deltaTime;
+    float xRot = targetTransform.GetRotation().x - input.y * sens * deltaTime;
     xRot = std::clamp(xRot, -80.0f, 80.0f);
-    float yRot = targetTransform->GetRotation().y + input.x * sens * deltaTime;
+    float yRot = targetTransform.GetRotation().y + input.x * sens * deltaTime;
     
-    targetTransform->SetRotation({xRot, yRot, 0});
+    targetTransform.SetRotation({xRot, yRot, 0});
 }
 
 void FlyingPlayerWithCamera::HandleZoom()

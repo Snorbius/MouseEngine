@@ -60,11 +60,11 @@ void FlyingPlayer::HandleMovement(float deltaTime)
 
     glm::vec3 moveVector = glm::vec3(0.0f);
     
-    Transform* axisTransform = playerCamera == nullptr ? &transform : &playerCamera->transform;
+    TransformComponent& axisTransform = playerCamera == nullptr ? transform : playerCamera->transform;
     
-    moveVector += move.x * axisTransform->GetRight();
-    moveVector += move.y * axisTransform->GetUp();
-    moveVector += move.z * axisTransform->GetForward();
+    moveVector += move.x * axisTransform.GetRight();
+    moveVector += move.y * axisTransform.GetUp();
+    moveVector += move.z * axisTransform.GetForward();
 
     moveVector = glm::normalize(moveVector);
 

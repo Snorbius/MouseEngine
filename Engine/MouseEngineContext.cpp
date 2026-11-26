@@ -222,8 +222,8 @@ void MouseEngineContext::EngineLoop()
     
     Entity testEntity1 = Entities->CreateEntity();
     TransformComponent trans1;
-    trans1.position = glm::vec3(2, 0, 0);
-    trans1.scale = glm::vec3(2, 2, 2);
+    trans1.SetPosition(glm::vec3(2, 0, 0));
+    trans1.SetScale(glm::vec3(2, 2, 2));
     Components->AddComponent<TransformComponent>(testEntity1, trans1);
     NewMeshComponent mesh1(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"), 
         Material::LoadResource<Material>("Engine/Content/Materials/UnlitCirno.material"));
@@ -233,8 +233,8 @@ void MouseEngineContext::EngineLoop()
     
     Entity testEntity2 = Entities->CreateEntity();
     TransformComponent trans2;
-    trans2.position = glm::vec3(0, 2, 3);
-    trans2.scale = glm::vec3(5.0f);
+    trans2.SetPosition(glm::vec3(0, 2, 3));
+    trans2.SetScale(glm::vec3(5.0f));
     Components->AddComponent<TransformComponent>(testEntity2, trans2);
     Components->AddComponent<NewMeshComponent>(testEntity2, mesh1);
     

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../../Renderable.h"
-#include "../../Transform.h"
 #include  "../../BaseMesh.h"
+#include "../ECS/Components/TransformComponent.h"
 
 class Material;
 
@@ -16,7 +16,7 @@ private:
     
 public:
     BaseMesh* mesh = nullptr;
-    Transform transform;
+    TransformComponent transform;
     
     void Render(Shader* shader) override;
     Material* GetMaterial() const { return material; }

@@ -1,9 +1,9 @@
 ﻿#pragma once
 #include "Object.h"
-#include "Transform.h"
+#include "ECS/Components/TransformComponent.h"
 
 class Object3D: public Object
 {
 public:
-    Transform transform;
+    TransformComponent transform;
 };

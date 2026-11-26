@@ -29,14 +29,19 @@ void Scene::LoadMeshes()
         std::istringstream s(entry);
         std::string meshPath;
         std::string materialPath;
+        glm::vec3 pos, rot, scale;
         
         TransformComponent transform;
         
         s >> meshPath
-        >> transform.position.x >> transform.position.y >> transform.position.z
-        >> transform.rotation.x >> transform.rotation.y >> transform.rotation.z
-        >> transform.scale.x >> transform.scale.y >> transform.scale.z
+        >> pos.x >> pos.y >> pos.z
+        >> rot.x >> rot.y >> rot.z
+        >> scale.x >> scale.y >> scale.z
         >> materialPath;
+        
+        transform.SetPosition(pos);
+        transform.SetRotation(rot);
+        transform.SetScale(scale);
         
         BaseMesh* mesh = MouseEngineContext::GetInstance()->Assets->LoadMesh(meshPath);
         if (mesh == nullptr)
