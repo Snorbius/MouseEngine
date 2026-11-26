@@ -48,6 +48,7 @@ MouseEngineContext::MouseEngineContext()
     Assets = new AssetManager();
     Renderer = new BaseRenderer();
     Components = new ComponentManager();
+    Entities = new EntityManager();
     
     print_debug_line("Engine context created");
     
@@ -74,6 +75,7 @@ MouseEngineContext::~MouseEngineContext()
     delete Assets;
     delete Renderer;
     delete Components;
+    delete Entities;
 
     for (int i = static_cast<int>(players.size()) - 1; i >= 0; --i)
     {
@@ -215,10 +217,10 @@ void MouseEngineContext::EngineLoop()
     Input->SetMouseCaptured(true);
     Input->SetMouseVisibility(false);
     
-    Entity testEntity = 0;
+    Entity testEntity = Entities->CreateEntity();
     Components->AddComponent<TransformComponent>(testEntity);
     
-    Entity testEntity1 = 1;
+    Entity testEntity1 = Entities->CreateEntity();
     TransformComponent trans1;
     trans1.position = glm::vec3(2, 0, 0);
     trans1.scale = glm::vec3(2, 2, 2);
@@ -228,15 +230,18 @@ void MouseEngineContext::EngineLoop()
     
     Components->AddComponent<NewMeshComponent>(testEntity);
     
-    Entity testEntity2 = 2;
+    Entity testEntity2 = Entities->CreateEntity();
     TransformComponent trans2;
     trans2.scale = glm::vec3(5.0f);
     Components->AddComponent<TransformComponent>(testEntity2, trans2);
+    Components->AddComponent<NewMeshComponent>(testEntity2);
     
     auto transContainer = Components->GetContainer<TransformComponent>();
     auto meshContainer = Components->GetContainer<NewMeshComponent>();
     
-    Components->RemoveComponent<TransformComponent>(testEntity2);
+    Components->RemoveComponent<TransformComponent>(testEntity1);
+    
+    std::vector<Entity> test = Components->FilterEntities<NewMeshComponent, TransformComponent>(Entities->GetAllEntities());
     
     while (!glfwWindowShouldClose(contextWindow))
     {

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <format>
+#include <optional>
 #include <unordered_map>
 #include <vector>
 
@@ -18,11 +19,19 @@ public:
 
     std::unordered_map<size_t, Entity> componentEntityMap;
     
+    bool HasComponent(Entity entity);
     T& AddComponent(Entity entity);
     T& AddComponent(Entity entity, T component);
-    T& GetComponent(Entity entity);
+    std::optional<T&> GetComponent(Entity entity);
     void RemoveComponent(Entity entity);
+    std::vector<Entity> FilterEntities(const std::vector<Entity>& entities) const;
 };
+
+template <typename T>
+bool ComponentContainer<T>::HasComponent(Entity entity)
+{
+    return entityComponentMap.contains(entity);
+}
 
 template <typename T>
 T& ComponentContainer<T>::AddComponent(Entity entity)
@@ -47,13 +56,13 @@ T& ComponentContainer<T>::AddComponent(Entity entity, T component)
 }
 
 template <typename T>
-T& ComponentContainer<T>::GetComponent(Entity entity)
+std::optional<T&> ComponentContainer<T>::GetComponent(Entity entity)
 {
     if (!entityComponentMap.contains(entity)) // TODO: Remove/re make
     {
         MouseLogs::print_warning(std::format("Entity {} does not have component of type \"{}\"",
             std::to_string(entity), typeid(T).name()));
-        return components[0];
+        return std::nullopt;
     }
     
     return components[entityComponentMap[entity]];
@@ -83,4 +92,17 @@ void ComponentContainer<T>::RemoveComponent(Entity entity)
     entityComponentMap.erase(entity);
     componentEntityMap[indexToRemove] = oldLast;
     componentEntityMap.erase(components.size());
+}
+
+template <typename T>
+std::vector<Entity> ComponentContainer<T>::FilterEntities(const std::vector<Entity>& entities) const
+{
+    std::vector<Entity> result;
+    result.reserve(entities.size());
+    
+    for (Entity entity : entities)
+        if (entityComponentMap.contains(entity))
+            result.push_back(entity);
+    
+    return result;
 }

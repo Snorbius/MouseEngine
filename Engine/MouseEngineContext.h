@@ -8,6 +8,7 @@
 #include "LogManager.h"
 #include "ImGuiWindows/EngineUI.h"
 
+class EntityManager;
 class ComponentManager;
 class FlyingPlayer;
 class Scene;
@@ -78,6 +79,7 @@ public:
     AssetManager* Assets;
     BaseRenderer* Renderer;
     ComponentManager* Components;
+    EntityManager* Entities;
     
     /** Starts the full engine loop */
     void EngineLoop();
