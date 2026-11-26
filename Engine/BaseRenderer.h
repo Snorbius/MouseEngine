@@ -62,4 +62,6 @@ public:
      * Scissor testing is temporarily disabled to achieve this.
      */
     void ClearEntireScreen();
+    
+    void RenderComponents();
 };

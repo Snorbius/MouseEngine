@@ -228,13 +228,14 @@ void MouseEngineContext::EngineLoop()
     NewMeshComponent mesh1(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"));
     Components->AddComponent<NewMeshComponent>(testEntity1, mesh1);
     
-    Components->AddComponent<NewMeshComponent>(testEntity);
+    Components->AddComponent<NewMeshComponent>(testEntity, mesh1);
     
     Entity testEntity2 = Entities->CreateEntity();
     TransformComponent trans2;
+    trans2.position = glm::vec3(0, 2, 3);
     trans2.scale = glm::vec3(5.0f);
     Components->AddComponent<TransformComponent>(testEntity2, trans2);
-    Components->AddComponent<NewMeshComponent>(testEntity2);
+    Components->AddComponent<NewMeshComponent>(testEntity2, mesh1);
     
     auto transContainer = Components->GetContainer<TransformComponent>();
     auto meshContainer = Components->GetContainer<NewMeshComponent>();

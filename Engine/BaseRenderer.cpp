@@ -1,7 +1,12 @@
 ﻿#include "BaseRenderer.h"
 
 #include "BaseCamera.h"
+#include "BaseMesh.h"
 #include "Renderable.h"
+#include "ECS/ComponentManager.h"
+#include "ECS/EntityManager.h"
+#include "ECS/Components/NewMeshComponent.h"
+#include "ECS/Components/TransformComponent.h"
 #include "Resources/Material.h"
 
 BaseRenderer::BaseRenderer()
@@ -37,6 +42,8 @@ void BaseRenderer::RenderScreen()
             if (renderable != nullptr)
                 renderable->Render(shader);
     }
+    
+    RenderComponents();
 }
 
 void BaseRenderer::RegisterRenderable(Renderable* renderable, Material* material)
@@ -98,4 +105,25 @@ void BaseRenderer::ClearEntireScreen()
     glDisable(GL_SCISSOR_TEST);
     ClearScreen();
     glEnable(GL_SCISSOR_TEST);
+}
+
+void BaseRenderer::RenderComponents()
+{
+    Material* material = Material::GetFallbackMaterial();
+    
+    material->Use();
+    material->shader->SetUniform("u_view", EngineContext->activeCamera->GetView());
+    material->shader->SetUniform("u_projection", EngineContext->activeCamera->GetProjection());
+    
+    std::vector<Entity> entities = EngineContext->Components->FilterEntities<NewMeshComponent, TransformComponent>(EngineContext->Entities->GetAllEntities());
+
+    for (Entity entity : entities)
+    {
+        TransformComponent& transform = EngineContext->Components->GetComponent<TransformComponent>(entity);
+        NewMeshComponent& mesh = EngineContext->Components->GetComponent<NewMeshComponent>(entity);
+        
+        material->shader->SetUniform("u_transform", transform.GetTransformMatrix());
+        if (mesh.mesh != nullptr)
+            mesh.mesh->Render(material->shader);
+    }
 }

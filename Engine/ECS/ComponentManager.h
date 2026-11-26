@@ -27,7 +27,10 @@ public:
     T& AddComponent(Entity entity, T component);
     
     template <typename T>
-    std::optional<T&> GetComponent(Entity entity);
+    std::optional<T> TryGetComponent(Entity entity);
+    
+    template <typename T>
+    T& GetComponent(Entity entity);
     
     template <typename T>
     void RemoveComponent(Entity entity);
@@ -68,11 +71,17 @@ T& ComponentManager::AddComponent(Entity entity, T component)
 }
 
 template <typename T>
-std::optional<T&> ComponentManager::GetComponent(Entity entity)
+std::optional<T> ComponentManager::TryGetComponent(Entity entity)
 {
     ComponentContainer<T>* container = GetContainer<T>();
     
-    return container->GetComponent(entity);
+    return container->TryGetComponent(entity);
+}
+
+template <typename T>
+T& ComponentManager::GetComponent(Entity entity)
+{
+    return GetContainer<T>()->GetComponent(entity);
 }
 
 template <typename T>
