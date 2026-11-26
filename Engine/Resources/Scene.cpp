@@ -1,5 +1,9 @@
 ﻿#include "Scene.h"
 #include "../../Content/Components/MeshComponent.h"
+#include "../ECS/ComponentManager.h"
+#include "../ECS/EntityManager.h"
+#include "../ECS/Components/NewMeshComponent.h"
+#include "../ECS/Components/TransformComponent.h"
 
 Scene::Scene()
 {
@@ -24,27 +28,29 @@ void Scene::LoadMeshes()
     {
         std::istringstream s(entry);
         std::string meshPath;
-        std::string materialPath = "";
-        glm::vec3 pos, rot, scale;
+        std::string materialPath;
+        
+        TransformComponent transform;
         
         s >> meshPath
-        >> pos.x >> pos.y >> pos.z
-        >> rot.x >> rot.y >> rot.z
-        >> scale.x >> scale.y >> scale.z
+        >> transform.position.x >> transform.position.y >> transform.position.z
+        >> transform.rotation.x >> transform.rotation.y >> transform.rotation.z
+        >> transform.scale.x >> transform.scale.y >> transform.scale.z
         >> materialPath;
         
         BaseMesh* mesh = MouseEngineContext::GetInstance()->Assets->LoadMesh(meshPath);
         if (mesh == nullptr)
             continue;
         
-        Material* meshMaterial = materialPath.empty() ? nullptr : LoadResource<Material>(materialPath);
+        Material* material = LoadResource<Material>(materialPath);
+        if (material == nullptr)
+            material = Material::GetFallbackMaterial();
         
-        MeshComponent* newMesh = new MeshComponent(mesh, meshMaterial);
-        sceneMeshes.push_back(newMesh);
+        Entity entity = EngineContext->Entities->CreateEntity();
+        EngineContext->Components->AddComponent(entity, transform);
         
-        newMesh->transform.SetPosition(pos);
-        newMesh->transform.SetRotation(rot);
-        newMesh->transform.SetScale(scale);
+        NewMeshComponent meshComp(mesh, material);
+        EngineContext->Components->AddComponent(entity, meshComp);
     }
 }
 

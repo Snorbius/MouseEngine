@@ -109,18 +109,17 @@ void BaseRenderer::ClearEntireScreen()
 
 void BaseRenderer::RenderComponents()
 {
-    Material* material = Material::GetFallbackMaterial();
-    
-    material->Use();
-    material->shader->SetUniform("u_view", EngineContext->activeCamera->GetView());
-    material->shader->SetUniform("u_projection", EngineContext->activeCamera->GetProjection());
-    
     std::vector<Entity> entities = EngineContext->Components->FilterEntities<NewMeshComponent, TransformComponent>(EngineContext->Entities->GetAllEntities());
 
     for (Entity entity : entities)
     {
         TransformComponent& transform = EngineContext->Components->GetComponent<TransformComponent>(entity);
         NewMeshComponent& mesh = EngineContext->Components->GetComponent<NewMeshComponent>(entity);
+        Material* material = mesh.material;
+        
+        material->Use();
+        material->shader->SetUniform("u_view", EngineContext->activeCamera->GetView());
+        material->shader->SetUniform("u_projection", EngineContext->activeCamera->GetProjection());
         
         material->shader->SetUniform("u_transform", transform.GetTransformMatrix());
         if (mesh.mesh != nullptr)

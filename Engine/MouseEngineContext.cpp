@@ -225,7 +225,8 @@ void MouseEngineContext::EngineLoop()
     trans1.position = glm::vec3(2, 0, 0);
     trans1.scale = glm::vec3(2, 2, 2);
     Components->AddComponent<TransformComponent>(testEntity1, trans1);
-    NewMeshComponent mesh1(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"));
+    NewMeshComponent mesh1(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"), 
+        Material::LoadResource<Material>("Engine/Content/Materials/UnlitCirno.material"));
     Components->AddComponent<NewMeshComponent>(testEntity1, mesh1);
     
     Components->AddComponent<NewMeshComponent>(testEntity, mesh1);
