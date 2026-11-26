@@ -6,13 +6,14 @@
 #include "BaseMesh.h"
 #include "BaseRenderer.h"
 #include "MouseEngineContext.h"
+#include "ECS/Components/TransformComponent.h"
 
 Renderable::~Renderable()
 {
     MouseEngineContext::GetInstance()->Renderer->UnregisterRenderable(this);
 }
 
-void Renderable::RenderObject(std::string name, Transform transform, Shader* shader)
+void Renderable::RenderObject(std::string name, TransformComponent transform, Shader* shader)
 {
     std::map<std::string, BaseMesh*> meshes = MouseEngineContext::GetInstance()->Assets->GetAllLoadedMeshes();
 
