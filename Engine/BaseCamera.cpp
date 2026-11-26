@@ -9,7 +9,7 @@
 BaseCamera::BaseCamera()
 {
     SetProcessEnabled(false);
-    EngineContext->activeCamera = this;
+    // EngineContext->activeCamera = this;
     EngineContext->Input->RegisterInputFunction(GLFW_KEY_F2, PRESSED, [this](float){orthographic = !orthographic;});
 }
 
@@ -65,5 +65,5 @@ void BaseCamera::SetAspectRatio(float ratio)
 
 void BaseCamera::MakeActive()
 {
-    EngineContext->activeCamera = this;
+    // EngineContext->activeCamera = this;
 }

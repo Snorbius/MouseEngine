@@ -2,6 +2,7 @@
 #include "../../Content/Components/MeshComponent.h"
 #include "../ECS/ComponentManager.h"
 #include "../ECS/EntityManager.h"
+#include "../ECS/Components/NameComponent.h"
 #include "../ECS/Components/NewMeshComponent.h"
 #include "../ECS/Components/TransformComponent.h"
 
@@ -51,10 +52,9 @@ void Scene::LoadMeshes()
         if (material == nullptr)
             material = Material::GetFallbackMaterial();
         
+        NewMeshComponent meshComp(mesh, material);
         Entity entity = EngineContext->Entities->CreateEntity();
         EngineContext->Components->AddComponent(entity, transform);
-        
-        NewMeshComponent meshComp(mesh, material);
         EngineContext->Components->AddComponent(entity, meshComp);
     }
 }
@@ -65,6 +65,7 @@ void Scene::FetchStartLocations()
         return;
 
     BaseMesh* mouseMesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/mouse.obj");
+    NewMeshComponent mesh(mouseMesh, nullptr);
     
     for (const std::string& startLocation : values["start"])
     {
@@ -73,13 +74,13 @@ void Scene::FetchStartLocations()
         s >> location.x >> location.y >> location.z;
         startLocations.push_back(location);
         
-        MeshComponent* startMesh = new MeshComponent(mouseMesh, nullptr);
-        startMesh->transform.SetPosition(location);
-        sceneMeshes.push_back(startMesh);
+        Entity startEntity = EngineContext->Entities->CreateEntity();
+        TransformComponent trans;
+        trans.SetPosition(location);
+        EngineContext->Components->AddComponent<TransformComponent>(startEntity, trans);
+        EngineContext->Components->AddComponent<NewMeshComponent>(startEntity, mesh);
+        EngineContext->Components->AddComponent<NameComponent>(startEntity).name = "Start Location";
     }
-    
-    if (startLocations.empty())
-        startLocations.emplace_back(0.0f);
 }
 
 void Scene::FetchEndLocations()
@@ -88,6 +89,7 @@ void Scene::FetchEndLocations()
         return;
 
     BaseMesh* monkeyMesh = EngineContext->Assets->LoadMesh("Engine/Content/Meshes/monkey.obj");
+    NewMeshComponent mesh(monkeyMesh, nullptr);
     
     for (const std::string& endLocation : values["end"])
     {
@@ -96,14 +98,11 @@ void Scene::FetchEndLocations()
         s >> location.x >> location.y >> location.z;
         endLocations.push_back(location);
         
-        MeshComponent* endMesh = new MeshComponent(monkeyMesh, nullptr);
-        endMesh->transform.SetPosition(location);
-        sceneMeshes.push_back(endMesh);
-        endMeshes.push_back(endMesh);
+        Entity endEntity = EngineContext->Entities->CreateEntity();
+        EngineContext->Components->AddComponent<TransformComponent>(endEntity).SetPosition(location);
+        EngineContext->Components->AddComponent<NewMeshComponent>(endEntity, mesh);
+        EngineContext->Components->AddComponent<NameComponent>(endEntity).name = "End Location";
     }
-    
-    if (endLocations.empty())
-        endLocations.emplace_back(0, 0, 5);
 }
 
 void Scene::InitializeResource()

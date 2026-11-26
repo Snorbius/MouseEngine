@@ -21,29 +21,17 @@ void BaseRenderer::ClearScreen()
     glClear(GL_DEPTH_BUFFER_BIT);
 }
 
-void BaseRenderer::RenderScreen()
+void BaseRenderer::RenderScreen(const glm::mat4& view, const glm::mat4& projection)
 {
     ClearScreen();
     
-    if (EngineContext->activeCamera != nullptr)
+    for (Shader* element : EngineContext->Assets->GetAllLoadedShaders())
     {
-        for (Shader* element : EngineContext->Assets->GetAllLoadedShaders())
-        {
-            element->SetUniform("u_view", EngineContext->activeCamera->GetView());
-            element->SetUniform("u_projection", EngineContext->activeCamera->GetProjection());
-        }
+        element->SetUniform("u_view", view);
+        element->SetUniform("u_projection", projection);
     }
     
-    for (std::pair<Material* const, std::vector<Renderable*>>& vectorElement : objectsToRender)
-    {
-        vectorElement.first->Use();
-        Shader* shader = vectorElement.first->shader;
-        for (Renderable* renderable : vectorElement.second)
-            if (renderable != nullptr)
-                renderable->Render(shader);
-    }
-    
-    RenderComponents();
+    RenderComponents(view, projection);
 }
 
 void BaseRenderer::RegisterRenderable(Renderable* renderable, Material* material)
@@ -107,7 +95,7 @@ void BaseRenderer::ClearEntireScreen()
     glEnable(GL_SCISSOR_TEST);
 }
 
-void BaseRenderer::RenderComponents()
+void BaseRenderer::RenderComponents(const glm::mat4& view, const glm::mat4& projection)
 {
     std::vector<Entity> entities = EngineContext->Components->FilterEntities<NewMeshComponent, TransformComponent>(EngineContext->Entities->GetAllEntities());
 
@@ -118,8 +106,8 @@ void BaseRenderer::RenderComponents()
         Material* material = mesh.material;
         
         material->Use();
-        material->shader->SetUniform("u_view", EngineContext->activeCamera->GetView());
-        material->shader->SetUniform("u_projection", EngineContext->activeCamera->GetProjection());
+        material->shader->SetUniform("u_view", view);
+        material->shader->SetUniform("u_projection", projection);
         
         material->shader->SetUniform("u_transform", transform.GetTransformMatrix());
         if (mesh.mesh != nullptr)

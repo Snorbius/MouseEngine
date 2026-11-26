@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <glm/vec4.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
 
 class MouseEngineContext;
 class Renderable;
@@ -27,7 +28,7 @@ public:
     /**
      * Renders the screen.
      */
-    void RenderScreen();
+    void RenderScreen(const glm::mat4& view, const glm::mat4& projection);
 
     /**
      * Registers a renderable to be rendered with a specified material.
@@ -63,5 +64,5 @@ public:
      */
     void ClearEntireScreen();
     
-    void RenderComponents();
+    void RenderComponents(const glm::mat4& view, const glm::mat4& projection);
 };

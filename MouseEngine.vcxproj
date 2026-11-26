@@ -145,6 +145,9 @@
     <ClCompile Include="Engine\Content\Components\MeshComponent.cpp" />
     <ClCompile Include="Engine\ECS\ComponentContainer.cpp" />
     <ClCompile Include="Engine\ECS\ComponentManager.cpp" />
+    <ClCompile Include="Engine\ECS\Components\CameraComponent.cpp" />
+    <ClCompile Include="Engine\ECS\Components\Component.cpp" />
+    <ClCompile Include="Engine\ECS\Components\NameComponent.cpp" />
     <ClCompile Include="Engine\ECS\Components\NewMeshComponent.cpp" />
     <ClCompile Include="Engine\ECS\Components\TransformComponent.cpp" />
     <ClCompile Include="Engine\ECS\EntityManager.cpp" />
@@ -187,6 +190,9 @@
     <ClInclude Include="Engine\Content\Components\MeshComponent.h" />
     <ClInclude Include="Engine\ECS\ComponentContainer.h" />
     <ClInclude Include="Engine\ECS\ComponentManager.h" />
+    <ClInclude Include="Engine\ECS\Components\CameraComponent.h" />
+    <ClInclude Include="Engine\ECS\Components\Component.h" />
+    <ClInclude Include="Engine\ECS\Components\NameComponent.h" />
     <ClInclude Include="Engine\ECS\Components\NewMeshComponent.h" />
     <ClInclude Include="Engine\ECS\Components\TransformComponent.h" />
     <ClInclude Include="Engine\ECS\EntityManager.h" />

@@ -20,6 +20,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "ECS/ComponentManager.h"
+#include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/NewMeshComponent.h"
 #include "ECS/Components/TransformComponent.h"
 #include "ImGuiWindows/EngineUI.h"
@@ -217,33 +218,11 @@ void MouseEngineContext::EngineLoop()
     Input->SetMouseCaptured(true);
     Input->SetMouseVisibility(false);
     
-    Entity testEntity = Entities->CreateEntity();
-    Components->AddComponent<TransformComponent>(testEntity);
-    
-    Entity testEntity1 = Entities->CreateEntity();
-    TransformComponent trans1;
-    trans1.SetPosition(glm::vec3(2, 0, 0));
-    trans1.SetScale(glm::vec3(2, 2, 2));
-    Components->AddComponent<TransformComponent>(testEntity1, trans1);
-    NewMeshComponent mesh1(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"), 
-        Material::LoadResource<Material>("Engine/Content/Materials/UnlitCirno.material"));
-    Components->AddComponent<NewMeshComponent>(testEntity1, mesh1);
-    
-    Components->AddComponent<NewMeshComponent>(testEntity, mesh1);
-    
-    Entity testEntity2 = Entities->CreateEntity();
-    TransformComponent trans2;
-    trans2.SetPosition(glm::vec3(0, 2, 3));
-    trans2.SetScale(glm::vec3(5.0f));
-    Components->AddComponent<TransformComponent>(testEntity2, trans2);
-    Components->AddComponent<NewMeshComponent>(testEntity2, mesh1);
-    
-    auto transContainer = Components->GetContainer<TransformComponent>();
-    auto meshContainer = Components->GetContainer<NewMeshComponent>();
-    
-    Components->RemoveComponent<TransformComponent>(testEntity1);
-    
-    std::vector<Entity> test = Components->FilterEntities<NewMeshComponent, TransformComponent>(Entities->GetAllEntities());
+    Entity camera = Entities->CreateEntity();
+    Components->AddComponent<CameraComponent>(camera);
+    Components->AddComponent<TransformComponent>(camera);
+    Components->GetComponent<TransformComponent>(camera).SetPosition({0, 5, 25});
+    Components->GetComponent<TransformComponent>(camera).SetRotation({0, -90, 0});
     
     while (!glfwWindowShouldClose(contextWindow))
     {
@@ -251,46 +230,13 @@ void MouseEngineContext::EngineLoop()
         
         HandleProcess();
         
-        if (numPlayers > 1)
-        {
-            constexpr glm::vec4 clearColors[4] = {
-                glm::vec4(1, 0.9, 1, 1),
-                glm::vec4(1, 1, 0.9, 1),
-                glm::vec4(0.9, 1, 1, 1),
-                glm::vec4(0.9, 0.9, 0.9, 1),
-            };
-            
-            int rows = static_cast<int>(ceil(sqrt(numPlayers - 1)));
-            int columns = static_cast<int>(ceil(sqrt(numPlayers)));
-            int viewportWidth = framebufferSize.x / columns;
-            int viewportHeight = framebufferSize.y / rows;
-            
-            for (int i = 0; i < numPlayers; ++i)
-            {
-                int x = viewportWidth * (i % columns);
-                // int y = viewportHeight * (i % columns * columns);
-                int y = viewportHeight * floor((i / columns));
-                
-                
-                players[i]->playerCamera->MakeActive();
-                    
-                if (activeCamera != nullptr)
-                    activeCamera->SetAspectRatio(static_cast<float>(viewportWidth), static_cast<float>(viewportHeight));
-                Renderer->SetClearColor(clearColors[i % 4]);
-                Renderer->SetViewportDimensions(x, y, viewportWidth, viewportHeight);
-                Renderer->RenderScreen();
-            }
-        }
-        else
-        {
-            players[0]->playerCamera->MakeActive();
-            
-            if (activeCamera != nullptr)
-                activeCamera->SetAspectRatio(static_cast<float>(framebufferSize.x), static_cast<float>(framebufferSize.y));
-            Renderer->SetClearColor(glm::vec4(1.0f, 0.9f, 1.0f, 1.0f));
-            Renderer->SetViewportDimensions(0, 0, framebufferSize.x, framebufferSize.y);
-            Renderer->RenderScreen();
-        }
+        CameraComponent& cameraComp = Components->GetComponent<CameraComponent>(camera);
+        TransformComponent& cameraTransform = Components->GetComponent<TransformComponent>(camera);
+        
+        cameraComp.SetAspectRatio(static_cast<float>(framebufferSize.x), static_cast<float>(framebufferSize.y));
+        Renderer->SetClearColor(glm::vec4(1.0f, 0.9f, 1.0f, 1.0f));
+        Renderer->SetViewportDimensions(0, 0, framebufferSize.x, framebufferSize.y);
+        Renderer->RenderScreen(cameraComp.GetView(cameraTransform), cameraComp.GetProjection());
         
         RenderImGui(&engineUI);
         
@@ -378,8 +324,8 @@ void MouseEngineContext::ResizeCallback(GLFWwindow* window, int width, int heigh
     framebufferSize.y = height;
     
     Renderer->SetViewportDimensions(0, 0, width, height);
-    if (activeCamera != nullptr)
-        activeCamera->SetAspectRatio(static_cast<float>(width), static_cast<float>(height));
+    // if (activeCamera != nullptr)
+    //     activeCamera->SetAspectRatio(static_cast<float>(width), static_cast<float>(height));
 }
 
 void MouseEngineContext::StaticInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

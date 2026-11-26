@@ -40,8 +40,6 @@ public:
     
     glm::ivec2 framebufferSize = glm::ivec2(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     
-    BaseCamera* activeCamera; 
-    
     int numPlayers = 1;
     
 private:
