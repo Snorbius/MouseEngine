@@ -21,7 +21,9 @@
 #include "imgui_impl_opengl3.h"
 #include "ECS/ComponentManager.h"
 #include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/CameraMovementComponent.h"
 #include "ECS/Components/NewMeshComponent.h"
+#include "ECS/Components/PlayerMovementComponent.h"
 #include "ECS/Components/TransformComponent.h"
 #include "ImGuiWindows/EngineUI.h"
 #include "Resources/Material.h"
@@ -221,14 +223,25 @@ void MouseEngineContext::EngineLoop()
     Entity camera = Entities->CreateEntity();
     Components->AddComponent<CameraComponent>(camera);
     Components->AddComponent<TransformComponent>(camera);
+    Components->AddComponent<CameraMovementComponent>(camera);
     Components->GetComponent<TransformComponent>(camera).SetPosition({0, 5, 25});
     Components->GetComponent<TransformComponent>(camera).SetRotation({0, -90, 0});
+    
+    Entity player = Entities->CreateEntity();
+    Components->AddComponent<TransformComponent>(player);
+    NewMeshComponent mesh(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"), 
+        Material::LoadResource<Material>("Engine/Content/Materials/UnlitCirno.material"));
+    Components->AddComponent<NewMeshComponent>(player, mesh);
+    Components->AddComponent<PlayerMovementComponent>(player).cameraPOV = camera;
     
     while (!glfwWindowShouldClose(contextWindow))
     {
         Renderer->ClearEntireScreen();
         
         HandleProcess();
+        
+        Components->GetComponent<PlayerMovementComponent>(player).Process(Time->GetWorldDeltaTimef());
+        Components->GetComponent<CameraMovementComponent>(camera).Process(Time->GetWorldDeltaTimef());
         
         CameraComponent& cameraComp = Components->GetComponent<CameraComponent>(camera);
         TransformComponent& cameraTransform = Components->GetComponent<TransformComponent>(camera);

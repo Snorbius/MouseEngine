@@ -146,9 +146,11 @@
     <ClCompile Include="Engine\ECS\ComponentContainer.cpp" />
     <ClCompile Include="Engine\ECS\ComponentManager.cpp" />
     <ClCompile Include="Engine\ECS\Components\CameraComponent.cpp" />
+    <ClCompile Include="Engine\ECS\Components\CameraMovementComponent.cpp" />
     <ClCompile Include="Engine\ECS\Components\Component.cpp" />
     <ClCompile Include="Engine\ECS\Components\NameComponent.cpp" />
     <ClCompile Include="Engine\ECS\Components\NewMeshComponent.cpp" />
+    <ClCompile Include="Engine\ECS\Components\PlayerMomvementComponent.cpp" />
     <ClCompile Include="Engine\ECS\Components\TransformComponent.cpp" />
     <ClCompile Include="Engine\ECS\EntityManager.cpp" />
     <ClCompile Include="Engine\FlyingPlayer.cpp" />
@@ -191,9 +193,11 @@
     <ClInclude Include="Engine\ECS\ComponentContainer.h" />
     <ClInclude Include="Engine\ECS\ComponentManager.h" />
     <ClInclude Include="Engine\ECS\Components\CameraComponent.h" />
+    <ClInclude Include="Engine\ECS\Components\CameraMovementComponent.h" />
     <ClInclude Include="Engine\ECS\Components\Component.h" />
     <ClInclude Include="Engine\ECS\Components\NameComponent.h" />
     <ClInclude Include="Engine\ECS\Components\NewMeshComponent.h" />
+    <ClInclude Include="Engine\ECS\Components\PlayerMovementComponent.h" />
     <ClInclude Include="Engine\ECS\Components\TransformComponent.h" />
     <ClInclude Include="Engine\ECS\EntityManager.h" />
     <ClInclude Include="Engine\FlyingPlayer.h" />
