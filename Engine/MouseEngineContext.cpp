@@ -6,14 +6,9 @@
 #include <variant>
 
 #include "AssetManager.h"
-#include "BaseCamera.h"
 #include "BaseRenderer.h"
-#include "FlyingPlayer.h"
-#include "FlyingPlayerWithCamera.h"
 #include "InputManager.h"
 #include "Object.h"
-#include "Shader.h"
-#include "Texture.h"
 #include "TimeManager.h"
 
 #include "imgui.h"
@@ -57,8 +52,6 @@ MouseEngineContext::MouseEngineContext()
     
     LoadScene("Engine/Content/Scenes/FlatPlane.scene");
     
-    RefreshPlayerCount();
-    
     Input->RegisterInputFunction(GLFW_KEY_F1, PRESSED, [this](float _){ToggleWireframe();});
     Input->RegisterInputFunction(GLFW_KEY_ESCAPE, PRESSED, [this](float _)
     {
@@ -79,12 +72,6 @@ MouseEngineContext::~MouseEngineContext()
     delete Renderer;
     delete Components;
     delete Entities;
-
-    for (int i = static_cast<int>(players.size()) - 1; i >= 0; --i)
-    {
-        delete players[i];
-    }
-    players.clear();
 }
 
 MouseEngineContext* MouseEngineContext::GetInstance()
@@ -187,12 +174,6 @@ void MouseEngineContext::HandleProcess()
     }
 }
 
-void MouseEngineContext::RespawnPlayer(FlyingPlayer* player)
-{
-    glm::vec3 startPos = ActiveScene->startLocations[rand() % ActiveScene->startLocations.size()];
-    player->transform.SetPosition(startPos);
-}
-
 void MouseEngineContext::RenderImGui(EngineUI* engineUI)
 {
     ImGui_ImplGlfw_NewFrame();
@@ -291,35 +272,6 @@ void MouseEngineContext::LoadScene(const std::string& scenePath)
     if (ActiveScene != nullptr)
         delete ActiveScene;
     ActiveScene = newScene;
-
-    for (FlyingPlayerWithCamera*& player : players)
-        RespawnPlayer(player);
-}
-
-void MouseEngineContext::RefreshPlayerCount()
-{
-    constexpr PlayerInputMode inputModes[4] = {
-        WASD, ARROWS, CONTROLLER1, CONTROLLER2
-    };
-    
-    if (std::cmp_less(players.size(), numPlayers))
-    {
-        for (int i = static_cast<int>(players.size()); i < numPlayers; ++i)
-        {
-            FlyingPlayerWithCamera* newPlayer = new FlyingPlayerWithCamera();
-            RespawnPlayer(newPlayer);
-            newPlayer->SetInputMode(inputModes[i % 4]);
-            players.push_back(newPlayer);
-        }
-    }
-    if (std::cmp_greater(players.size(), numPlayers))
-    {
-        for (int i = static_cast<int>(players.size()) - 1; i >= numPlayers; --i)
-        {
-            delete players[i];
-            players.erase(players.begin() + i);
-        }
-    }
 }
 
 void MouseEngineContext::InputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

@@ -53,21 +53,6 @@ void EngineMenuBar::Draw()
             ImGui::EndMenu();
         }
         
-        if (ImGui::BeginMenu("Players"))
-        {
-            if (ImGui::BeginMenu("Amount"))
-            {
-                if (ImGui::SliderInt("Number of players", &MouseEngineContext::GetInstance()->numPlayers, 1, 4))
-                {
-                    MouseEngineContext::GetInstance()->RefreshPlayerCount();
-                }
-                
-                ImGui::EndMenu();
-            }
-            
-            ImGui::EndMenu();
-        }
-        
         if (ImGui::BeginMenu("Scene"))
         {
             if (ImGui::BeginMenu("Change Scene"))

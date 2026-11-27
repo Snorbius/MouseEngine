@@ -57,7 +57,6 @@ private:
     void InitialiseImGui();
     
     void HandleProcess();
-    void RespawnPlayer(FlyingPlayer* player);
     void RenderImGui(EngineUI* engineUI);
 
 protected:
@@ -107,10 +106,4 @@ public:
      * @param scenePath The path to the scene.
      */
     void LoadScene(const std::string& scenePath);
-
-    /**
-     * Checks the player count and deletes/creates players based on the difference. 
-     * This function is very temporary teehee.
-     */
-    void RefreshPlayerCount();
 };
