@@ -6,10 +6,12 @@
 #include "TransformComponent.h"
 #include "../../MouseEngineContext.h"
 
-glm::mat4 CameraComponent::GetView(const TransformComponent& transform) const
+glm::mat4 CameraComponent::GetView() const
 {
-    glm::vec3 pos2 = transform.GetPosition();
-    return glm::lookAt(pos2, pos2 + transform.GetForward(), glm::vec3(0, 1, 0));
+    std::optional<TransformComponent> transComp = TryGetSiblingComponent<TransformComponent>();
+    TransformComponent trans = transComp.has_value() ? transComp.value() : TransformComponent();
+    glm::vec3 pos2 = trans.GetPosition();
+    return glm::lookAt(pos2, pos2 + trans.GetForward(), glm::vec3(0, 1, 0));
 }
 
 glm::mat4 CameraComponent::GetProjection() const

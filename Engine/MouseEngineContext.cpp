@@ -236,7 +236,7 @@ void MouseEngineContext::EngineLoop()
         cameraComp.SetAspectRatio(static_cast<float>(framebufferSize.x), static_cast<float>(framebufferSize.y));
         Renderer->SetClearColor(glm::vec4(1.0f, 0.9f, 1.0f, 1.0f));
         Renderer->SetViewportDimensions(0, 0, framebufferSize.x, framebufferSize.y);
-        Renderer->RenderScreen(cameraComp.GetView(cameraTransform), cameraComp.GetProjection());
+        Renderer->RenderScreen(cameraComp.GetView(), cameraComp.GetProjection());
         
         RenderImGui(&engineUI);
         

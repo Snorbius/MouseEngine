@@ -51,9 +51,12 @@ T& ComponentContainer<T>::AddComponent(Entity entity, T component)
         return components[entityComponentMap[entity]];
     }
     
+    size_t componentIndex = components.size();
+    component.owningEntity = entity;
+    entityComponentMap[entity] = componentIndex;
+    componentEntityMap[componentIndex] = entity;
+    
     components.push_back(component);
-    entityComponentMap[entity] = components.size() - 1;
-    componentEntityMap[components.size() - 1] = entity;
     return components.back();
 }
 

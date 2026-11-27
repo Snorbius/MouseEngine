@@ -1,6 +1,5 @@
 ﻿#include "BaseRenderer.h"
 
-#include "BaseCamera.h"
 #include "BaseMesh.h"
 #include "Renderable.h"
 #include "ECS/ComponentManager.h"

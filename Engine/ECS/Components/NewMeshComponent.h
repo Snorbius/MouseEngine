@@ -1,9 +1,10 @@
 ﻿#pragma once
+#include "Component.h"
 #include "../../Resources/Material.h"
 
 class BaseMesh;
 
-struct NewMeshComponent
+struct NewMeshComponent: Component
 {
     NewMeshComponent(): NewMeshComponent(nullptr, nullptr) {}
     NewMeshComponent(BaseMesh* mesh, Material* material = nullptr)

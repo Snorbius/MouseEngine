@@ -25,7 +25,7 @@ public:
     /** Get the current near and far plane for this camera. */
     glm::vec2 GetNearFarPlane() const { return {nearPlane, farPlane}; }
     /** Get a view matrix based on the cameras position. */
-    glm::mat4 GetView(const TransformComponent& transform) const;
+    glm::mat4 GetView() const;
     /** Get a projection matrix for this camera. Is affected by the current orthographic property value. */
     glm::mat4 GetProjection() const;
     /** Get whether the camera is currently in orthographic mode (perspective otherwise) */

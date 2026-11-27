@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include <string>
 
-struct NameComponent
+#include "Component.h"
+
+struct NameComponent: Component
 {
     std::string name;
 };
