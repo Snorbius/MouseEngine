@@ -7,8 +7,8 @@
 
 void PlayerMovementComponent::HandleKeyboardMovement(float deltaTime)
 {
-    std::optional<TransformComponent> trans = TryGetSiblingComponent<TransformComponent>();
-    if (!trans.has_value())
+    TransformComponent trans;
+    if (!TryGetSiblingComponent<TransformComponent>(trans))
         return;
     
     // TransformComponent& transform = trans.value();
@@ -41,8 +41,8 @@ void PlayerMovementComponent::HandleKeyboardMovement(float deltaTime)
     
     glm::vec3 moveVector = glm::vec3(0.0f);
     
-    std::optional<TransformComponent> cameraTrans = EngineContext->Components->TryGetComponent<TransformComponent>(cameraPOV);
-    TransformComponent axis = cameraTrans.has_value() ? cameraTrans.value() : TransformComponent();
+    TransformComponent axis;
+    EngineContext->Components->TryGetComponent<TransformComponent>(cameraPOV, axis);
     
     moveVector += move.x * axis.GetRight();
     moveVector += move.y * axis.GetUp();

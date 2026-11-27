@@ -224,6 +224,7 @@ void MouseEngineContext::EngineLoop()
     Components->AddComponent<CameraComponent>(camera);
     Components->AddComponent<TransformComponent>(camera);
     Components->AddComponent<CameraMovementComponent>(camera);
+    Components->AddComponent<PlayerMovementComponent>(camera).cameraPOV = camera;
     Components->GetComponent<TransformComponent>(camera).SetPosition({0, 5, 25});
     Components->GetComponent<TransformComponent>(camera).SetRotation({0, -90, 0});
     
@@ -240,7 +241,7 @@ void MouseEngineContext::EngineLoop()
         
         HandleProcess();
         
-        Components->GetComponent<PlayerMovementComponent>(player).Process(Time->GetWorldDeltaTimef());
+        Components->GetComponent<PlayerMovementComponent>(camera).Process(Time->GetWorldDeltaTimef());
         Components->GetComponent<CameraMovementComponent>(camera).Process(Time->GetWorldDeltaTimef());
         
         CameraComponent& cameraComp = Components->GetComponent<CameraComponent>(camera);

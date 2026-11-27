@@ -27,7 +27,7 @@ public:
     T& AddComponent(Entity entity, T component);
     
     template <typename T>
-    std::optional<T> TryGetComponent(Entity entity);
+    bool TryGetComponent(Entity entity, T& component);
     
     template <typename T>
     T& GetComponent(Entity entity);
@@ -71,11 +71,11 @@ T& ComponentManager::AddComponent(Entity entity, T component)
 }
 
 template <typename T>
-std::optional<T> ComponentManager::TryGetComponent(Entity entity)
+bool ComponentManager::TryGetComponent(Entity entity, T& component)
 {
     ComponentContainer<T>* container = GetContainer<T>();
     
-    return container->TryGetComponent(entity);
+    return container->TryGetComponent(entity, component);
 }
 
 template <typename T>

@@ -18,14 +18,14 @@ protected:
      * @return An optional, containing the component, if found.
      */
     template <typename T> 
-    std::optional<T> TryGetSiblingComponent() const;
+    bool TryGetSiblingComponent(T& component) const;
     
 public:
     Entity owningEntity = 0;
 };
 
 template <typename T>
-std::optional<T> Component::TryGetSiblingComponent() const
+bool Component::TryGetSiblingComponent(T& component) const
 {
-    return EngineContext->Components->TryGetComponent<T>(owningEntity);
+    return EngineContext->Components->TryGetComponent<T>(owningEntity, component);
 }

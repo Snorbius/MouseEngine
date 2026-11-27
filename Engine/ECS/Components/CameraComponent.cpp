@@ -8,8 +8,8 @@
 
 glm::mat4 CameraComponent::GetView() const
 {
-    std::optional<TransformComponent> transComp = TryGetSiblingComponent<TransformComponent>();
-    TransformComponent trans = transComp.has_value() ? transComp.value() : TransformComponent();
+    TransformComponent trans;
+    TryGetSiblingComponent<TransformComponent>(trans);
     glm::vec3 pos2 = trans.GetPosition();
     return glm::lookAt(pos2, pos2 + trans.GetForward(), glm::vec3(0, 1, 0));
 }

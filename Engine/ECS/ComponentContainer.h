@@ -23,7 +23,7 @@ public:
     bool HasComponent(Entity entity);
     T& AddComponent(Entity entity);
     T& AddComponent(Entity entity, T component);
-    std::optional<T> TryGetComponent(Entity entity);
+    bool TryGetComponent(Entity entity, T& component);
     T& GetComponent(Entity entity);
     void RemoveComponent(Entity entity);
     std::vector<Entity> FilterEntities(const std::vector<Entity>& entities) const;
@@ -61,16 +61,17 @@ T& ComponentContainer<T>::AddComponent(Entity entity, T component)
 }
 
 template <typename T>
-std::optional<T> ComponentContainer<T>::TryGetComponent(Entity entity)
+bool ComponentContainer<T>::TryGetComponent(Entity entity, T& component)
 {
     if (!entityComponentMap.contains(entity))
     {
         MouseLogs::print_warning(std::format("Entity {} does not have component of type \"{}\"",
             std::to_string(entity), typeid(T).name()));
-        return std::nullopt;
+        return false;
     }
     
-    return GetComponent(entity);
+    component = GetComponent(entity);
+    return true;
 }
 
 template <typename T>
