@@ -1,0 +1,7 @@
+Scene
+
+[Entity]
+TransformComponent(0, 2, 0, 0, 0, 0, 1, 1, 1)
+
+[Entity]
+TransformComponent(0, 0, 0, 0, 0, 0, 40, 0.5, 40)

@@ -22,10 +22,20 @@ protected:
     
 public:
     Entity owningEntity = 0;
+    
+    template<typename T>
+    static std::string GetComponentName();
 };
 
 template <typename T>
 bool Component::TryGetSiblingComponent(T& component) const
 {
     return EngineContext->Components->TryGetComponent<T>(owningEntity, component);
+}
+
+template <typename T>
+std::string Component::GetComponentName()
+{
+    std::string name = typeid(T).name();
+    return name.substr(name.find(' ') + 1);
 }

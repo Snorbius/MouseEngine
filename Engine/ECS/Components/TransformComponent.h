@@ -4,10 +4,12 @@
 #include <glm/ext/matrix_transform.hpp>
 
 #include "Component.h"
+#include "../../Interfaces/ISerializable.h"
 
-struct TransformComponent: Component
+struct TransformComponent: Component, ISerializable
 {
-    TransformComponent();
+    TransformComponent(): TransformComponent(glm::vec3(0), glm::vec3(0), glm::vec3(1)) { }
+    TransformComponent(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale);
     
 private:
     glm::vec3 position = glm::vec3(0.0f);
@@ -38,4 +40,5 @@ public:
     void SetRotation(glm::vec3 value);
     void Rotate(glm::vec3 value);
     void PointAt(glm::vec3 targetPosition);
+    std::string FetchSaveInfo() override;
 };

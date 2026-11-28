@@ -2,8 +2,12 @@
 
 #include <glm/gtc/quaternion.hpp>
 
-TransformComponent::TransformComponent()
+TransformComponent::TransformComponent(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale)
 {
+    position = pos;
+    rotation = rot;
+    this->scale = scale;
+    
     UpdateData();
     UpdateAxisVectors();
 }
@@ -75,4 +79,14 @@ void TransformComponent::PointAt(glm::vec3 targetPosition)
     
     glm::vec3 forwardVector = glm::normalize(targetPosition - position);
     SetRotation(eulerAngles(glm::quatLookAt(forwardVector, glm::vec3(0, 1, 0))) * (180.0f/glm::pi<float>()));
+}
+
+std::string TransformComponent::FetchSaveInfo()
+{
+    return std::format("{}, {}, {}, "
+                       "{}, {}, {}, "
+                       "{}, {}, {}",
+                       position.x, position.y, position.z,
+                       rotation.x, rotation.y, rotation.z,
+                       scale.x, scale.y, scale.z);
 }

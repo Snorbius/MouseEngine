@@ -162,6 +162,7 @@
     <ClCompile Include="Engine\ImGuiWindows\EngineUI.cpp" />
     <ClCompile Include="Engine\ImGuiWindows\MaterialCreator.cpp" />
     <ClCompile Include="Engine\InputManager.cpp" />
+    <ClCompile Include="Engine\Interfaces\ISerializable.cpp" />
     <ClCompile Include="Engine\LogManager.cpp" />
     <ClCompile Include="Engine\MeshBuilder.cpp" />
     <ClCompile Include="Engine\MeshLoader.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="Engine\ImGuiWindows\EngineUI.h" />
     <ClInclude Include="Engine\ImGuiWindows\MaterialCreator.h" />
     <ClInclude Include="Engine\InputManager.h" />
+    <ClInclude Include="Engine\Interfaces\ISerializable.h" />
     <ClInclude Include="Engine\LogManager.h" />
     <ClInclude Include="Engine\MeshBuilder.h" />
     <ClInclude Include="Engine\MeshLoader.h" />
@@ -241,6 +243,7 @@
     <Content Include="Engine\Content\Meshes\utah_teapot_highres.obj" />
     <Content Include="Engine\Content\Scenes\FlatPlane.scene" />
     <Content Include="Engine\Content\Scenes\GroundScene.scene" />
+    <Content Include="Engine\Content\Scenes\Temporary.scene" />
     <Content Include="Engine\Content\Scenes\TestScene.scene" />
     <Content Include="Engine\Content\Scenes\TestScene2.scene" />
     <Content Include="Engine\Content\Shaders\basic_colored.frag" />
@@ -258,7 +261,6 @@
     <Content Include="Engine\imgui-docking\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Engine\Interfaces\" />
     <Folder Include="Engine\Temporary\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
