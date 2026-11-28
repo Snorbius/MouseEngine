@@ -242,10 +242,6 @@
     <Content Include="Engine\Content\Meshes\utah_teapot.obj" />
     <Content Include="Engine\Content\Meshes\utah_teapot_highres.obj" />
     <Content Include="Engine\Content\Scenes\FlatPlane.scene" />
-    <Content Include="Engine\Content\Scenes\GroundScene.scene" />
-    <Content Include="Engine\Content\Scenes\Temporary.scene" />
-    <Content Include="Engine\Content\Scenes\TestScene.scene" />
-    <Content Include="Engine\Content\Scenes\TestScene2.scene" />
     <Content Include="Engine\Content\Shaders\basic_colored.frag" />
     <Content Include="Engine\Content\Shaders\basic_fragment.frag" />
     <Content Include="Engine\Content\Shaders\basic_vertex.vert" />

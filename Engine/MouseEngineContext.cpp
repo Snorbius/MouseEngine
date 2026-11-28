@@ -21,7 +21,6 @@
 #include "ECS/Components/PlayerMovementComponent.h"
 #include "ECS/Components/TransformComponent.h"
 #include "ImGuiWindows/EngineUI.h"
-#include "Resources/Material.h"
 #include "Resources/Resource.h"
 #include "Resources/Scene.h"
 
@@ -200,28 +199,6 @@ void MouseEngineContext::EngineLoop()
     
     Input->SetMouseCaptured(true);
     Input->SetMouseVisibility(false);
-    
-    /*
-    Entity camera = Entities->CreateEntity();
-    Components->AddComponent<CameraComponent>(camera);
-    Components->AddComponent<TransformComponent>(camera);
-    Components->AddComponent<CameraMovementComponent>(camera);
-    Components->AddComponent<PlayerMovementComponent>(camera).cameraPOV = camera;
-    
-    Components->GetComponent<TransformComponent>(camera).SetPosition({0, 5, 25});
-    Components->GetComponent<TransformComponent>(camera).SetRotation({0, -90, 0});
-    
-    Entity cirno = Entities->CreateEntity();
-    Components->AddComponent<TransformComponent>(cirno);
-    NewMeshComponent mesh(Assets->LoadMesh("Engine/Content/Meshes/cirno.obj"), 
-        Material::LoadResource<Material>("Engine/Content/Materials/UnlitCirno.material"));
-    Components->AddComponent<NewMeshComponent>(cirno, mesh);
-    
-    ActiveScene->sceneEntities.push_back(camera);
-    ActiveScene->sceneEntities.push_back(cirno);
-    
-    ActiveScene->NewSaveToFile("Engine/Content/Scenes/Temporary.scene");
-    */
     
     Entity camera = Components->FilterEntities<CameraComponent>(Entities->GetAllEntities())[0];
     
