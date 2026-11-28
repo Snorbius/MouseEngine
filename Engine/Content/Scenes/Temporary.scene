@@ -2,6 +2,18 @@ Scene
 
 [Entity]
 TransformComponent(0, 2, 0, 0, 0, 0, 1, 1, 1)
+NewMeshComponent(Engine/Content/Meshes/cube.obj, Engine/Content/Materials/Basic.material)
 
 [Entity]
 TransformComponent(0, 0, 0, 0, 0, 0, 40, 0.5, 40)
+NewMeshComponent(Engine/Content/Meshes/cube.obj, Engine/Content/Materials/White.material)
+
+[Entity]
+TransformComponent(0, 5, 25, 0, -90, 0, 1, 1, 1)
+CameraComponent()
+CameraMovementComponent()
+PlayerMovementComponent(15.000000)
+
+[Entity]
+TransformComponent(0, 0, 0, 0, 0, 0, 1, 1, 1)
+NewMeshComponent(Engine/Content/Meshes/cirno.obj, Engine/Content/Materials/UnlitCirno.material)

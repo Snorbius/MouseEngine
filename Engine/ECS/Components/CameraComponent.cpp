@@ -62,3 +62,8 @@ void CameraComponent::MakeActive()
 {
     // EngineContext->activeCamera = this;
 }
+
+std::string CameraComponent::FetchSaveInfo()
+{
+    return "";
+}

@@ -5,6 +5,11 @@
 
 #include "TransformComponent.h"
 
+PlayerMovementComponent::PlayerMovementComponent(float moveSpeed)
+{
+    this->moveSpeed = moveSpeed;
+}
+
 void PlayerMovementComponent::HandleKeyboardMovement(float deltaTime)
 {
     TransformComponent trans;
@@ -42,7 +47,7 @@ void PlayerMovementComponent::HandleKeyboardMovement(float deltaTime)
     glm::vec3 moveVector = glm::vec3(0.0f);
     
     TransformComponent axis;
-    EngineContext->Components->TryGetComponent<TransformComponent>(cameraPOV, axis);
+    EngineContext->Components->TryGetComponent<TransformComponent>(cameraPOV != 0 ? cameraPOV : owningEntity, axis);
     
     moveVector += move.x * axis.GetRight();
     moveVector += move.y * axis.GetUp();
@@ -56,4 +61,9 @@ void PlayerMovementComponent::HandleKeyboardMovement(float deltaTime)
 void PlayerMovementComponent::Process(float deltaTime)
 {
     HandleKeyboardMovement(deltaTime);
+}
+
+std::string PlayerMovementComponent::FetchSaveInfo()
+{
+    return std::to_string(moveSpeed);
 }

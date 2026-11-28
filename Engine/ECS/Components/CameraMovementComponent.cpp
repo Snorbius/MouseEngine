@@ -24,3 +24,8 @@ void CameraMovementComponent::Process(float deltaTime)
     
     targetTransform.SetRotation({xRot, yRot, 0});
 }
+
+std::string CameraMovementComponent::FetchSaveInfo()
+{
+    return "";
+}

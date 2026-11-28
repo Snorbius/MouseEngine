@@ -2,8 +2,11 @@
 #include "../../Content/Components/MeshComponent.h"
 #include "../ECS/ComponentManager.h"
 #include "../ECS/EntityManager.h"
+#include "../ECS/Components/CameraComponent.h"
+#include "../ECS/Components/CameraMovementComponent.h"
 #include "../ECS/Components/NameComponent.h"
 #include "../ECS/Components/NewMeshComponent.h"
+#include "../ECS/Components/PlayerMovementComponent.h"
 #include "../ECS/Components/TransformComponent.h"
 
 Scene::Scene()
@@ -111,6 +114,9 @@ std::vector<std::string> Scene::GetComponentParameters(std::string line)
 {
     size_t startIndex = line.find('(') + 1;
     size_t endIndex = line.find(',', startIndex + 1);
+    
+    if (endIndex == std::string::npos)
+        endIndex = line.find(')', startIndex + 1);
                 
     std::vector<std::string> params;
                 
@@ -140,7 +146,7 @@ void Scene::LoadEntities()
         return;
     }
         
-    std::fstream file("Engine/Content/Scenes/Temporary.scene");
+    std::fstream file("Engine/Content/Scenes/Temporary.scene"); // TODO: Change
             
     if (!file.is_open())
     {
@@ -163,11 +169,11 @@ void Scene::LoadEntities()
             continue;
         }
         
-        if (line.empty())
+        if (line.empty() && componentMode)
         {
             componentMode = false;
-            // if (currentEntity != 0)
-            //     sceneEntities.push_back(currentEntity);
+            if (currentEntity != 0)
+                sceneEntities.push_back(currentEntity);
             continue;
         }
         
@@ -191,6 +197,27 @@ void Scene::LoadEntities()
                 TransformComponent transform(pos, rot, scale);
                 c->AddComponent(currentEntity, transform);
             }
+            
+            if (line.starts_with(Component::GetComponentName<NewMeshComponent>()))
+            {
+                std::vector<std::string> params = GetComponentParameters(line);
+                c->AddComponent(currentEntity, NewMeshComponent(
+                   EngineContext->Assets->LoadMesh(params[0]), 
+                   LoadResource<Material>(params[1])
+                ));
+            }
+            
+            if (line.starts_with(Component::GetComponentName<NameComponent>()))
+                c->AddComponent(currentEntity, NameComponent(GetComponentParameters(line)[0]));
+            
+            if (line.starts_with(Component::GetComponentName<PlayerMovementComponent>()))
+                c->AddComponent(currentEntity, PlayerMovementComponent(std::stof(GetComponentParameters(line)[0])));
+            
+            if (line.starts_with(Component::GetComponentName<CameraMovementComponent>()))
+                c->AddComponent<CameraMovementComponent>(currentEntity);
+            
+            if (line.starts_with(Component::GetComponentName<CameraComponent>()))
+                c->AddComponent<CameraComponent>(currentEntity);
         }
     }
     
@@ -202,13 +229,13 @@ void Scene::InitializeResource()
     if (values.contains("sceneName"))
         sceneName = values["sceneName"][0];
     
-    LoadMeshes();
-    FetchStartLocations();
-    FetchEndLocations();
+    // LoadMeshes();
+    // FetchStartLocations();
+    // FetchEndLocations();
     
     LoadEntities();
     
-    NewSaveToFile("Engine/Content/Scenes/Temporary.scene");
+    // NewSaveToFile("Engine/Content/Scenes/Temporary.scene");
 }
 
 void Scene::SaveToFile(std::string path)
@@ -267,19 +294,23 @@ void Scene::NewSaveToFile(std::string path)
     {
         saveFile << "\n[Entity]\n";
         
-        if (c->HasComponent<TransformComponent>(entity))
-        {
-            TransformComponent& trans = c->GetComponent<TransformComponent>(entity);
-            std::string typeName = typeid(TransformComponent).name();
-            
-            std::string compName = typeName.substr(typeName.find(' ') + 1);
-            std::string data = trans.FetchSaveInfo();
-            std::string fileData = std::format("{}({})", compName, data);
-            
-            saveFile << fileData + "\n";
-            
-            print_debug_line("Test");
-        }
+        if (c->HasComponent<NameComponent>(entity)) 
+            saveFile << GetSerializedData<NameComponent>(entity);
+        
+        if (c->HasComponent<TransformComponent>(entity)) 
+            saveFile << GetSerializedData<TransformComponent>(entity);
+        
+        if (c->HasComponent<NewMeshComponent>(entity)) 
+            saveFile << GetSerializedData<NewMeshComponent>(entity);
+        
+        if (c->HasComponent<CameraComponent>(entity)) 
+            saveFile << GetSerializedData<CameraComponent>(entity);
+        
+        if (c->HasComponent<CameraMovementComponent>(entity)) 
+            saveFile << GetSerializedData<CameraMovementComponent>(entity);
+        
+        if (c->HasComponent<PlayerMovementComponent>(entity)) 
+            saveFile << GetSerializedData<PlayerMovementComponent>(entity);
     }
     
     saveFile.close();

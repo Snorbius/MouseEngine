@@ -4,10 +4,11 @@
 #include <glm/ext/matrix_float4x4.hpp>
 
 #include "Component.h"
+#include "../../Interfaces/ISerializable.h"
 
 struct TransformComponent;
 
-struct CameraComponent: Component
+struct CameraComponent: Component, ISerializable
 {
 private:
     glm::vec3 up = glm::vec3(0, 1, 0);
@@ -38,4 +39,5 @@ public:
     
     /** Sets this camera to the currently active one */
     void MakeActive();
+    std::string FetchSaveInfo() override;
 };
